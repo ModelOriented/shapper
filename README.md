@@ -4,7 +4,7 @@ An R wrapper of SHAP python library
 # Instalation
 
 ```
-devtools::install_github("ModelOriented/shapper")
+devtools::install_github("agosiewska/shapper")
 ```
 
 
@@ -13,7 +13,6 @@ library(shapper)
 
 library("DALEX")
 library("randomForest")
-#Y_train <- factor(as.numeric(HR$status))
 Y_train <- HR$status
 x_train <- HR[ , -6]
 x_train$gender <- as.numeric(x_train$gender)
