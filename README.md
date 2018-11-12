@@ -1,12 +1,13 @@
 # shapper
 An R wrapper of SHAP python library
 
-# Instalation
+## Instalation
 
 ```
 devtools::install_github("agosiewska/shapper")
 ```
 
+## Example
 
 ```
 library(shapper)
