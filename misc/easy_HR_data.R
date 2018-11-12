@@ -1,14 +1,3 @@
-# shapper
-An R wrapper of SHAP python library
-
-# Instalation
-
-```
-devtools::install_github("ModelOriented/shapper")
-```
-
-
-```
 library(shapper)
 
 library("DALEX")
@@ -28,4 +17,3 @@ p_fun <- function(x, data){
 individual_variable_importance(x = model_rf, data = x_train, predict_function = p_fun,
                                new_observation = x_train[1,])
 
-```
