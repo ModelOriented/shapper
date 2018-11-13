@@ -75,7 +75,8 @@ shap_values
 
 
 IPython <- import("IPython")
-IPython$core$display$display_html(y, raw = TRUE)
+HTML_py <- IPython$core$display$HTML
 
-
-
+a = HTML_py(y)
+html_py = a$data
+html_py
