@@ -1,4 +1,4 @@
-#' @title KernelExplainer
+#' @title Individual Variable Effect
 #'
 #' @param x a model to be explained, or an explainer created with function \code{\link[DALEX]{explain}}.
 #' @param data validation dataset. Used to determine univariate distributions, calculation of quantiles,
@@ -16,31 +16,48 @@
 #' @param method an estimation method of SHAP values. Currently the only availible is `KernelSHAP`.
 #' @param nsamples number of samples
 #'
+#' @return a matrix of SHAP values `m` x `d`.
+#' For models with a single output this returns one matrix
+#' Each row sums to the difference between the model output for that sample and the expected value of
+#' the model output (which is stored as expected_value attribute of the explainer).
+#' For models with vector outputs this returns a list of such matrices, one for each output.
+#'
 #' @importFrom reticulate r_to_py
 #'
 #' @export
-#' @rdname individual_variable_importance
+#' @rdname individual_variable_effect
 
-individual_variable_importance <- function(x, ...){
-  UseMethod("individual_variable_importance")
+individual_variable_effect <- function(x, ...){
+  UseMethod("individual_variable_effect")
 }
 
 
 
 
 #' @export
-#' @rdname individual_variable_importance
-individual_variable_importance.explainer <- function(x, new_observation,
+#' @rdname individual_variable_effect
+individual_variable_effect.explainer <- function(x, new_observation,
                                                      method = "KernelSHAP", ...){
- # TODO
+  # extracts model, data and predict function from the explainer
+  model <- x$model
+  data <- x$data
+  predict_function <- x$predict_function
+  label <- x$label
+
+  individual_variable_effect.default(model, data, predict_function,
+                             new_observation = new_observation,
+                             label = label,
+                             method = method,
+                             nsamples = nsamples,
+                             ...)
 }
 
 
 
 
 #' @export
-#' @rdname individual_variable_importance
-individual_variable_importance.default <- function(x, data, predict_function,
+#' @rdname individual_variable_effect
+individual_variable_effect.default <- function(x, data, predict_function,
                                                    new_observation,
                                                    label,
                                                    method = "KernelSHAP",
@@ -50,9 +67,12 @@ individual_variable_importance.default <- function(x, data, predict_function,
   p_function <- function(data) {
     predict_function(x = model, data = data)
   }
+  # TODO add another methods
   explainer = shap$KernelExplainer(p_function, data)
   new_observation_pandas <- r_to_py(new_observation)
   shap_values = explainer$shap_values(new_observation_pandas, nsamples = nsamples)
-  return(shap_values)
 
+  # TODO add other attributes
+  class(shap_values) <- c("individual_variable_effect", class(shap_values))
+  return(shap_values)
 }

@@ -24,7 +24,10 @@ pfun <- function(data){
 
 pfun(x_train[2:10,])
 
+x_train[,4] <- as.double(x_train[,4])
+
 explainer = shap$KernelExplainer(pfun, x_train)
+explainer = shap$kmeans(x_train, 100)
 
 new_obs <- x_train[1,]
 X_train <- r_to_py(new_obs)
