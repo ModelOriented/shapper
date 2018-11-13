@@ -16,11 +16,15 @@
 #' @param method an estimation method of SHAP values. Currently the only availible is `KernelSHAP`.
 #' @param nsamples number of samples
 #'
-#' @return a matrix of SHAP values `m` x `d`.
+#' @return a list
+#' \itemize{
+#'   \tem a matrix of SHAP values `m` x `d`.
 #' For models with a single output this returns one matrix
-#' Each row sums to the difference between the model output for that sample and the expected value of
-#' the model output (which is stored as expected_value attribute of the explainer).
-#' For models with vector outputs this returns a list of such matrices, one for each output.
+#' For models with multiple outputs this returns a list of such matrices.
+#' \item vector ov `m`x`d` expected values
+#' }
+#'
+#'
 #'
 #' @importFrom reticulate r_to_py
 #'
@@ -71,8 +75,12 @@ individual_variable_effect.default <- function(x, data, predict_function,
   explainer = shap$KernelExplainer(p_function, data)
   new_observation_pandas <- r_to_py(new_observation)
   shap_values = explainer$shap_values(new_observation_pandas, nsamples = nsamples)
+  expected_value = explainer$expected_value
 
+  result <- list(shap_values = shap_values,
+                 expected_value = expected_value,
+                 new_observation = new_observation)
   # TODO add other attributes
-  class(shap_values) <- c("individual_variable_effect", class(shap_values))
-  return(shap_values)
+  class(result) <- c("individual_variable_effect", class(shap_values))
+  return(result)
 }

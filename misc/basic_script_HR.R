@@ -33,7 +33,8 @@ new_obs <- x_train[1,]
 X_train <- r_to_py(new_obs)
 shap_values = explainer$shap_values(new_obs, nsamples=100)
 shap_values
-
+shap_values = explainer$expected_value
+shap_values
 
 
 

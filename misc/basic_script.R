@@ -72,3 +72,10 @@ explainer = shap$KernelExplainer(pfun, x_train, link="logit")
 X_train <- r_to_py(x_train[1:10,])
 shap_values = explainer$shap_values(X_train, nsamples=20)
 shap_values
+
+
+IPython <- import("IPython")
+IPython$core$display$display_html(y, raw = TRUE)
+
+
+
