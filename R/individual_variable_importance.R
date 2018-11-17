@@ -11,17 +11,22 @@
 #' It will be extracted from `x` if it’s an explainer.
 #' @param new_observation an observation/observations to be explained. Required for local/instance level
 #' explainers. Columns in should correspond to columns in the data argument.
+#'
 #' @param ... other parameters.
 #' @param label name of the model. By default it’s extracted from the class attribute of the model
 #' @param method an estimation method of SHAP values. Currently the only availible is `KernelSHAP`.
 #' @param nsamples number of samples
 #'
-#' @return a list
+#' @return an object of class individual_variable_effect with shap values of each variable for each new observation.
+#' Columns:
 #' \itemize{
-#'   \tem a matrix of SHAP values `m` x `d`.
-#' For models with a single output this returns one matrix
-#' For models with multiple outputs this returns a list of such matrices.
-#' \item vector ov `m`x`d` expected values
+#'   \tem first d columns contains variable values.
+#'   \item _id_ - id of observation, number of row in `new_observation` data.
+#'   \item _ylevel_ - level of y
+#'   \item _yhat_ -predicted value for level of y
+#'   \item _yhat_mean_ - expected value of prediction, mean of all predictions
+#'   \item _vname_ - variable name
+#'   \item _attribution_ - attribution of variable
 #' }
 #'
 #'
@@ -67,20 +72,40 @@ individual_variable_effect.default <- function(x, data, predict_function,
                                                    method = "KernelSHAP",
                                                    nsamples = 100,
                                                    ...){
-  model <- x
   p_function <- function(data) {
-    predict_function(x = model, data = data)
+    predict_function(x = x, data = data)
   }
-  # TODO add another methods
+  # TODO add other methods
   explainer = shap$KernelExplainer(p_function, data)
+
   new_observation_pandas <- r_to_py(new_observation)
   shap_values = explainer$shap_values(new_observation_pandas, nsamples = nsamples)
   expected_value = explainer$expected_value
+  predictions <- p_function(new_observation)
+  variables <- colnames(data)
 
-  result <- list(shap_values = shap_values,
-                 expected_value = expected_value,
-                 new_observation = new_observation)
-  # TODO add other attributes
-  class(result) <- c("individual_variable_effect", class(shap_values))
-  return(result)
+  # create data to return
+  new_data <- new_observation
+  new_data$`_id_` <- c(1:nrow(new_data))
+
+  # add multiple predictions
+  new_data <- new_data[rep(1:nrow(new_data), each = length(shap_values)), ]
+  new_data$`_ylevel_` <- rep(colnames(predictions), times = nrow(new_observation))
+  new_data$`_yhat_` <- as.vector(t(predictions))
+  new_data$`_yhat_mean_` <- rep(expected_value, times = nrow(new_observation))
+
+  # add multiple variables
+  new_data <- new_data[rep(1:nrow(new_data), each = ncol(data)), ]
+  new_data$`_vname_` <- rep(variables, times = length(predictions))
+
+  attribution <- numeric()
+  for(i in 1: nrow(new_observation)){
+    for(j in 1:length(shap_values)){
+      attribution <- c(attribution, shap_values[[j]][i,] )
+    }
+  }
+  new_data$`_attribution_` <- attribution
+
+  class(new_data) <- c("individual_variable_effect", "data.frame")
+  return(new_data)
 }

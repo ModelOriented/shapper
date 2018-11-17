@@ -39,12 +39,16 @@ It will be extracted from `x` if it’s an explainer.}
 \item{nsamples}{number of samples}
 }
 \value{
-a list
+an object of class individual_variable_effect with shap values of each variable for each new observation.
+Columns:
 \itemize{
-  \tem a matrix of SHAP values `m` x `d`.
-For models with a single output this returns one matrix
-For models with multiple outputs this returns a list of such matrices.
-\item vector ov `m`x`d` expected values
+  \tem first d columns contains variable values.
+  \item _id_ - id of observation, number of row in `new_observation` data.
+  \item _ylevel_ - level of y
+  \item _yhat_ -predicted value for level of y
+  \item _yhat_mean_ - expected value of prediction, mean of all predictions
+  \item _vname_ - variable name
+  \item _attribution_ - attribution of variable
 }
 }
 \description{
