@@ -1,8 +1,11 @@
 Package: shapper
-Title: Wrapper of shap Python library
+Title: Wrapper of `shap` Python Library
 Version: 0.1.0
-Authors@R: person("Alicja", "Gosiewska", email = "alicjagosiewska@gmail.com", role = c("aut", "cre"))
-Description: Wrapper of shap library
+Authors@R: c(
+  person("Alicja", "Gosiewska", email = "alicjagosiewska@gmail.com", role = c("aut", "cre")),
+  person("Przemyslaw", "Biecek", email = "przemyslaw.biecek@gmail.com", role = c("aut"))
+  )
+Description: Wrapper of shap Python library.
 License: GPL
 Encoding: UTF-8
 LazyData: true

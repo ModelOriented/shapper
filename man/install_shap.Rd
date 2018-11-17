@@ -6,6 +6,13 @@
 \usage{
 install_shap(method = "auto", conda = "auto")
 }
+\arguments{
+\item{method}{Installation method. By default, "auto".
+It is passed to the \code{\link[reticulate]{py_install}} function form package `reticulate`.}
+
+\item{conda}{Path to conda executable.
+It is passed to the \code{\link[reticulate]{py_install}} function form package `reticulate`.}
+}
 \description{
 Install shap Python library
 }

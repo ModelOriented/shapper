@@ -11,7 +11,6 @@
 #' It will be extracted from `x` if it’s an explainer.
 #' @param new_observation an observation/observations to be explained. Required for local/instance level
 #' explainers. Columns in should correspond to columns in the data argument.
-#'
 #' @param ... other parameters.
 #' @param label name of the model. By default it’s extracted from the class attribute of the model
 #' @param method an estimation method of SHAP values. Currently the only availible is `KernelSHAP`.
@@ -20,7 +19,7 @@
 #' @return an object of class individual_variable_effect with shap values of each variable for each new observation.
 #' Columns:
 #' \itemize{
-#'   \tem first d columns contains variable values.
+#'   \item first d columns contains variable values.
 #'   \item _id_ - id of observation, number of row in `new_observation` data.
 #'   \item _ylevel_ - level of y
 #'   \item _yhat_ -predicted value for level of y
@@ -46,7 +45,8 @@ individual_variable_effect <- function(x, ...){
 #' @export
 #' @rdname individual_variable_effect
 individual_variable_effect.explainer <- function(x, new_observation,
-                                                     method = "KernelSHAP", ...){
+                                                     method = "KernelSHAP", nsamples = 100,
+                                                     ...){
   # extracts model, data and predict function from the explainer
   model <- x$model
   data <- x$data

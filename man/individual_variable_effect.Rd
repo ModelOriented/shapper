@@ -9,7 +9,7 @@
 individual_variable_effect(x, ...)
 
 \method{individual_variable_effect}{explainer}(x, new_observation,
-  method = "KernelSHAP", ...)
+  method = "KernelSHAP", nsamples = 100, ...)
 
 \method{individual_variable_effect}{default}(x, data, predict_function,
   new_observation, label, method = "KernelSHAP", nsamples = 100, ...)
@@ -24,6 +24,8 @@ explainers. Columns in should correspond to columns in the data argument.}
 
 \item{method}{an estimation method of SHAP values. Currently the only availible is `KernelSHAP`.}
 
+\item{nsamples}{number of samples}
+
 \item{data}{validation dataset. Used to determine univariate distributions, calculation of quantiles,
 correlations and so on. It will be extracted from `x` if it’s an explainer.}
 
@@ -35,14 +37,12 @@ a single number (like multiclass models) then this function should return a mari
 It will be extracted from `x` if it’s an explainer.}
 
 \item{label}{name of the model. By default it’s extracted from the class attribute of the model}
-
-\item{nsamples}{number of samples}
 }
 \value{
 an object of class individual_variable_effect with shap values of each variable for each new observation.
 Columns:
 \itemize{
-  \tem first d columns contains variable values.
+  \item first d columns contains variable values.
   \item _id_ - id of observation, number of row in `new_observation` data.
   \item _ylevel_ - level of y
   \item _yhat_ -predicted value for level of y
