@@ -26,6 +26,7 @@
 #'   \item _yhat_mean_ - expected value of prediction, mean of all predictions
 #'   \item _vname_ - variable name
 #'   \item _attribution_ - attribution of variable
+#'   \item _sign_ a sign of attribution
 #' }
 #'
 #'
@@ -105,6 +106,7 @@ individual_variable_effect.default <- function(x, data, predict_function,
     }
   }
   new_data$`_attribution_` <- attribution
+  new_data$`_sign_` <- factor(sign(new_data$`_attribution`))
 
   class(new_data) <- c("individual_variable_effect", "data.frame")
   return(new_data)

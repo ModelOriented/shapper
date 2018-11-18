@@ -49,6 +49,7 @@ Columns:
   \item _yhat_mean_ - expected value of prediction, mean of all predictions
   \item _vname_ - variable name
   \item _attribution_ - attribution of variable
+  \item _sign_ a sign of attribution
 }
 }
 \description{
