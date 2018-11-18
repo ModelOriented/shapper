@@ -1,23 +1,42 @@
-#' Plots Attributions for Variables of Individual Prediction
+#' @title Plots Attributions for Variables of Individual Prediction
 #'
-#' Function 'plot.individual_variable_effect' plots variables effects plots.
+#' @description  Function 'plot.individual_variable_effect' plots variables effects plots.
 #'
 #' @param x an individual variable effect explainer produced with function `individual_variable_effect()`
+#' @param ... other explainers that shall be plotted together
 #' @param id of observation. By default first observation is taken.
 #' @param ylevel level of y. By default first level is taken.
-#' @param digits number of decimal places (round) or significant digits (signif) to be used.
-#' See the \code{rounding_function} argument.
-#' @param rounding_function function that is to used for rounding numbers.
-#' It may be \code{signif()} which keeps a specified number of significant digits.
-#' Or the default \code{round()} to have the same precision for all components
-#' @param ... other explainers that shall be plotted together
+#' @param digits number of decimal places (round) or significant digits (signif) to be used. See the \code{rounding_function} argument.
+#' @param rounding_function function that is to used for rounding numbers. It may be \code{signif()} which keeps a specified number of significant digits. Or the default \code{round()} to have the same precision for all components
 #'
 #' @import ggplot2
 #'
 #' @return a ggplot2 object
 #'
+#' @examples
+#' \dontrun{
+#' library("shapper")
+#' library("DALEX")
+#' library("randomForest")
+#' Y_train <- HR$status
+#' x_train <- HR[ , -6]
+#' x_train$gender <- as.numeric(x_train$gender)
+#' set.seed(123)
+#' model_rf <- randomForest(x = x_train, y = Y_train)
+#' p_fun <- function(x, data){
+#'   predict(x, newdata = data, type = "prob")
+#'   }
+#'   res <- individual_variable_effect(x = model_rf, data = x_train,
+#'                                     predict_function = p_fun,
+#'                                     new_observation = x_train[1,])
+#'                                     plot(res)
+#' }
+#'
+#' @method plot individual_variable_effect
+#'
 #' @export
-plot.individual_variable_effect <- function(x, id = 1, ylevel = NULL, digits = 3, rounding_function = round,  ...) {
+plot.individual_variable_effect <- function(x, ..., id = 1, ylevel = NULL, digits = 3, rounding_function = round) {
+  `_id_` <- `_attribution_` <- `_sign_` <- `_vname_` <- `_varvalue_` <- NULL
 
   if(is.null(ylevel)) ylevel <- x$`_ylevel_`[1]
 

@@ -5,3 +5,4 @@ binder
 codecov.yml
 .travis.yml
 _pkgdown.yaml
+_pkgdown.yml
