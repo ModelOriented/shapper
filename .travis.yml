@@ -24,7 +24,6 @@ before_install:
   - pip install numpy
   - pip install --upgrade pip
   - pip install shap
-  - pip3 install shap
 
 env:
   global:
