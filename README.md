@@ -37,7 +37,8 @@ p_fun <- function(x, data){
   predict(x, newdata = data, type = "prob")
 }
 
-individual_variable_effect(x = model_rf, data = x_train, predict_function = p_fun,
+ive <- individual_variable_effect(x = model_rf, data = x_train, predict_function = p_fun,
                                new_observation = x_train[1,])
 
+plot(ive)
 ```
