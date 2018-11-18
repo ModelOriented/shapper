@@ -88,14 +88,32 @@ x_train<span class="op">$</span>gender &lt;-<span class="st"> </span><span class
 
 <span class="kw">set.seed</span>(<span class="dv">123</span>)
 model_rf &lt;-<span class="st"> </span><span class="kw">randomForest</span>(<span class="dt">x =</span> x_train, <span class="dt">y =</span> Y_train)</code></pre></div>
-<p>Caculating individual variable attributions</p>
+</div>
+<div id="caculating-individual-variable-attributions" class="section level1">
+<h1 class="hasAnchor">
+<a href="#caculating-individual-variable-attributions" class="anchor"></a>Caculating individual variable attributions</h1>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p_fun &lt;-<span class="st"> </span><span class="cf">function</span>(x, data){
   <span class="kw">predict</span>(x, <span class="dt">newdata =</span> data, <span class="dt">type =</span> <span class="st">"prob"</span>)
 }
 
 ive &lt;-<span class="st"> </span><span class="kw"><a href="../reference/individual_variable_effect.html">individual_variable_effect</a></span>(<span class="dt">x =</span> model_rf, <span class="dt">data =</span> x_train, 
                                   <span class="dt">predict_function =</span> p_fun,
-                           <span class="dt">new_observation =</span> x_train[<span class="dv">1</span>,])</code></pre></div>
+                           <span class="dt">new_observation =</span> x_train[<span class="dv">1</span>,])
+ive</code></pre></div>
+<pre><code>##     gender      age    hours evaluation salary _id_ _ylevel_ _yhat_
+## 1        2 32.58267 41.88626          3      1    1    fired  0.826
+## 1.3      2 32.58267 41.88626          3      1    1    fired  0.826
+## 1.4      2 32.58267 41.88626          3      1    1    fired  0.826
+## 1.5      2 32.58267 41.88626          3      1    1    fired  0.826
+## 1.6      2 32.58267 41.88626          3      1    1    fired  0.826
+## 1.1      2 32.58267 41.88626          3      1    1       ok  0.168
+##     _yhat_mean_    _vname_ _attribution_ _sign_
+## 1     0.3760393     gender   -0.03791535      -
+## 1.3   0.3760393        age    0.01458644      +
+## 1.4   0.3760393      hours    0.30273184      +
+## 1.5   0.3760393 evaluation    0.11516991      +
+## 1.6   0.3760393     salary    0.05538791      +
+## 1.1   0.2744662     gender    0.03030957      +</code></pre>
 </div>
 <div id="plotting-results" class="section level1">
 <h1 class="hasAnchor">
@@ -111,6 +129,7 @@ ive &lt;-<span class="st"> </span><span class="kw"><a href="../reference/individ
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#model-preparation">Model preparation</a></li>
+      <li><a href="#caculating-individual-variable-attributions">Caculating individual variable attributions</a></li>
       <li><a href="#plotting-results">Plotting results</a></li>
       </ul>
 </div>

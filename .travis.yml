@@ -8,5 +8,8 @@ env:
 notifications:
   email: false
 
+before_install:
+  - pip install numpy pandas shap
+  
 after_success:
   - Rscript -e 'covr::codecov()'

@@ -125,6 +125,7 @@ individual_variable_effect.default <- function(x, data, predict_function,
   }
   new_data$`_attribution_` <- attribution
   new_data$`_sign_` <- factor(sign(new_data$`_attribution`))
+  new_data$`_sign_` <- ifelse(new_data$`_sign_` == 1, "+", "-")
 
   class(new_data) <- c("individual_variable_effect", "data.frame")
   return(new_data)

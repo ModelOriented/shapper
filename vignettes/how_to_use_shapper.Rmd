@@ -33,7 +33,7 @@ set.seed(123)
 model_rf <- randomForest(x = x_train, y = Y_train)
 ```
 
-Caculating individual variable attributions
+# Caculating individual variable attributions
 
 ```{r}
 p_fun <- function(x, data){
@@ -43,6 +43,7 @@ p_fun <- function(x, data){
 ive <- individual_variable_effect(x = model_rf, data = x_train, 
                                   predict_function = p_fun,
                            new_observation = x_train[1,])
+ive
 ```
 
 # Plotting results

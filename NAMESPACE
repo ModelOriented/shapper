@@ -3,6 +3,7 @@
 S3method(individual_variable_effect,default)
 S3method(individual_variable_effect,explainer)
 S3method(plot,individual_variable_effect)
+S3method(print,individual_variable_effect)
 export(individual_variable_effect)
 export(install_shap)
 import(ggplot2)

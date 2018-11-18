@@ -56,7 +56,7 @@ plot.individual_variable_effect <- function(x, ..., id = 1, ylevel = NULL, digit
     scale_y_continuous(
       labels=function(x) rounding_function(x+df$`_yhat_`[1], digits),
       sec.axis = sec_axis(~.,
-        breaks = c(0-base_value, 0),
+        breaks = c(0-(model_output - base_value), 0),
         labels = c(paste("base value =", base_value), paste("model output =", model_output))
       )
     ) +
@@ -74,7 +74,7 @@ plot.individual_variable_effect <- function(x, ..., id = 1, ylevel = NULL, digit
       axis.text.x=element_blank()
     ) +
     geom_text(
-      aes(label = paste(`_vname_`, "=", `_varvalue_`, "\n", rounding_function(`_attribution_`, digits))),
+      aes(label = paste0(`_vname_`, " = ", `_varvalue_`, "\n", `_sign_`, abs(rounding_function(`_attribution_`, digits)))),
       position = position_stack(vjust = 0.5),
       color = "black"
     ) +
