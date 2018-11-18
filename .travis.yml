@@ -1,15 +1,17 @@
 language: R
-sudo: false
+sudo: required
+dist: trusty
 cache: packages
+
+before_install:
+  - pip install numpy shap
+
 env:
   global:
     - R_CHECK_ARGS="--no-build-vignettes --no-manual --timings"
 
 notifications:
   email: false
-
-before_install:
-  - pip install shap
 
 after_success:
   - Rscript -e 'covr::codecov()'
