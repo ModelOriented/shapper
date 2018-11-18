@@ -1,4 +1,7 @@
 language: R
+python:
+  - "3.5"
+
 sudo: required
 dist: trusty
 cache: packages
