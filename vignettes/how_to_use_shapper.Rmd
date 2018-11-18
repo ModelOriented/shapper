@@ -1,0 +1,54 @@
+---
+title: "How to use shapper"
+author: "Alicja Gosiewska"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+vignette: >
+  %\VignetteEngine{knitr::knitr}
+  %\VignetteIndexEntry{How to use shapper}
+  %\usepackage[UTF-8]{inputenc}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      message = FALSE,
+                      warning = FALSE)
+```
+
+# Model preparation
+
+```{r}
+library("shapper")
+library("DALEX")
+library("randomForest")
+Y_train <- HR$status
+x_train <- HR[ , -6]
+x_train$gender <- as.numeric(x_train$gender)
+
+set.seed(123)
+model_rf <- randomForest(x = x_train, y = Y_train)
+```
+
+Caculating individual variable attributions
+
+```{r}
+p_fun <- function(x, data){
+  predict(x, newdata = data, type = "prob")
+}
+
+ive <- individual_variable_effect(x = model_rf, data = x_train, 
+                                  predict_function = p_fun,
+                           new_observation = x_train[1,])
+```
+
+# Plotting results
+
+```{r, fig.height=7.5, fig.width=3.5}
+plot(ive)
+```
+
+
