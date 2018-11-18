@@ -9,7 +9,6 @@ notifications:
   email: false
 
 before_install:
-  - pip install --upgrade pip
   - pip install shap
 
 after_success:
