@@ -1,48 +1,42 @@
-# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
-
-language: r
-pandoc_version: 1.18
-
 sudo: required
-cache: packages
+language: r
+warnings_are_errors: true
+dist: trusty
+
+# enable RELEASE_CANDIDATE to run (slow & fragile) tests of sampler validity before releases
+env:
+  global:
+    - RELEASE_CANDIDATE=false
+    - LINTR_COMMENT_BOT=false
+    
+r_packages:
+  - reticulate
+  - testthat
+  - covr
+  - knitr
+  - rmarkdown
+
+cache:
+  packages: true
+  directories:
+    - $HOME/.cache/pip
 
 addons:
   apt:
+    sources:
+      ubuntu-toolchain-r-test
     packages:
-      #- python2.7       # comment this to use python3
-      - python3        # uncomment this to use python3
+      - libmagick++-dev
+      - wget
+      - libatlas3gf-base
+      - libatlas-dev
+      - python-joblib
+      - python-dev
+      - libv8-dev
 
-env:
-  global:
-    - R_BUILD_ARGS="--no-build-vignettes --no-manual"
-    - R_CHECK_ARGS="--no-build-vignettes --no-manual --as-cran"
-    
 before_install:
-
-  - sudo apt-get install r-base-dev
-  - tlmgr install index  
-  #------------------------------------- comment these lines to use python3
-  #- sudo apt-get install python-pip
-  #- sudo pip install --upgrade pip
-  #- sudo pip install numpy
-  #- sudo pip install shap
-  #------------------------------------- uncomment these lines to use python3
-  - sudo apt-get install python3-pip
-  - sudo pip3 install --upgrade pip
-  - sudo pip3 install numpy
-  - sudo pip3 install shap --ignore-installed six
-  - sudo update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1
-  - sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 2
-  #-------------------------------------
-  - sudo apt-get update
-
-r_packages:
-  - devtools
-  - roxygen2
-  - testthat
-  - reticulate
-  - knitr
-  - rmarkdown
+  - pip install --user numpy
+  - pip install --user shap
   
 notifications:
   email: false
