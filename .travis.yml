@@ -24,7 +24,7 @@ before_install:
   #------------------------------------- comment these lines to use python3
   - sudo apt-get install python-pip
   - sudo pip install --upgrade pip
-  - sudo pip install nympy
+  - sudo pip install numpy
   - sudo pip install shap
   #------------------------------------- uncomment these lines to use python3
   #- sudo apt-get install python3-pip
