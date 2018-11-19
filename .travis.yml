@@ -14,8 +14,9 @@ addons:
       - python2.7
       - python-numpy
 
-before_script:
-  - R -e 'py_install("shap")'
+before_install:
+  - R -e 'iinstall.packages("reticulate")'
+  - R -e 'reticulate::py_install("shap")'
 
 notifications:
   email: false

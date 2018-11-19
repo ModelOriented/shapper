@@ -12,7 +12,7 @@ individual_variable_effect(x, ...)
   method = "KernelSHAP", nsamples = 100, ...)
 
 \method{individual_variable_effect}{default}(x, data, predict_function,
-  new_observation, label, method = "KernelSHAP", nsamples = 100, ...)
+  new_observation, label, method = "KernelSHAP", nsamples = 100L, ...)
 }
 \arguments{
 \item{x}{a model to be explained, or an explainer created with function \code{\link[DALEX]{explain}}.}

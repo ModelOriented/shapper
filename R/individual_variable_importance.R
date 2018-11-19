@@ -89,18 +89,30 @@ individual_variable_effect.default <- function(x, data, predict_function,
                                                    new_observation,
                                                    label,
                                                    method = "KernelSHAP",
-                                                   nsamples = 100,
+                                                   nsamples = 100L,
                                                    ...){
+  expanded_data <- one_hot_encoder(data)
+  decoding_data <- attr(expanded_data, "decoder")
   p_function <- function(data) {
+    # print(head(data))
+    data <- one_hot_decoder(data = data, decoding_data = decoding_data)
     predict_function(x = x, data = data)
   }
   # TODO add other methods
-  explainer = shap$KernelExplainer(p_function, data)
+  explainer = shap$KernelExplainer(p_function, expanded_data)
 
-  new_observation_pandas <- r_to_py(new_observation)
+  expanded_new_observation <- one_hot_encoder(new_observation)
+  # to get rid of problem with one-row converison
+  #expanded_new_observation <- rbind(expanded_new_observation, rep(0, ncol(expanded_new_observation)))
+  fake_expanded_new_observation <- rbind(expanded_new_observation, expanded_new_observation[1,])
+  # now remove it in pandas
+  new_observation_pandas <- r_to_py(fake_expanded_new_observation)
+  new_observation_pandas$drop(new_observation_pandas$index[nrow(fake_expanded_new_observation)-1], inplace = TRUE)
+
+
   shap_values = explainer$shap_values(new_observation_pandas, nsamples = nsamples)
   expected_value = explainer$expected_value
-  predictions <- p_function(new_observation)
+  predictions <- p_function(expanded_new_observation)
   variables <- colnames(data)
 
   # create data to return
