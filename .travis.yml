@@ -9,8 +9,8 @@ cache: packages
 addons:
   apt:
     packages:
-      - python2.7       # comment this to use python3
-      #- python3        # uncomment this to use python3
+      #- python2.7       # comment this to use python3
+      - python3        # uncomment this to use python3
 
 env:
   global:
@@ -22,17 +22,17 @@ before_install:
   - sudo apt-get install r-base-dev
   - tlmgr install index  
   #------------------------------------- comment these lines to use python3
-  - sudo apt-get install python-pip
-  - sudo pip install --upgrade pip
-  - sudo pip install numpy
-  - sudo pip install shap
+  #- sudo apt-get install python-pip
+  #- sudo pip install --upgrade pip
+  #- sudo pip install numpy
+  #- sudo pip install shap
   #------------------------------------- uncomment these lines to use python3
-  #- sudo apt-get install python3-pip
-  #- sudo pip3 install --upgrade pip
-  #- sudo pip3 install fuzzywuzzy
-  #- sudo pip3 install python-Levenshtein
-  #- sudo update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1
-  #- sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 2
+  - sudo apt-get install python3-pip
+  - sudo pip3 install --upgrade pip
+  - sudo pip3 install fuzzywuzzy
+  - sudo pip3 install python-Levenshtein
+  - sudo update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1
+  - sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 2
   #-------------------------------------
   - sudo apt-get update
 
