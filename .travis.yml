@@ -1,20 +1,7 @@
-sudo: required
 language: r
-warnings_are_errors: true
-dist: trusty
 
-# enable RELEASE_CANDIDATE to run (slow & fragile) tests of sampler validity before releases
-env:
-  global:
-    - RELEASE_CANDIDATE=false
-    - LINTR_COMMENT_BOT=false
-    
-r_packages:
-  - reticulate
-  - testthat
-  - covr
-  - knitr
-  - rmarkdown
+dist: trusty
+sudo: false
 
 cache:
   packages: true
@@ -23,20 +10,12 @@ cache:
 
 addons:
   apt:
-    sources:
-      ubuntu-toolchain-r-test
     packages:
-      - libmagick++-dev
-      - wget
-      - libatlas3gf-base
-      - libatlas-dev
-      - python-joblib
-      - python-dev
-      - libv8-dev
+      - python2.7
+      - python-numpy
 
-before_install:
-  - pip install --user numpy
-  - pip install --user shap
+before_script:
+  - pip install --upgrade --ignore-installed --user travis shap
   
 notifications:
   email: false
