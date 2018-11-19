@@ -24,8 +24,8 @@ before_install:
   #------------------------------------- comment these lines to use python3
   - sudo apt-get install python-pip
   - sudo pip install --upgrade pip
-  - sudo pip install fuzzywuzzy
-  - sudo pip install python-Levenshtein
+  - sudo pip install nympy
+  - sudo pip install shap
   #------------------------------------- uncomment these lines to use python3
   #- sudo apt-get install python3-pip
   #- sudo pip3 install --upgrade pip
@@ -41,8 +41,6 @@ r_packages:
   - roxygen2
   - testthat
   - reticulate
-  - R6
-  - covr
   - knitr
   - rmarkdown
   
