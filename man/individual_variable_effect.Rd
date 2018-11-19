@@ -24,7 +24,7 @@ explainers. Columns in should correspond to columns in the data argument.}
 
 \item{method}{an estimation method of SHAP values. Currently the only availible is `KernelSHAP`.}
 
-\item{nsamples}{number of samples}
+\item{nsamples}{number of samples. Note that number must be as integer. Use `as.integer()`.}
 
 \item{data}{validation dataset. Used to determine univariate distributions, calculation of quantiles,
 correlations and so on. It will be extracted from `x` if it’s an explainer.}

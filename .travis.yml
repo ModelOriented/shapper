@@ -15,12 +15,12 @@ addons:
       - python-numpy
 
 before_script:
-  - pip install --upgrade --ignore-installed --user travis shap
-  
+  - R -e 'py_install("shap")'
+
 notifications:
   email: false
 
 after_success:
   - Rscript -e 'covr::codecov()'
-  
-  
+
+
