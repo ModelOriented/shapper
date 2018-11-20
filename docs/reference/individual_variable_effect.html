@@ -103,7 +103,8 @@
 
 <span class='co'># S3 method for default</span>
 <span class='fu'>individual_variable_effect</span>(<span class='no'>x</span>, <span class='no'>data</span>, <span class='no'>predict_function</span>,
-  <span class='no'>new_observation</span>, <span class='no'>label</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"KernelSHAP"</span>, <span class='kw'>nsamples</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='no'>...</span>)</pre>
+  <span class='no'>new_observation</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fu'>class</span>(<span class='no'>x</span>)[<span class='fl'>1</span>], <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"KernelSHAP"</span>,
+  <span class='kw'>nsamples</span> <span class='kw'>=</span> <span class='fl'>100L</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -127,7 +128,7 @@ explainers. Columns in should correspond to columns in the data argument.</p></t
     </tr>
     <tr>
       <th>nsamples</th>
-      <td><p>number of samples</p></td>
+      <td><p>number of samples. Note that number must be as integer. Use `as.integer()`.</p></td>
     </tr>
     <tr>
       <th>data</th>
@@ -161,6 +162,7 @@ Columns:</p><ul>
 <li><p>_vname_ - variable name</p></li>
 <li><p>_attribution_ - attribution of variable</p></li>
 <li><p>_sign_ a sign of attribution</p></li>
+<li><p>_label_ a label of model</p></li>
 </ul>
 
     

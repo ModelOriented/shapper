@@ -9,7 +9,7 @@ one_hot_encoder <- function(data) {
                   assign = attr(expanded_data, "assign")[-1],
                   new_colnames = colnames(res)
                 )
-  for(col in colnames(data)){
+    for(col in colnames(data)){
     if(factors[col] == "factor") decoder$levels[[col]] <- levels(data[ ,col])
   }
   attr(res, "decoder") <- decoder

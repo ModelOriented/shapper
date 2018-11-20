@@ -15,7 +15,7 @@ addons:
       - python-numpy
 
 before_install:
-  - R -e 'iinstall.packages("reticulate")'
+  - R -e 'install.packages("reticulate")'
   - R -e 'reticulate::py_install("shap")'
 
 notifications:

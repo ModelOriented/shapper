@@ -27,6 +27,7 @@
 #'   \item _vname_ - variable name
 #'   \item _attribution_ - attribution of variable
 #'   \item _sign_ a sign of attribution
+#'   \item _label_ a label of model
 #' }
 #'
 #'
@@ -87,12 +88,17 @@ individual_variable_effect.explainer <- function(x, new_observation,
 #' @rdname individual_variable_effect
 individual_variable_effect.default <- function(x, data, predict_function,
                                                    new_observation,
-                                                   label,
+                                                   label = class(x)[1],
                                                    method = "KernelSHAP",
                                                    nsamples = 100L,
                                                    ...){
   expanded_data <- one_hot_encoder(data)
   decoding_data <- attr(expanded_data, "decoder")
+  if(length(decoding_data$assign) != length(unique(decoding_data$assign))){
+    stop("KernelExplainer assumes feature independence, can't do automatic one-hot encoding for factors with more than 2 levels. Please, consider fitting model on encoded data set")
+  }
+
+
   p_function <- function(data) {
     # print(head(data))
     data <- one_hot_decoder(data = data, decoding_data = decoding_data)
@@ -103,12 +109,10 @@ individual_variable_effect.default <- function(x, data, predict_function,
 
   expanded_new_observation <- one_hot_encoder(new_observation)
   # to get rid of problem with one-row converison
-  #expanded_new_observation <- rbind(expanded_new_observation, rep(0, ncol(expanded_new_observation)))
   fake_expanded_new_observation <- rbind(expanded_new_observation, expanded_new_observation[1,])
   # now remove it in pandas
   new_observation_pandas <- r_to_py(fake_expanded_new_observation)
   new_observation_pandas$drop(new_observation_pandas$index[nrow(fake_expanded_new_observation)-1], inplace = TRUE)
-
 
   shap_values = explainer$shap_values(new_observation_pandas, nsamples = nsamples)
   expected_value = explainer$expected_value
@@ -138,6 +142,8 @@ individual_variable_effect.default <- function(x, data, predict_function,
   new_data$`_attribution_` <- attribution
   new_data$`_sign_` <- factor(sign(new_data$`_attribution`))
   new_data$`_sign_` <- ifelse(new_data$`_sign_` == 1, "+", "-")
+
+  new_data$`_label_` <- label
 
   class(new_data) <- c("individual_variable_effect", "data.frame")
   return(new_data)
