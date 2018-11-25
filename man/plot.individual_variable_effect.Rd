@@ -4,8 +4,8 @@
 \alias{plot.individual_variable_effect}
 \title{Plots Attributions for Variables of Individual Prediction}
 \usage{
-\method{plot}{individual_variable_effect}(x, ..., id = 1,
-  ylevel = NULL, digits = 3, rounding_function = round)
+\method{plot}{individual_variable_effect}(x, ..., id = 1, digits = 3,
+  rounding_function = round)
 }
 \arguments{
 \item{x}{an individual variable effect explainer produced with function `individual_variable_effect()`}
@@ -13,8 +13,6 @@
 \item{...}{other explainers that shall be plotted together}
 
 \item{id}{of observation. By default first observation is taken.}
-
-\item{ylevel}{level of y. By default first level is taken.}
 
 \item{digits}{number of decimal places (round) or significant digits (signif) to be used. See the \code{rounding_function} argument.}
 

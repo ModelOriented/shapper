@@ -5,7 +5,6 @@
 #' @param x an individual variable effect explainer produced with function `individual_variable_effect()`
 #' @param ... other explainers that shall be plotted together
 #' @param id of observation. By default first observation is taken.
-#' @param ylevel level of y. By default first level is taken.
 #' @param digits number of decimal places (round) or significant digits (signif) to be used. See the \code{rounding_function} argument.
 #' @param rounding_function function that is to used for rounding numbers. It may be \code{signif()} which keeps a specified number of significant digits. Or the default \code{round()} to have the same precision for all components
 #'
@@ -35,51 +34,29 @@
 #' @method plot individual_variable_effect
 #'
 #' @export
-plot.individual_variable_effect <- function(x, ..., id = 1, ylevel = NULL, digits = 3, rounding_function = round) {
+plot.individual_variable_effect <- function(x, ..., id = 1, digits = 3, rounding_function = round) {
+
   `_id_` <- `_attribution_` <- `_sign_` <- `_vname_` <- `_varvalue_` <- NULL
 
-  if(is.null(ylevel)) ylevel <- x$`_ylevel_`[1]
+  x <- x[x$`_id_` == id, ]
 
-  df <- x[x$`_id_` == id & x$`_ylevel_` == ylevel, ]
+  x$`_vname_` <- reorder(x$`_vname_`, x$`_attribution_`, function(z) -sum(abs(z)))
+  levels(x$`_vname_`) <- paste(sapply(1:6, substr, x="        ", start=1), levels(x$`_vname_`))
 
-  varvalue <- df[1, 1:nrow(df)]
-  nums <- vapply(varvalue, is.numeric, FUN.VALUE = logical(1))
-  varvalue[,nums] <- rounding_function(varvalue, digits)
-  df$`_varvalue_` <- t(varvalue)
-  df <- df[order(df$`_sign_`, -abs(df$`_attribution_`)), ]
-
-  model_output <- rounding_function(df$`_yhat_`[1], digits)
-  base_value <- rounding_function(df$`_yhat_mean_`[1], digits)
-
-  ggplot(df, aes(x = `_id_`, y = -`_attribution_`, fill = `_sign_`, label = `_attribution_`, color = `_vname_`)) +
-    geom_col(position = position_stack(), color = "grey") +
-    scale_y_continuous(
-      labels=function(x) rounding_function(x+df$`_yhat_`[1], digits),
-      sec.axis = sec_axis(~.,
-        breaks = c(0-(model_output - base_value), 0),
-        labels = c(paste("base value =", base_value), paste("model output =", model_output))
-      )
-    ) +
-    scale_x_discrete(expand = c(0,0)) +
-    guides(fill=FALSE, color = FALSE) +
-    theme_bw() +
-    theme(
-      panel.border = element_blank(),
-      panel.grid.major = element_blank(),
-      panel.grid.minor = element_blank(),
-      axis.line = element_blank(),
-      axis.title.y=element_blank(),
-      axis.title.x=element_blank(),
-      axis.ticks.x=element_blank(),
-      axis.text.x=element_blank()
-    ) +
-    geom_text(
-      aes(label = paste0(`_vname_`, " = ", `_varvalue_`, "\n", `_sign_`, abs(rounding_function(`_attribution_`, digits)))),
-      position = position_stack(vjust = 0.5),
-      color = "black"
-    ) +
-    geom_errorbar(aes(ymax=0, ymin=0), lwd=2, color = "black")
-
-
+  ggplot(x, aes(x=`_vname_`, xend=`_vname_`,
+                yend = `_yhat_mean_`, y = `_yhat_mean_` + `_attribution_`,
+                color=`_sign_`)) +
+    geom_segment(arrow = arrow(length=unit(0.30,"cm"), ends="first", type = "closed")) +
+    geom_text(aes(label = round(`_attribution_`, 2)), nudge_x = 0.45) +
+    geom_segment(aes(x = "_predicted_",xend = "_predicted_",
+                     y = `_yhat_`, yend = `_yhat_mean_`), size = 2, color="black",
+                 arrow = arrow(length=unit(0.30,"cm"), ends="first", type = "closed")) +
+    geom_text(aes(x = "_predicted_",
+                  y = `_yhat_`, label = round(`_yhat_`, 2)), nudge_x = 0.45, color="black") +
+    geom_hline(aes(yintercept = `_yhat_mean_`)) +
+    facet_grid(`_ylevel_`~`_label_`) +
+    scale_color_manual(values =  c(`-` = "#d8b365", `0` = "#f5f5f5", `+` = "#5ab4ac",
+                                   X = "darkgrey")) +
+    coord_flip() + theme_minimal() + theme(legend.position="none") + xlab("") + ylab("")
 
 }
