@@ -93,7 +93,7 @@ individual_variable_effect.default <- function(x, data, predict_function,
                                                nsamples = 100,
                                                ...){
   p_function <- function(data) {
-    predict_function(x = x, data = data)
+    predict_function(x, data)
   }
   # TODO add other methods
   explainer = shap$KernelExplainer(p_function, data)
