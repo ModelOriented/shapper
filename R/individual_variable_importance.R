@@ -27,7 +27,7 @@
 #'   \item _vname_ - variable name
 #'   \item _attribution_ - attribution of variable
 #'   \item _sign_ a sign of attribution
-#'   \item _label_ a label of model
+#'   \item _label_ a label
 #' }
 #'
 #'
@@ -65,8 +65,8 @@ individual_variable_effect <- function(x, ...){
 #' @export
 #' @rdname individual_variable_effect
 individual_variable_effect.explainer <- function(x, new_observation,
-                                                     method = "KernelSHAP", nsamples = 100,
-                                                     ...){
+                                                 method = "KernelSHAP", nsamples = 100,
+                                                 ...){
   # extracts model, data and predict function from the explainer
   model <- x$model
   data <- x$data
@@ -74,11 +74,11 @@ individual_variable_effect.explainer <- function(x, new_observation,
   label <- x$label
 
   individual_variable_effect.default(model, data, predict_function,
-                             new_observation = new_observation,
-                             label = label,
-                             method = method,
-                             nsamples = nsamples,
-                             ...)
+                                     new_observation = new_observation,
+                                     label = label,
+                                     method = method,
+                                     nsamples = nsamples,
+                                     ...)
 }
 
 
@@ -87,36 +87,21 @@ individual_variable_effect.explainer <- function(x, new_observation,
 #' @export
 #' @rdname individual_variable_effect
 individual_variable_effect.default <- function(x, data, predict_function,
-                                                   new_observation,
-                                                   label = class(x)[1],
-                                                   method = "KernelSHAP",
-                                                   nsamples = 100L,
-                                                   ...){
-  expanded_data <- one_hot_encoder(data)
-  decoding_data <- attr(expanded_data, "decoder")
-  if(length(decoding_data$assign) != length(unique(decoding_data$assign))){
-    stop("KernelExplainer assumes feature independence, can't do automatic one-hot encoding for factors with more than 2 levels. Please, consider fitting model on encoded data set")
-  }
-
-
+                                               new_observation,
+                                               label = tail(class(x), 1),
+                                               method = "KernelSHAP",
+                                               nsamples = 100,
+                                               ...){
   p_function <- function(data) {
-    # print(head(data))
-    data <- one_hot_decoder(data = data, decoding_data = decoding_data)
     predict_function(x = x, data = data)
   }
   # TODO add other methods
-  explainer = shap$KernelExplainer(p_function, expanded_data)
+  explainer = shap$KernelExplainer(p_function, data)
 
-  expanded_new_observation <- one_hot_encoder(new_observation)
-  # to get rid of problem with one-row converison
-  fake_expanded_new_observation <- rbind(expanded_new_observation, expanded_new_observation[1,])
-  # now remove it in pandas
-  new_observation_pandas <- r_to_py(fake_expanded_new_observation)
-  new_observation_pandas$drop(new_observation_pandas$index[nrow(fake_expanded_new_observation)-1], inplace = TRUE)
-
+  new_observation_pandas <- r_to_py(new_observation)
   shap_values = explainer$shap_values(new_observation_pandas, nsamples = nsamples)
   expected_value = explainer$expected_value
-  predictions <- p_function(expanded_new_observation)
+  predictions <- p_function(new_observation)
   variables <- colnames(data)
 
   # create data to return
@@ -142,7 +127,6 @@ individual_variable_effect.default <- function(x, data, predict_function,
   new_data$`_attribution_` <- attribution
   new_data$`_sign_` <- factor(sign(new_data$`_attribution`))
   new_data$`_sign_` <- ifelse(new_data$`_sign_` == 1, "+", "-")
-
   new_data$`_label_` <- label
 
   class(new_data) <- c("individual_variable_effect", "data.frame")

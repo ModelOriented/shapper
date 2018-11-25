@@ -12,8 +12,8 @@ individual_variable_effect(x, ...)
   method = "KernelSHAP", nsamples = 100, ...)
 
 \method{individual_variable_effect}{default}(x, data, predict_function,
-  new_observation, label = class(x)[1], method = "KernelSHAP",
-  nsamples = 100L, ...)
+  new_observation, label = tail(class(x), 1), method = "KernelSHAP",
+  nsamples = 100, ...)
 }
 \arguments{
 \item{x}{a model to be explained, or an explainer created with function \code{\link[DALEX]{explain}}.}
@@ -51,7 +51,7 @@ Columns:
   \item _vname_ - variable name
   \item _attribution_ - attribution of variable
   \item _sign_ a sign of attribution
-  \item _label_ a label of model
+  \item _label_ a label
 }
 }
 \description{
