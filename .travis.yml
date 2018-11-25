@@ -12,12 +12,13 @@ addons:
   apt:
     packages:
       - python2.7
-      - python-numpy
 
 before_install:
+  - pip install --ignore-installed six
   - R -e 'install.packages("reticulate")'
   - R -e 'reticulate::py_install("numpy")'
   - R -e 'reticulate::py_install("shap")'
+  
 
 notifications:
   email: false
