@@ -113,20 +113,29 @@ individual_variable_effect.default <- function(x, data, predict_function,
                                 labels = factors[[col]]
                                 )
     }
-    predict_function(x, new_data)
+    res <- as.data.frame(predict_function(x, new_data))
+    if(nrow(res) == 1) {
+      res[2,] <- 0
+      res <- r_to_py(res)
+      res$drop(res$index[1], inplace = TRUE)
+    }
+    return(res)
   }
   # TODO add other methods
   explainer = shap$KernelExplainer(p_function, data_numeric)
 
 
+  new_observation_releveled <- new_observation
   new_observation_numeric <- new_observation
   for(col in names(factors)){
-      new_observation_numeric[ ,col] <- factor(new_observation_numeric[ ,col], levels = factors[[col]])
-      new_observation_numeric[,col] <- as.numeric(new_observation_numeric[,col]) - 1
+      new_observation_releveled[ ,col] <- factor(new_observation_releveled[ ,col], levels = factors[[col]])
+      new_observation_numeric[,col] <- as.numeric(new_observation_releveled[,col]) - 1
   }
   shap_values = explainer$shap_values(new_observation_numeric, nsamples = nsamples)
   expected_value = explainer$expected_value
-  predictions <- p_function(new_observation_numeric)
+
+
+  predictions <- predict_function(x, new_observation_releveled)
   variables <- colnames(data)
 
   # create data to return
@@ -135,7 +144,11 @@ individual_variable_effect.default <- function(x, data, predict_function,
 
   # add multiple predictions
   new_data <- new_data[rep(1:nrow(new_data), each = length(shap_values)), ]
-  new_data$`_ylevel_` <- rep(colnames(predictions), times = nrow(new_observation))
+  if(is.null(colnames(predictions))){
+    new_data$`_ylevel_` <- ""
+  } else {
+    new_data$`_ylevel_` <- rep(colnames(predictions), times = nrow(new_observation))
+  }
   new_data$`_yhat_` <- as.vector(t(predictions))
   new_data$`_yhat_mean_` <- rep(expected_value, times = nrow(new_observation))
 
@@ -146,7 +159,12 @@ individual_variable_effect.default <- function(x, data, predict_function,
   attribution <- numeric()
   for(i in 1: nrow(new_observation)){
     for(j in 1:length(shap_values)){
-      attribution <- c(attribution, shap_values[[j]][i,] )
+      shap_attributes <- shap_values[[j]]
+      if(is.matrix(shap_attributes)) {
+        attribution <- c(attribution, shap_attributes[i,] )
+      } else {
+        attribution <- c(attribution, shap_attributes[i] )
+      }
     }
   }
   new_data$`_attribution_` <- attribution
