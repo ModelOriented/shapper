@@ -38,6 +38,10 @@ plot.individual_variable_effect <- function(x, ..., id = 1, digits = 3, rounding
 
   `_id_` <- `_attribution_` <- `_sign_` <- `_vname_` <- `_varvalue_` <- NULL
 
+  dfl <- c(list(x), list(...))
+  x <- do.call(rbind, dfl)
+  class(x) <- "data.frame"
+
   x <- x[x$`_id_` %in% id, ]
 
   x$`_vname_` <- reorder(x$`_vname_`, x$`_attribution_`, function(z) -sum(abs(z)))
