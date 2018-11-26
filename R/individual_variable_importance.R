@@ -90,18 +90,43 @@ individual_variable_effect.default <- function(x, data, predict_function,
                                                new_observation,
                                                label = tail(class(x), 1),
                                                method = "KernelSHAP",
-                                               nsamples = 100,
+                                               nsamples = 100L,
                                                ...){
-  p_function <- function(data) {
-    predict_function(x, data)
+
+  # transform factors to numerics and keep factors' levels
+  data_classes <- sapply(data, class)
+  factors <- list()
+  data_numeric <- data
+  for(col in names(data_classes)){
+    if(data_classes[col] == "factor"){
+      factors[[col]] <- levels(data[,col])
+      data_numeric[ ,col] <- as.numeric(data_numeric[ ,col]) - 1
+    }
+  }
+
+  p_function <- function(new_data) {
+    new_data <- as.data.frame(new_data)
+    colnames(new_data) <- colnames(data)
+    for(col in names(factors)){
+      new_data[ ,col] <- factor(new_data[ , col],
+                                levels = c(0:(length(factors[[col]])-1)),
+                                labels = factors[[col]]
+                                )
+    }
+    predict_function(x, new_data)
   }
   # TODO add other methods
-  explainer = shap$KernelExplainer(p_function, data)
+  explainer = shap$KernelExplainer(p_function, data_numeric)
 
-  new_observation_pandas <- r_to_py(new_observation)
-  shap_values = explainer$shap_values(new_observation_pandas, nsamples = nsamples)
+
+  new_observation_numeric <- new_observation
+  for(col in names(factors)){
+      new_observation_numeric[ ,col] <- factor(new_observation_numeric[ ,col], levels = factors[[col]])
+      new_observation_numeric[,col] <- as.numeric(new_observation_numeric[,col]) - 1
+  }
+  shap_values = explainer$shap_values(new_observation_numeric, nsamples = nsamples)
   expected_value = explainer$expected_value
-  predictions <- p_function(new_observation)
+  predictions <- p_function(new_observation_numeric)
   variables <- colnames(data)
 
   # create data to return
