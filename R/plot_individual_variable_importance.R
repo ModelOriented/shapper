@@ -38,7 +38,7 @@ plot.individual_variable_effect <- function(x, ..., id = 1, digits = 3, rounding
 
   `_id_` <- `_attribution_` <- `_sign_` <- `_vname_` <- `_varvalue_` <- NULL
 
-  x <- x[x$`_id_` == id, ]
+  x <- x[x$`_id_` %in% id, ]
 
   x$`_vname_` <- reorder(x$`_vname_`, x$`_attribution_`, function(z) -sum(abs(z)))
   levels(x$`_vname_`) <- paste(sapply(1:6, substr, x="        ", start=1), levels(x$`_vname_`))
@@ -54,7 +54,7 @@ plot.individual_variable_effect <- function(x, ..., id = 1, digits = 3, rounding
     geom_text(aes(x = "_predicted_",
                   y = `_yhat_`, label = round(`_yhat_`, 2)), nudge_x = 0.45, color="black") +
     geom_hline(aes(yintercept = `_yhat_mean_`)) +
-    facet_grid(`_ylevel_`~`_label_`) +
+    facet_grid(`_id_` + `_ylevel_` ~ `_label_`) +
     scale_color_manual(values =  c(`-` = "#d8b365", `0` = "#f5f5f5", `+` = "#5ab4ac",
                                    X = "darkgrey")) +
     coord_flip() + theme_minimal() + theme(legend.position="none") + xlab("") + ylab("")
