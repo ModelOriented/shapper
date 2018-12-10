@@ -22,6 +22,10 @@ knitr::opts_chunk$set(echo = TRUE,
 # Model preparation
 
 ```{r}
+library(reticulate)
+# use_python("/usr/lib/python2.7")
+numpy <- import("numpy")
+
 library("shapper")
 library("DALEX")
 library("randomForest")
