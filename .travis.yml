@@ -1,23 +1,63 @@
+# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
+
 language: r
 
-dist: trusty
-sudo: false
+compiler: 
+  - gcc
+  
+pandoc_version: 1.18
 
-cache:
-  packages: true
-  directories:
-    - $HOME/.cache/pip
+os:
+  - linux
+
+
+sudo: required
+cache: packages
 
 addons:
   apt:
     packages:
-      - python2.7
+      - python3
 
+env:
+  global:
+    - R_BUILD_ARGS="--no-build-vignettes --no-manual"
+    - R_CHECK_ARGS="--no-build-vignettes --no-manual --as-cran"
+    
 before_install:
-  - R -e 'install.packages("reticulate")'
-  - R -e 'reticulate::py_install("six")'
-  - R -e 'reticulate::py_install("numpy")'
-  - R -e 'reticulate::py_install("shap")'
+
+  - sudo apt-get install r-base-dev
+  - sudo apt-get install -y python3-pip
+  - sudo pip3 install --upgrade pip==9.0.3 setuptools wheel
+  - sudo pip3 install -U numpy -qq
+  - sudo pip3 install --upgrade scipy -qq
+  - sudo apt-get install libboost-all-dev libgsl0-dev libeigen3-dev
+  - sudo apt-get install -y cmake -qq
+  - sudo pip3 install --upgrade pybind11
+  - sudo pip3 install nmslib
+  - sudo apt-get update
+  - sudo pip3 install six
+  - sudo pip3 install shap
+
+r_packages:
+  - Rcpp
+  - RcppArmadillo
+  - devtools
+  - roxygen2
+  - testthat
+  - reticulate
+  - R6
+  - Matrix
+  - covr
+  - knitr
+  - rmarkdown
+  - KernelKnn
+  - utils
+  
+after_success:
+  - Rscript -e 'covr::codecov(quiet = FALSE)'
+  
+warnings_are_errors: false
   
 
 notifications:
