@@ -1,3 +1,28 @@
-language: R
+language: r
+
+dist: trusty
 sudo: false
-cache: packages
+
+cache:
+  packages: true
+  directories:
+    - $HOME/.cache/pip
+
+addons:
+  apt:
+    packages:
+      - python2.7
+
+before_install:
+  - R -e 'install.packages("reticulate")'
+  - R -e 'reticulate::py_install("six")'
+  - R -e 'reticulate::py_install("numpy")'
+  - R -e 'reticulate::py_install("shap")'
+  
+
+notifications:
+  email: false
+
+after_success:
+  - Rscript -e 'covr::codecov()'
+
