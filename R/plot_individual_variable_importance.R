@@ -85,9 +85,16 @@ plot.individual_variable_effect <- function(x, ..., id = 1, digits = 2, rounding
     NULL
   }
 
-    rows <- paste0("`_", rows, "_`")
-    cols <- paste(paste0("`_", cols, "_`"), collapse = "+")
-    grid_formula <- as.formula(paste(rows, "~", cols))
+  rows <- paste0("`_", rows, "_`")
+  cols <- paste(paste0("`_", cols, "_`"), collapse = "+")
+  grid_formula <- as.formula(paste(rows, "~", cols))
+
+  id_labeller <- function(value) paste0("id = ", value)
+  label_labeller <- function(value) {
+    if(length(unique(x$`_label_`)) > 1) return(paste0("label = ", value))
+    value
+    }
+
 
   ggplot(x, aes(x= `_ext_vname_`, xend=`_ext_vname_`,
                 yend = `_yhat_mean_`, y = `_yhat_mean_` + `_attribution_`,
@@ -97,7 +104,8 @@ plot.individual_variable_effect <- function(x, ..., id = 1, digits = 2, rounding
     maybe_prediction_arrow +
     maybe_prediction_text +
     geom_hline(aes(yintercept = `_yhat_mean_`)) +
-    facet_grid(grid_formula) +
+    facet_grid(grid_formula,
+      labeller = labeller(`_id_` = as_labeller(id_labeller), `_label_` = as_labeller(label_labeller))) +
     scale_color_manual(values =  c(`-` = "#d8b365", `0` = "#f5f5f5", `+` = "#5ab4ac",
                                    X = "darkgrey")) +
     coord_flip() + theme_minimal() + theme(legend.position="none") +
