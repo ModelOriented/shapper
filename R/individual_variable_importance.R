@@ -85,7 +85,7 @@ individual_variable_effect.explainer <- function(x, new_observation,
 #' @importFrom utils tail
 #' @export
 #' @rdname individual_variable_effect
-individual_variable_effect.default <- function(x, data, predict_function,
+individual_variable_effect.default <- function(x, data, predict_function = predict,
                                                new_observation,
                                                label = tail(class(x), 1),
                                                method = "KernelSHAP",
@@ -145,6 +145,7 @@ individual_variable_effect.default <- function(x, data, predict_function,
   new_data <- new_data[rep(1:nrow(new_data), each = length(shap_values)), ]
   if(is.null(colnames(predictions))){
     new_data$`_ylevel_` <- ""
+    new_data <- unique(new_data)
   } else {
     new_data$`_ylevel_` <- rep(colnames(predictions), times = nrow(new_observation))
   }

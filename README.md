@@ -65,3 +65,26 @@ plot(ive_rf_filtered)
 ```
 
 <img src="materials/classification_plot_filtered.png" width="100%" /> 
+
+
+# Regression example
+
+```
+library(shapper)
+
+library("DALEX2")
+library("randomForest")
+
+Y_train <- dragons$life_length
+x_train <- dragons[ , -8]
+
+set.seed(123)
+model_rf <- randomForest(x = x_train, y = Y_train)
+
+ive_rf <- individual_variable_effect(model_rf, data = x_train,
+                                     new_observation = x_train[1,])
+
+plot(ive_rf)
+```
+
+<img src="materials/regression_plot_filtered.png" width="100%" /> 
