@@ -82,8 +82,7 @@ individual_variable_effect.explainer <- function(x, new_observation,
 }
 
 
-
-
+#' @importFrom utils tail
 #' @export
 #' @rdname individual_variable_effect
 individual_variable_effect.default <- function(x, data, predict_function,

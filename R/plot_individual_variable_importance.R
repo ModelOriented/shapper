@@ -33,10 +33,12 @@
 #'
 #' @method plot individual_variable_effect
 #'
+#' @importFrom stats reorder
+#'
 #' @export
 plot.individual_variable_effect <- function(x, ..., id = 1, digits = 3, rounding_function = round) {
 
-  `_id_` <- `_attribution_` <- `_sign_` <- `_vname_` <- `_varvalue_` <- NULL
+  `_id_` <- `_attribution_` <- `_sign_` <- `_vname_` <- `_varvalue_` <- `_yhat_mean_` <- `_yhat_` <- NULL
 
   dfl <- c(list(x), list(...))
   x <- do.call(rbind, dfl)
