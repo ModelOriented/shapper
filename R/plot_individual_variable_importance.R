@@ -91,8 +91,8 @@ plot.individual_variable_effect <- function(x, ..., id = 1, digits = 2, rounding
 
   id_labeller <- function(value) paste0("id = ", value)
   label_labeller <- function(value) {
-    if(length(unique(x$`_label_`)) > 1) return(paste0("label = ", value))
-    value
+    if(length(unique(x$`_label_`)) > 1) return(value)
+    ""
     }
 
 

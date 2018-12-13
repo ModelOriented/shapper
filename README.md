@@ -48,7 +48,7 @@ rf_explainer <- explain(model_rf, data = x_train)
 # load shapper
 library(shapper)
 ive_rf <- individual_variable_effect(rf_explainer,
-                                     new_observation = x_train[1:2,], nsamples =50)
+            new_observation = x_train[1:2,], nsamples = 50)
 
 # plot
 plot(ive_rf)
