@@ -2,17 +2,17 @@
 % Please edit documentation in R/print_individual_variable_importance.R
 \name{print.individual_variable_effect}
 \alias{print.individual_variable_effect}
-\title{Print Individual Variable Effects}
+\title{Print Individual Variable Importances}
 \usage{
 \method{print}{individual_variable_effect}(x, ...)
 }
 \arguments{
-\item{x}{an individual variable effect explainer created with the \code{\link{`individual_variable_effect`}} function.}
+\item{x}{an individual variable importance explainer created with the \code{\link{`individual_variable_importance`}} function.}
 
 \item{...}{further arguments passed to or from other methods.}
 }
 \description{
-Print Individual Variable Effects
+Print Individual Variable Importances
 }
 \examples{
 \dontrun{
