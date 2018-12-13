@@ -4,8 +4,9 @@
 \alias{plot.individual_variable_effect}
 \title{Plots Attributions for Variables of Individual Prediction}
 \usage{
-\method{plot}{individual_variable_effect}(x, ..., id = 1, digits = 3,
-  rounding_function = round)
+\method{plot}{individual_variable_effect}(x, ..., id = 1, digits = 2,
+  rounding_function = round, show_predcited = TRUE,
+  show_attributions = TRUE)
 }
 \arguments{
 \item{x}{an individual variable effect explainer produced with function `individual_variable_effect()`}
@@ -17,6 +18,10 @@
 \item{digits}{number of decimal places (round) or significant digits (signif) to be used. See the \code{rounding_function} argument.}
 
 \item{rounding_function}{function that is to used for rounding numbers. It may be \code{signif()} which keeps a specified number of significant digits. Or the default \code{round()} to have the same precision for all components}
+
+\item{show_predcited}{show arrows for predicted values.}
+
+\item{show_attributions}{show attributions values.}
 }
 \value{
 a ggplot2 object

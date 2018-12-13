@@ -8,6 +8,7 @@
 #' @param digits number of decimal places (round) or significant digits (signif) to be used. See the \code{rounding_function} argument.
 #' @param rounding_function function that is to used for rounding numbers. It may be \code{signif()} which keeps a specified number of significant digits. Or the default \code{round()} to have the same precision for all components
 #' @param show_predcited show arrows for predicted values.
+#' @param show_attributions show attributions values.
 #'
 #'
 #' @import ggplot2
@@ -37,7 +38,7 @@
 #'
 #' @export
 plot.individual_variable_effect <- function(x, ..., id = 1, digits = 2, rounding_function = round,
-                                            show_predcited = TRUE) {
+                                            show_predcited = TRUE, show_attributions = TRUE) {
 
   `_id_` <- `_attribution_` <- `_sign_` <- `_vname_` <- `_varvalue_` <- NULL
 
@@ -56,15 +57,25 @@ plot.individual_variable_effect <- function(x, ..., id = 1, digits = 2, rounding
   x$`_ext_vname_` <- reorder(x$`_ext_vname_`, x$`_attribution_`, function(z) -sum(abs(z)))
   levels(x$`_ext_vname_`) <- paste(sapply(1:6, substr, x="        ", start=1), levels(x$`_ext_vname_`))
 
-  if(show_predcited == TRUE) {
-    maybe_prediction_arrow <- geom_segment(aes(x = "_predicted_",xend = "_predicted_",
-                                               y = `_yhat_`, yend = `_yhat_mean_`), size = 1, color="black",
-                                           arrow = arrow(length=unit(0.20,"cm"), ends="first", type = "closed"))
-    maybe_prediction_text <- geom_text(aes(x = "_predicted_",
-                                           y = `_yhat_`, label = rounding_function(`_yhat_`, digits)), nudge_x = 0.45, color="black")
+  maybe_prediction_arrow <- if(show_predcited == TRUE) {
+    geom_segment(aes(x = "_predicted_",xend = "_predicted_",
+      y = `_yhat_`, yend = `_yhat_mean_`), size = 1, color="black",
+      arrow = arrow(length=unit(0.20,"cm"), ends="first", type = "closed"))
   } else {
     maybe_prediction_arrow <- NULL
-    maybe_prediction_text <- NULL
+  }
+
+  maybe_prediction_text <- if(show_attributions == TRUE & show_predcited == TRUE){
+    geom_text(aes(x = "_predicted_",
+      y = `_yhat_`, label = rounding_function(`_yhat_`, digits)), nudge_x = 0.45, color="black")
+  } else {
+    NULL
+  }
+
+  maybe_attributions <- if(show_attributions == TRUE){
+    geom_text(aes(label = rounding_function(`_attribution_`, digits)), nudge_x = 0.45)
+  } else {
+    NULL
   }
 
 
@@ -72,7 +83,7 @@ plot.individual_variable_effect <- function(x, ..., id = 1, digits = 2, rounding
                 yend = `_yhat_mean_`, y = `_yhat_mean_` + `_attribution_`,
                 color=`_sign_`)) +
     geom_segment(arrow = arrow(length=unit(0.20,"cm"), ends="first", type = "closed")) +
-    geom_text(aes(label = rounding_function(`_attribution_`, digits)), nudge_x = 0.45) +
+    maybe_attributions +
     maybe_prediction_arrow +
     maybe_prediction_text +
     geom_hline(aes(yintercept = `_yhat_mean_`)) +
