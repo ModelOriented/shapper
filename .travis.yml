@@ -14,11 +14,12 @@ addons:
       - python2.7
 
 before_install:
+  - sudo apt-get install python3-tk
   - R -e 'install.packages("reticulate")'
   - R -e 'reticulate::py_install("six")'
   - R -e 'reticulate::py_install("numpy")'
   - R -e 'reticulate::py_install("shap")'
-  
+   
 
 notifications:
   email: false
