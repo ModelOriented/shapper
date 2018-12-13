@@ -25,7 +25,9 @@ knitr::opts_chunk$set(echo = TRUE,
 library(reticulate)
 # use_python("/usr/lib/python2.7")
 numpy <- import("numpy")
+```
 
+```{r}
 library("shapper")
 library("DALEX")
 library("randomForest")
