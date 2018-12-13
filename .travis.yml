@@ -1,29 +1,36 @@
+# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
+
 language: r
+pandoc_version: 1.18
 
-dist: trusty
-sudo: false
-
-cache:
-  packages: true
-  directories:
-    - $HOME/.cache/pip
+sudo: required
+cache: packages
 
 addons:
   apt:
     packages:
-      - python2.7
-
+      - python3        # uncomment this to use python3
+    
 before_install:
-  - R -e 'install.packages("reticulate")'
-  - R -e 'reticulate::py_install("six")'
-  - R -e 'reticulate::py_install("numpy")'
-  - R -e 'reticulate::py_install("shap")'
-  
+
+  - sudo apt-get install r-base-dev
+  - tlmgr install index  
+
+  #------------------------------------- uncomment these lines to use python3
+  - sudo apt-get install python3-pip
+  - sudo pip3 install --upgrade pip
+  - sudo apt-get install python3-tk
+  - sudo -H pip3 install shap --ignore-installed six
+  - sudo update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1
+  - sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 2
+  #-------------------------------------
+  - sudo apt-get update
+
+r_packages:
+  - reticulate
 
 notifications:
   email: false
 
 after_success:
   - Rscript -e 'covr::codecov()'
-
-
