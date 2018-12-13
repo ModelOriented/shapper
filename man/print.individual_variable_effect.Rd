@@ -7,7 +7,7 @@
 \method{print}{individual_variable_effect}(x, ...)
 }
 \arguments{
-\item{x}{an individual variable importance explainer created with the \code{\link{`individual_variable_importance`}} function.}
+\item{x}{an individual variable importance explainer created with the \code{\link{individual_variable_effect}} function.}
 
 \item{...}{further arguments passed to or from other methods.}
 }
