@@ -6,7 +6,7 @@
 \usage{
 \method{plot}{individual_variable_effect}(x, ..., id = 1, digits = 2,
   rounding_function = round, show_predcited = TRUE,
-  show_attributions = TRUE)
+  show_attributions = TRUE, cols = c("label", "id"), rows = "ylevel")
 }
 \arguments{
 \item{x}{an individual variable effect explainer produced with function `individual_variable_effect()`}
@@ -22,6 +22,10 @@
 \item{show_predcited}{show arrows for predicted values.}
 
 \item{show_attributions}{show attributions values.}
+
+\item{cols}{A vector of characters defining faceting groups on columns dimension. Possible values: 'label', 'id', 'ylevel'.}
+
+\item{rows}{A vector of characters defining faceting groups on rows dimension. Possible values: 'label', 'id', 'ylevel'.}
 }
 \value{
 a ggplot2 object

@@ -9,6 +9,8 @@
 #' @param rounding_function function that is to used for rounding numbers. It may be \code{signif()} which keeps a specified number of significant digits. Or the default \code{round()} to have the same precision for all components
 #' @param show_predcited show arrows for predicted values.
 #' @param show_attributions show attributions values.
+#' @param cols A vector of characters defining faceting groups on columns dimension. Possible values: 'label', 'id', 'ylevel'.
+#' @param rows A vector of characters defining faceting groups on rows dimension. Possible values: 'label', 'id', 'ylevel'.
 #'
 #'
 #' @import ggplot2
@@ -40,13 +42,16 @@
 #'
 #' @export
 plot.individual_variable_effect <- function(x, ..., id = 1, digits = 2, rounding_function = round,
-                                            show_predcited = TRUE, show_attributions = TRUE) {
+                                            show_predcited = TRUE, show_attributions = TRUE,
+                                            cols = c("label", "id"), rows = "ylevel") {
 
   `_id_` <- `_attribution_` <- `_sign_` <- `_vname_` <- `_varvalue_` <- `_yhat_mean_` <- `_yhat_` <- NULL
+
 
   dfl <- c(list(x), list(...))
   x <- do.call(rbind, dfl)
   class(x) <- "data.frame"
+
 
   x <- x[x$`_id_` == id, ]
   values <- as.vector(x[1 , x$`_vname_`[1:length(unique(x$`_vname_`))]])
@@ -54,10 +59,10 @@ plot.individual_variable_effect <- function(x, ..., id = 1, digits = 2, rounding
   numeric_values <- sapply(variable_values, is.numeric)
   variable_values[numeric_values] <- rounding_function(variable_values[numeric_values], digits)
   x$`_varvalue_` <- t(variable_values)
-
   x$`_ext_vname_` <- paste(x$`_vname_`, "=", x$`_varvalue_`)
   x$`_ext_vname_` <- reorder(x$`_ext_vname_`, x$`_attribution_`, function(z) -sum(abs(z)))
   levels(x$`_ext_vname_`) <- paste(sapply(1:6, substr, x="        ", start=1), levels(x$`_ext_vname_`))
+
 
   maybe_prediction_arrow <- if(show_predcited == TRUE) {
     geom_segment(aes(x = "_predicted_",xend = "_predicted_",
@@ -80,6 +85,9 @@ plot.individual_variable_effect <- function(x, ..., id = 1, digits = 2, rounding
     NULL
   }
 
+    rows <- paste0("`_", rows, "_`")
+    cols <- paste(paste0("`_", cols, "_`"), collapse = "+")
+    grid_formula <- as.formula(paste(rows, "~", cols))
 
   ggplot(x, aes(x= `_ext_vname_`, xend=`_ext_vname_`,
                 yend = `_yhat_mean_`, y = `_yhat_mean_` + `_attribution_`,
@@ -89,7 +97,7 @@ plot.individual_variable_effect <- function(x, ..., id = 1, digits = 2, rounding
     maybe_prediction_arrow +
     maybe_prediction_text +
     geom_hline(aes(yintercept = `_yhat_mean_`)) +
-    facet_grid(`_ylevel_` ~ `_label_` + `_id_`) +
+    facet_grid(grid_formula) +
     scale_color_manual(values =  c(`-` = "#d8b365", `0` = "#f5f5f5", `+` = "#5ab4ac",
                                    X = "darkgrey")) +
     coord_flip() + theme_minimal() + theme(legend.position="none") + xlab("") + ylab("")
