@@ -100,7 +100,8 @@ plot.individual_variable_effect <- function(x, ..., id = 1, digits = 2, rounding
     facet_grid(grid_formula) +
     scale_color_manual(values =  c(`-` = "#d8b365", `0` = "#f5f5f5", `+` = "#5ab4ac",
                                    X = "darkgrey")) +
-    coord_flip() + theme_minimal() + theme(legend.position="none") + xlab("") + ylab("")
+    coord_flip() + theme_minimal() + theme(legend.position="none") +
+    xlab("") + ylab("Shapley values") + ggtitle("Shapley values")
 
 
 }
