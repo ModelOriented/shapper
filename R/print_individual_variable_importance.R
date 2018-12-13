@@ -1,6 +1,6 @@
 #' Print Individual Variable Effects
 #'
-#' @param x an individual variable importance explainer created with the \code{\link{`individual_variable_effect`}} function.
+#' @param x an individual variable importance explainer created with the \code{\link{`individual_variable_importance`}} function.
 #' @param ... further arguments passed to or from other methods.
 #'
 #' @examples
