@@ -87,4 +87,4 @@ ive_rf <- individual_variable_effect(model_rf, data = x_train,
 plot(ive_rf)
 ```
 
-<img src="materials/regression_plot_filtered.png" width="100%" /> 
+<img src="materials/regression_plot.png" width="100%" /> 
