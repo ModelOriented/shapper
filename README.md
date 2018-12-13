@@ -21,26 +21,47 @@ You can install shap Python library via
 shapper::install_shap()
 ```
 
-## Example
+## Classification Example
 
 ```
-library(shapper)
+# instal shapper
+# devtools::install_github("ModelOriented/shapper")
 
-library("DALEX")
-library("randomForest")
+# install shap python library
+# shapper::install_shap()
+
+# load datasets
+# devtools::install_github("ModelOriented/DALEX2")
+library("DALEX2")
 Y_train <- HR$status
 x_train <- HR[ , -6]
-x_train$gender <- as.numeric(x_train$gender)
 
+# Let's build models
+library("randomForest")
 set.seed(123)
 model_rf <- randomForest(x = x_train, y = Y_train)
 
-p_fun <- function(x, data){
-  predict(x, newdata = data, type = "prob")
-}
+# here DALEX2 starts
+rf_explainer <- explain(model_rf, data = x_train)
 
-ive <- individual_variable_effect(x = model_rf, data = x_train, predict_function = p_fun,
-                               new_observation = x_train[1,])
+# here shapper starts
+# load shapper
+library(shapper)
+ive_rf <- individual_variable_effect(rf_explainer,
+                                     new_observation = x_train[1:2,], nsamples =50)
 
-plot(ive)
+# plot
+plot(ive_rf)
 ```
+
+<img src="materials/classification_plot.png" width="100%" /> 
+
+
+```
+# filtered
+ive_rf_filtered <- dplyr::filter(ive_rf, `_ylevel_` =="fired")
+class(ive_rf_filtered) <- c("individual_variable_effect", "data.frame")
+plot(ive_rf_filtered)
+```
+
+<img src="materials/classification_plot_filtered.png" width="100%" /> 
