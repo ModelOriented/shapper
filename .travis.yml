@@ -11,7 +11,7 @@ cache:
 addons:
   apt:
     packages:
-      - python2.7
+      - python3.6
 
 before_install:
   - sudo apt-get install python3-tk
