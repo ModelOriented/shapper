@@ -25,7 +25,8 @@ shapper::install_shap()
 If installation didn't work for some reason. Try install dependencies first:
 
 ```
-reticulate::py_install(c("numpy", "pandas"))```
+reticulate::py_install(c("numpy", "pandas"))
+```
 
 or 
 
