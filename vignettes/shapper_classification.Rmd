@@ -1,0 +1,123 @@
+---
+title: "How to use shapper for classification"
+author: "Alicja Gosiewska"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+vignette: >
+  %\VignetteEngine{knitr::knitr}
+  %\VignetteIndexEntry{How to use shapper for classification}
+  %\usepackage[UTF-8]{inputenc}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      message = FALSE,
+                      warning = FALSE)
+```
+
+# Introduction
+
+The `shapper` is an R package which ports the `shap` python library in R. For details and examples see [shapper repository on github](https://github.com/ModelOriented/shapper) and [shapper website](https://modeloriented.github.io/shapper/).
+
+SHAP (SHapley Additive exPlanations) is a method to explain predictions of any machine learning model. 
+For more details about this method see [shap repository on github](https://github.com/slundberg/shap).
+
+# Install shaper and shap
+
+## R package shapper
+
+```{r}
+devtools::install_github("ModelOriented/shapper")
+```
+
+## Python library shap
+
+To run shapper python library shap is required. It can be installed both by python or R. To install it throught R, you an use function `install_shap` from the `shapper` package.
+
+```{r}
+shapper::install_shap()
+```
+
+
+# Load data sets
+
+The example usage is presented on the `HR` dataset from the R package `DALEX2`. For more details see [DALEX2 github repository](https://github.com/ModelOriented/DALEX2).
+
+```{r}
+# devtools::install_github("ModelOriented/DALEX2")
+library("DALEX2")
+Y_train <- HR$status
+x_train <- HR[ , -6]
+
+```
+
+# Let's build models
+
+```{r}
+library("randomForest")
+set.seed(123)
+model_rf <- randomForest(x = x_train, y = Y_train)
+
+library(rpart)
+model_tree <- rpart(status~. , data = HR)
+```
+
+# Here shapper starts
+
+First step is to create an explainer for each model. The explainer is an object that wraps up a model and meta-data.
+```{r}
+library(shapper)
+
+p_function <- function(model, data) predict(model, newdata = data, type = "prob")
+
+ive_rf <- individual_variable_effect(model_rf, data = x_train, predict_function = p_function,
+            new_observation = x_train[1:2,], nsamples = 50)
+
+
+ive_tree <- individual_variable_effect(model_tree, data = x_train, predict_function = p_function,
+            new_observation = x_train[1:2,], nsamples = 50)
+
+```
+
+```{r}
+ive_rf
+```
+
+
+# Plotting results
+
+```{r}
+plot(ive_rf)
+```
+
+To see only attributions use option `show_predcited = FALSE`.
+
+```{r}
+plot(ive_rf, show_predcited = FALSE)
+```
+
+
+```{r}
+plot(ive_rf, ive_tree, show_predcited = FALSE)
+```
+
+To modfy grid layout us parameters `rows` and `cols`.
+
+```{r}
+plot(ive_rf, ive_tree, id = c(1,2), show_predcited = FALSE,
+     rows = c("id"), cols = c("label", "ylevel"))
+```
+
+
+## Let's filter data for plot
+
+
+```{r}
+ive_rf_filtered <- dplyr::filter(ive_rf, `_ylevel_` =="fired")
+class(ive_rf_filtered) <- c("individual_variable_effect", "data.frame")
+plot(ive_rf_filtered)
+```
