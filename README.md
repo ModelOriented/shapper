@@ -13,16 +13,18 @@ An R wrapper of SHAP python library
 
 ## Installation and configuration
 
+Install `shapper` R package
 ```
 devtools::install_github("ModelOriented/shapper")
 ```
+
 You can install shap Python library via
 
 ```
 shapper::install_shap()
 ```
 
-If installation didn't work for some reason. Try install dependencies first:
+If installation didn't work for some reason. Try installing dependencies first
 
 ```
 reticulate::py_install(c("numpy", "pandas"))
