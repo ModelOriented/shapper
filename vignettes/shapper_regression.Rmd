@@ -19,7 +19,75 @@ knitr::opts_chunk$set(echo = TRUE,
                       warning = FALSE)
 ```
 
-```{r}
-1
+# Introduction
+
+The `shapper` is an R package which ports the `shap` python library in R. For details and examples see [shapper repository on github](https://github.com/ModelOriented/shapper) and [shapper website](https://modeloriented.github.io/shapper/).
+
+SHAP (SHapley Additive exPlanations) is a method to explain predictions of any machine learning model. 
+For more details about this method see [shap repository on github](https://github.com/slundberg/shap).
+
+# Install shaper and shap
+
+## R package shapper
+
+```{r, eval = FALSE}
+devtools::install_github("ModelOriented/shapper")
 ```
+
+## Python library shap
+
+To run shapper python library shap is required. It can be installed both by python or R. To install it throught R, you an use function `install_shap` from the `shapper` package.
+
+```{r, eval = FALSE}
+shapper::install_shap()
+```
+
+
+# Load data sets
+
+The example usage is presented on the `HR` dataset from the R package `DALEX2`. For more details see [DALEX2 github repository](https://github.com/ModelOriented/DALEX2).
+
+```{r}
+# devtools::install_github("ModelOriented/DALEX2")
+library("DALEX2")
+Y_train <- dragons$life_length
+x_train <- dragons[ , -8]
+```
+
+
+# Let's build model
+
+```{r}
+library(randomForest)
+set.seed(123)
+model_rf <- randomForest(x = x_train, y = Y_train)
+```
+
+
+# Here shapper starts
+
+First step is to create an explainer for each model. The explainer is an object that wraps up a model and meta-data.
+
+```{r}
+library(shapper)
+
+ive_rf <- individual_variable_effect(model_rf, data = x_train,
+                                     new_observation = x_train[1,])
+```
+
+```{r}
+ive_rf
+```
+
+# Plotting results
+
+```{r}
+plot(ive_rf)
+```
+
+
+
+
+
+
 

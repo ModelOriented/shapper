@@ -69,7 +69,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/how_to_use_shapper.html">How to use shapper</a>
+      <a href="../articles/shapper_classification.html">How to use shapper for classification</a>
+    </li>
+    <li>
+      <a href="../articles/shapper_regression.html">How to use shapper for regression</a>
     </li>
   </ul>
 </li>
@@ -103,7 +106,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>an individual variable effect explainer created with the <code>`individual_variable_effect`</code> function.</p></td>
+      <td><p>an individual variable importance explainer created with the <code><a href='individual_variable_effect.html'>individual_variable_effect</a></code> function.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -113,7 +116,8 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='st'>"shapper"</span>)
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='fu'>library</span>(<span class='st'>"shapper"</span>)
 <span class='fu'>library</span>(<span class='st'>"DALEX"</span>)
 <span class='fu'>library</span>(<span class='st'>"randomForest"</span>)
 <span class='no'>Y_train</span> <span class='kw'>&lt;-</span> <span class='no'>HR</span>$<span class='no'>status</span>
@@ -127,20 +131,8 @@
   <span class='no'>ive</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='individual_variable_effect.html'>individual_variable_effect</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>model_rf</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>x_train</span>,
                                     <span class='kw'>predict_function</span> <span class='kw'>=</span> <span class='no'>p_fun</span>,
                                     <span class='kw'>new_observation</span> <span class='kw'>=</span> <span class='no'>x_train</span>[<span class='fl'>1</span>,])
- <span class='no'>ive</span></div><div class='output co'>#&gt;     gender      age    hours evaluation salary _id_ _ylevel_ _yhat_ _yhat_mean_
-#&gt; 1        2 32.58267 41.88626          3      1    1    fired  0.826   0.3760393
-#&gt; 1.3      2 32.58267 41.88626          3      1    1    fired  0.826   0.3760393
-#&gt; 1.4      2 32.58267 41.88626          3      1    1    fired  0.826   0.3760393
-#&gt; 1.5      2 32.58267 41.88626          3      1    1    fired  0.826   0.3760393
-#&gt; 1.6      2 32.58267 41.88626          3      1    1    fired  0.826   0.3760393
-#&gt; 1.1      2 32.58267 41.88626          3      1    1       ok  0.168   0.2744662
-#&gt;        _vname_ _attribution_ _sign_      _label_
-#&gt; 1       gender   -0.03791535      - randomForest
-#&gt; 1.3        age    0.01458644      + randomForest
-#&gt; 1.4      hours    0.30273184      + randomForest
-#&gt; 1.5 evaluation    0.11516991      + randomForest
-#&gt; 1.6     salary    0.05538791      + randomForest
-#&gt; 1.1     gender    0.03030957      + randomForest</div><div class='input'>
+ <span class='no'>ive</span>
+<span class='co'># }</span><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

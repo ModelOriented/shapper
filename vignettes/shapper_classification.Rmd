@@ -30,7 +30,7 @@ For more details about this method see [shap repository on github](https://githu
 
 ## R package shapper
 
-```{r}
+```{r, eval = FALSE}
 devtools::install_github("ModelOriented/shapper")
 ```
 
@@ -38,7 +38,7 @@ devtools::install_github("ModelOriented/shapper")
 
 To run shapper python library shap is required. It can be installed both by python or R. To install it throught R, you an use function `install_shap` from the `shapper` package.
 
-```{r}
+```{r, eval = FALSE}
 shapper::install_shap()
 ```
 

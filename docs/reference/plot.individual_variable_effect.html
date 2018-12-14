@@ -69,7 +69,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/how_to_use_shapper.html">How to use shapper</a>
+      <a href="../articles/shapper_classification.html">How to use shapper for classification</a>
+    </li>
+    <li>
+      <a href="../articles/shapper_regression.html">How to use shapper for regression</a>
     </li>
   </ul>
 </li>
@@ -96,8 +99,9 @@
     
 
     <pre class="usage"><span class='co'># S3 method for individual_variable_effect</span>
-<span class='fu'>plot</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>ylevel</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>rounding_function</span> <span class='kw'>=</span> <span class='no'>round</span>)</pre>
+<span class='fu'>plot</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+  <span class='kw'>rounding_function</span> <span class='kw'>=</span> <span class='no'>round</span>, <span class='kw'>show_predcited</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>show_attributions</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"label"</span>, <span class='st'>"id"</span>), <span class='kw'>rows</span> <span class='kw'>=</span> <span class='st'>"ylevel"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -115,16 +119,28 @@
       <td><p>of observation. By default first observation is taken.</p></td>
     </tr>
     <tr>
-      <th>ylevel</th>
-      <td><p>level of y. By default first level is taken.</p></td>
-    </tr>
-    <tr>
       <th>digits</th>
       <td><p>number of decimal places (round) or significant digits (signif) to be used. See the <code>rounding_function</code> argument.</p></td>
     </tr>
     <tr>
       <th>rounding_function</th>
       <td><p>function that is to used for rounding numbers. It may be <code>signif()</code> which keeps a specified number of significant digits. Or the default <code>round()</code> to have the same precision for all components</p></td>
+    </tr>
+    <tr>
+      <th>show_predcited</th>
+      <td><p>show arrows for predicted values.</p></td>
+    </tr>
+    <tr>
+      <th>show_attributions</th>
+      <td><p>show attributions values.</p></td>
+    </tr>
+    <tr>
+      <th>cols</th>
+      <td><p>A vector of characters defining faceting groups on columns dimension. Possible values: 'label', 'id', 'ylevel'.</p></td>
+    </tr>
+    <tr>
+      <th>rows</th>
+      <td><p>A vector of characters defining faceting groups on rows dimension. Possible values: 'label', 'id', 'ylevel'.</p></td>
     </tr>
     </table>
     
@@ -134,7 +150,8 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='st'>"shapper"</span>)
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='fu'>library</span>(<span class='st'>"shapper"</span>)
 <span class='fu'>library</span>(<span class='st'>"DALEX"</span>)
 <span class='fu'>library</span>(<span class='st'>"randomForest"</span>)
 <span class='no'>Y_train</span> <span class='kw'>&lt;-</span> <span class='no'>HR</span>$<span class='no'>status</span>
@@ -148,7 +165,8 @@
   <span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='individual_variable_effect.html'>individual_variable_effect</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>model_rf</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>x_train</span>,
                                     <span class='kw'>predict_function</span> <span class='kw'>=</span> <span class='no'>p_fun</span>,
                                     <span class='kw'>new_observation</span> <span class='kw'>=</span> <span class='no'>x_train</span>[<span class='fl'>1</span>,])
-                                    <span class='fu'>plot</span>(<span class='no'>res</span>)</div><div class='img'><img src='plot.individual_variable_effect-1.png' alt='' width='700' height='433' /></div><div class='input'>
+                                    <span class='fu'>plot</span>(<span class='no'>res</span>)
+<span class='co'># }</span><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

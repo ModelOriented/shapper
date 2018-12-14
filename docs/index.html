@@ -47,7 +47,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/how_to_use_shapper.html">How to use shapper</a>
+      <a href="articles/shapper_classification.html">How to use shapper for classification</a>
+    </li>
+    <li>
+      <a href="articles/shapper_regression.html">How to use shapper for regression</a>
     </li>
   </ul>
 </li>
@@ -63,7 +66,8 @@
       
       </header><div class="row">
   <div class="contents col-md-9">
-    <div id="shapper" class="section level1">
+    
+<div id="shapper" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#shapper" class="anchor"></a>shapper</h1></div>
 
@@ -76,30 +80,65 @@
 <p>You can install shap Python library via</p>
 <pre><code><a href="reference/install_shap.html">shapper::install_shap()</a></code></pre>
 </div>
-<div id="example" class="section level2">
+<div id="classification-example" class="section level2">
 <h2 class="hasAnchor">
-<a href="#example" class="anchor"></a>Example</h2>
-<pre><code>library(shapper)
+<a href="#classification-example" class="anchor"></a>Classification Example</h2>
+<pre><code># instal shapper
+# devtools::install_github("ModelOriented/shapper")
 
-library("DALEX")
-library("randomForest")
+# install shap python library
+# shapper::install_shap()
+
+# load datasets
+# devtools::install_github("ModelOriented/DALEX2")
+library("DALEX2")
 Y_train &lt;- HR$status
 x_train &lt;- HR[ , -6]
-x_train$gender &lt;- as.numeric(x_train$gender)
+
+# Let's build models
+library("randomForest")
+set.seed(123)
+model_rf &lt;- randomForest(x = x_train, y = Y_train)
+
+# here shapper starts
+# load shapper
+library(shapper)
+p_function &lt;- function(model, data) predict(model, newdata = data, type = "prob")
+
+ive_rf &lt;- individual_variable_effect(model_rf, data = x_train, predict_function = p_function,
+            new_observation = x_train[1:2,], nsamples = 50)
+
+# plot
+plot(ive_rf)</code></pre>
+<p><img src="materials/classification_plot.png" width="100%"></p>
+<pre><code># filtered
+ive_rf_filtered &lt;- dplyr::filter(ive_rf, `_ylevel_` =="fired")
+class(ive_rf_filtered) &lt;- c("individual_variable_effect", "data.frame")
+plot(ive_rf_filtered)</code></pre>
+<p><img src="materials/classification_plot_filtered.png" width="100%"></p>
+</div>
+</div>
+<div id="regression-example" class="section level1">
+<h1 class="hasAnchor">
+<a href="#regression-example" class="anchor"></a>Regression example</h1>
+<pre><code>library(shapper)
+
+library("DALEX2")
+library("randomForest")
+
+Y_train &lt;- dragons$life_length
+x_train &lt;- dragons[ , -8]
 
 set.seed(123)
 model_rf &lt;- randomForest(x = x_train, y = Y_train)
 
-p_fun &lt;- function(x, data){
-  predict(x, newdata = data, type = "prob")
-}
+ive_rf &lt;- individual_variable_effect(model_rf, data = x_train,
+                                     new_observation = x_train[1,])
 
-ive &lt;- individual_variable_effect(x = model_rf, data = x_train, predict_function = p_fun,
-                               new_observation = x_train[1,])
+plot(ive_rf)</code></pre>
+<p><img src="materials/regression_plot.png" width="100%"></p>
+</div>
 
-plot(ive)</code></pre>
-</div>
-</div>
   </div>
 
   <div class="col-md-3" id="sidebar">

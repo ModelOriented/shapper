@@ -2,5 +2,6 @@ pandoc: 1.19.2.1
 pkgdown: 1.1.0.9000
 pkgdown_sha: b2798656f04ce282edea3e12734ba5588c6acd6e
 articles:
-  how_to_use_shapper: how_to_use_shapper.html
+  shapper_classification: shapper_classification.html
+  shapper_regression: shapper_regression.html
 
