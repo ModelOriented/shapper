@@ -16,5 +16,6 @@ Suggests:
     knitr,
     DALEX,
     randomForest,
-    covr
+    covr,
+    testthat
 VignetteBuilder: knitr
