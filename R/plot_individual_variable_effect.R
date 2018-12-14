@@ -35,14 +35,15 @@
 #'
 #' @method plot individual_variable_effect
 #'
-#' @importFrom stats reorder
+#' @importFrom stats reorder as.formula predict
 #'
 #' @export
 plot.individual_variable_effect <- function(x, ..., id = 1, digits = 2, rounding_function = round,
                                             show_predcited = TRUE, show_attributions = TRUE,
                                             cols = c("label", "id"), rows = "ylevel") {
 
-  `_id_` <- `_attribution_` <- `_sign_` <- `_vname_` <- `_varvalue_` <- `_yhat_mean_` <- `_yhat_` <- NULL
+  `_id_` <- `_attribution_` <- `_sign_` <- `_vname_` <- `_varvalue_` <- NULL
+  `_yhat_mean_` <- `_yhat_` <- `_ext_vname_`<- NULL
 
 
   dfl <- c(list(x), list(...))

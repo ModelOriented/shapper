@@ -16,3 +16,9 @@ It is passed to the \code{\link[reticulate]{py_install}} function form package `
 \description{
 Install shap Python library
 }
+\examples{
+\dontrun{
+  install_shap((method = "auto", conda = "auto")
+}
+
+}

@@ -12,10 +12,12 @@ LazyData: true
 RoxygenNote: 6.1.1
 Imports: reticulate,
   ggplot2
-Suggests: 
-    knitr,
-    DALEX,
-    randomForest,
+Suggests:
     covr,
+    DALEX,
+    DALEX2,
+    knitr,
+    randomForest,
+    rpart,
     testthat
 VignetteBuilder: knitr
