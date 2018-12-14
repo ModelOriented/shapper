@@ -1,6 +1,6 @@
 install.packages("devtools")
 library('devtools')
 install_github("ModelOriented/shapper")
+install_github("ModelOriented/DALEX2")
 install.packages("randomForest")
-install.packages("DALEX")
 shapper::install_shap()
