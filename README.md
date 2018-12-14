@@ -10,7 +10,8 @@ An R wrapper of SHAP python library
 
 [Pkgdown Website]( https://modeloriented.github.io/shapper/)
 
-## Instalation
+
+## Installation and configuration
 
 ```
 devtools::install_github("ModelOriented/shapper")
@@ -20,6 +21,31 @@ You can install shap Python library via
 ```
 shapper::install_shap()
 ```
+
+If installation didn't work for some reason. Try install dependencies first:
+
+```
+reticulate::py_install(c("numpy", "pandas"))```
+
+or 
+
+```
+reticulate::conda_install(c("numpy", "pandas"))
+```
+
+Python library SHAP can be also installed from PyPI
+
+```
+pip install shap
+```
+
+or conda-forge
+
+```
+conda install -c conda-forge shap
+```
+
+For more details how to configure python paths and environments for R see [reticulate](https://github.com/rstudio/reticulate).
 
 ## Classification Example
 
