@@ -5,6 +5,10 @@
 #' @param conda Path to conda executable.
 #' It is passed to the \code{\link[reticulate]{py_install}} function form package `reticulate`.
 #'
+#' @examples
+#' \dontrun{
+#'   install_shap((method = "auto", conda = "auto")
+#' }
 #' @export
 install_shap <- function(method = "auto", conda = "auto") {
   reticulate::py_install("shap", method = method, conda = conda)

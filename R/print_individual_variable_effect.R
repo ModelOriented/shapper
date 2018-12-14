@@ -10,16 +10,13 @@
 #' library("randomForest")
 #' Y_train <- HR$status
 #' x_train <- HR[ , -6]
-#' x_train$gender <- as.numeric(x_train$gender)
 #' set.seed(123)
 #' model_rf <- randomForest(x = x_train, y = Y_train)
-#' p_fun <- function(x, data){
-#'   predict(x, newdata = data, type = "prob")
-#'   }
-#'   ive <- individual_variable_effect(x = model_rf, data = x_train,
-#'                                     predict_function = p_fun,
-#'                                     new_observation = x_train[1,])
-#'  ive
+#' p_function <- function(model, data) predict(model, newdata = data, type = "prob")
+#'
+#' ive_rf <- individual_variable_effect(model_rf, data = x_train, predict_function = p_function,
+#'                                      new_observation = x_train[1:2,], nsamples = 50)
+#' print(ive_rf)
 #' }
 #'
 #' @importFrom utils head
