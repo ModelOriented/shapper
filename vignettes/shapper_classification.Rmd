@@ -118,6 +118,5 @@ plot(ive_rf, ive_tree, id = c(1,2), show_predcited = FALSE,
 
 ```{r}
 ive_rf_filtered <- dplyr::filter(ive_rf, `_ylevel_` =="fired")
-class(ive_rf_filtered) <- c("individual_variable_effect", "data.frame")
-plot(ive_rf_filtered)
+shapper:::plot.individual_variable_effect(ive_rf_filtered)
 ```

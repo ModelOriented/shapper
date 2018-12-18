@@ -88,8 +88,7 @@ plot(ive_rf)
 ```
 # filtered
 ive_rf_filtered <- dplyr::filter(ive_rf, `_ylevel_` =="fired")
-class(ive_rf_filtered) <- c("individual_variable_effect", "data.frame")
-plot(ive_rf_filtered)
+shapper:::plot.individual_variable_effect(ive_rf_filtered)
 ```
 
 <img src="materials/classification_plot_filtered.png" width="100%" /> 
