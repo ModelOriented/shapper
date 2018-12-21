@@ -17,5 +17,6 @@ install_shap <- function(method = "auto", conda = "auto") {
   py_install("shap", method = method, conda = conda)
 
   tryCatch({import("shap")},
-     error = function(e) {message("Could not import shap libary. Try install python dependencies. Use reticulate::py_install('numpy').")})
+     error = function(e) {message("Could not import shap libary. Try installing python dependencies: reticulate::py_install(c('numpy', 'pandas')).\n
+                                  Check if the python-tk package is installed.")})
 }
