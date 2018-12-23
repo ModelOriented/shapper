@@ -10,7 +10,7 @@
 #'   install_shap((method = "auto", conda = "auto")
 #' }
 #'
-#' @import reticulate
+#' @importFrom reticulate py_install import
 #'
 #' @export
 install_shap <- function(method = "auto", conda = "auto") {
