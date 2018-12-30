@@ -28,7 +28,10 @@ before_install:
   - sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 2
 
   - sudo apt-get update
-
+  
+  - sudo pip install -U pip
+  - sudo export PYTHONPATH=$PYTHONPATH:$(pwd)
+  
   - R -e 'install.packages("DALEX2")'
 
 
