@@ -10,11 +10,7 @@ addons:
   apt:
     packages:
       - python3        # uncomment this to use python3
-
-r_packages:
-  - reticulate
-  - devtools
-
+    
 before_install:
 
   - sudo apt-get install r-base-dev
@@ -26,12 +22,12 @@ before_install:
   - sudo apt-get install python3-tk
   - sudo -H pip3 install shap --ignore-installed six
   - sudo update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1
-  - sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 3
+  - sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 2
   #-------------------------------------
   - sudo apt-get update
-  
-  - R -e 'devtools::install_github("ModelOriented/DALEX2")'
 
+r_packages:
+  - reticulate
 
 notifications:
   email: false
