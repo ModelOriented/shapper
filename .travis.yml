@@ -28,6 +28,8 @@ before_install:
   - sudo apt-get update
   - export PYTHONPATH=/usr/lib/python3/dist-packages:/usr/local/lib/python3.4/dist-packages
   
+  - R -e 'reticulate::import("shap")'
+  
   - R -e 'install.packages("DALEX2")'
 
 
