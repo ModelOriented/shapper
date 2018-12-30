@@ -21,7 +21,7 @@ individual_variable_effect(x, ...)
 \item{...}{other parameters.}
 
 \item{new_observation}{an observation/observations to be explained. Required for local/instance level
-explainers. Columns in should correspond to columns in the data argument.}
+explainers. Columns in should correspond to columns in the data argument. Data set should not contain any additional columns.}
 
 \item{method}{an estimation method of SHAP values. Currently the only availible is `KernelSHAP`.}
 

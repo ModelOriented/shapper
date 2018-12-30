@@ -10,7 +10,7 @@
 #' `m` x `d`, where `m` is the number of observations while `d` is the dimensionality of model response.
 #' It will be extracted from `x` if it’s an explainer.
 #' @param new_observation an observation/observations to be explained. Required for local/instance level
-#' explainers. Columns in should correspond to columns in the data argument.
+#' explainers. Columns in should correspond to columns in the data argument. Data set should not contain any additional columns.
 #' @param ... other parameters.
 #' @param label name of the model. By default it’s extracted from the class attribute of the model
 #' @param method an estimation method of SHAP values. Currently the only availible is `KernelSHAP`.
@@ -89,7 +89,6 @@ individual_variable_effect.default <- function(x, data, predict_function = predi
                                                method = "KernelSHAP",
                                                nsamples = 100L,
                                                ...){
-
   # transform factors to numerics and keep factors' levels
   data_classes <- sapply(data, class)
   factors <- list()
