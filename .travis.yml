@@ -25,7 +25,7 @@ before_install:
   - sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 2
   #-------------------------------------
   - sudo apt-get update
-  - R -e 'devtools::install_github("ModelOriented/shapper"); library(shapper); install_shap();'
+  - R -e 'library(reticulate); use_python("/usr/bin/python3"); py_install("shap")'
 
 r_packages:
   - reticulate
