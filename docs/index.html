@@ -73,12 +73,22 @@
 
 <p>An R wrapper of SHAP python library</p>
 <p><a href="https://modeloriented.github.io/shapper/">Pkgdown Website</a></p>
-<div id="instalation" class="section level2">
+<div id="installation-and-configuration" class="section level2">
 <h2 class="hasAnchor">
-<a href="#instalation" class="anchor"></a>Instalation</h2>
+<a href="#installation-and-configuration" class="anchor"></a>Installation and configuration</h2>
+<p>Install <code>shapper</code> R package</p>
 <pre><code><a href="http://www.rdocumentation.org/packages/devtools/topics/reexports">devtools::install_github("ModelOriented/shapper")</a></code></pre>
 <p>You can install shap Python library via</p>
 <pre><code><a href="reference/install_shap.html">shapper::install_shap()</a></code></pre>
+<p>If installation didn’t work for some reason. Try installing dependencies first</p>
+<pre><code><a href="http://www.rdocumentation.org/packages/reticulate/topics/py_install">reticulate::py_install(c("numpy", "pandas"))</a></code></pre>
+<p>or</p>
+<pre><code><a href="http://www.rdocumentation.org/packages/reticulate/topics/conda-tools">reticulate::conda_install(c("numpy", "pandas"))</a></code></pre>
+<p>Python library SHAP can be also installed from PyPI</p>
+<pre><code>pip install shap</code></pre>
+<p>or conda-forge</p>
+<pre><code>conda install -c conda-forge shap</code></pre>
+<p>For more details how to configure python paths and environments for R see <a href="https://github.com/rstudio/reticulate">reticulate</a>.</p>
 </div>
 <div id="classification-example" class="section level2">
 <h2 class="hasAnchor">
@@ -113,8 +123,7 @@ plot(ive_rf)</code></pre>
 <p><img src="materials/classification_plot.png" width="100%"></p>
 <pre><code># filtered
 ive_rf_filtered &lt;- dplyr::filter(ive_rf, `_ylevel_` =="fired")
-class(ive_rf_filtered) &lt;- c("individual_variable_effect", "data.frame")
-plot(ive_rf_filtered)</code></pre>
+shapper:::plot.individual_variable_effect(ive_rf_filtered)</code></pre>
 <p><img src="materials/classification_plot_filtered.png" width="100%"></p>
 </div>
 </div>

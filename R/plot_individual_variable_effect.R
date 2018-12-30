@@ -51,30 +51,37 @@ plot.individual_variable_effect <- function(x, ..., id = 1, digits = 2, rounding
   class(x) <- "data.frame"
 
 
-  x <- x[x$`_id_` == id, ]
-  values <- as.vector(x[1 , x$`_vname_`[1:length(unique(x$`_vname_`))]])
-  variable_values <- values[x$`_vname_`]
+  x <- x[x$`_id_` %in% id, ]
+  values <- as.vector(x[1 , x$`_vname_`[1:(length(unique(x$`_vname_`)) * length(id))]])
+  names(values) <- unique(paste(x$`_vname_`, x$`_id_`))
+
+  for(i in 1:length(values)){
+    variable_i <- sub(" .*", "", names(values)[i])
+    id_i <- sub(".* ", "", names(values)[i])
+    values[i] <- x[x$`_vname_` == variable_i & x$`_id_` == id_i, ][1, variable_i]
+  }
+  variable_values <- values[paste(x$`_vname_`, x$`_id_`)]
   numeric_values <- sapply(variable_values, is.numeric)
   variable_values[numeric_values] <- rounding_function(variable_values[numeric_values], digits)
   x$`_varvalue_` <- t(variable_values)
+  x$`_vname_` <- reorder(x$`_vname_`, x$`_attribution_`, function(z) sum(abs(z)))
   x$`_ext_vname_` <- paste(x$`_vname_`, "=", x$`_varvalue_`)
-  x$`_ext_vname_` <- reorder(x$`_ext_vname_`, x$`_attribution_`, function(z) -sum(abs(z)))
-  levels(x$`_ext_vname_`) <- paste(sapply(1:6, substr, x="        ", start=1), levels(x$`_ext_vname_`))
+  x$`_ext_vname_` <- reorder(x$`_ext_vname_`, as.numeric(x$`_vname_`) * 0.001 + x$`_id_`, function(z) sum(z))
+  x$`_vname_id_` <- paste(x$`_id_`, x$`_vname_`)
 
 
-  maybe_prediction_arrow <- if(show_predcited == TRUE) {
-    geom_segment(aes(x = "_predicted_",xend = "_predicted_",
-      y = `_yhat_`, yend = `_yhat_mean_`), size = 1, color="black",
-      arrow = arrow(length=unit(0.20,"cm"), ends="first", type = "closed"))
+if(show_predcited == TRUE) {
+    levels(x$`_ext_vname_`) <- c(levels(x$`_ext_vname_`), "_predicted_")
+    for(i in 1:length(id)){
+      x_pred <- x[id == i, ]
+      x_pred$`_ext_vname_` <- factor("_predicted_", levels = levels(x$`_ext_vname_`))
+      x_pred$`_attribution_` <- x_pred$`_yhat_`
+      x_pred$`_sign_` <- "pred"
+      x <- rbind(x, x_pred)
+    }
+
   } else {
     maybe_prediction_arrow <- NULL
-  }
-
-  maybe_prediction_text <- if(show_attributions == TRUE & show_predcited == TRUE){
-    geom_text(aes(x = "_predicted_",
-      y = `_yhat_`, label = rounding_function(`_yhat_`, digits)), nudge_x = 0.45, color="black")
-  } else {
-    NULL
   }
 
   maybe_attributions <- if(show_attributions == TRUE){
@@ -93,19 +100,18 @@ plot.individual_variable_effect <- function(x, ..., id = 1, digits = 2, rounding
     ""
     }
 
-
   ggplot(x, aes(x= `_ext_vname_`, xend=`_ext_vname_`,
                 yend = `_yhat_mean_`, y = `_yhat_mean_` + `_attribution_`,
                 color=`_sign_`)) +
     geom_segment(arrow = arrow(length=unit(0.20,"cm"), ends="first", type = "closed")) +
-    maybe_attributions +
-    maybe_prediction_arrow +
-    maybe_prediction_text +
+    scale_y_discrete(drop=FALSE) +
     geom_hline(aes(yintercept = `_yhat_mean_`)) +
+    maybe_attributions +
     facet_grid(grid_formula,
-      labeller = labeller(`_id_` = as_labeller(id_labeller), `_label_` = as_labeller(label_labeller))) +
+               labeller = labeller(`_id_` = as_labeller(id_labeller), `_label_` = as_labeller(label_labeller)),
+               scales = "free", space="free") +
     scale_color_manual(values =  c(`-` = "#d8b365", `0` = "#f5f5f5", `+` = "#5ab4ac",
-                                   X = "darkgrey")) +
+                                   X = "darkgrey", pred = "black")) +
     coord_flip() + theme_minimal() + theme(legend.position="none") +
     xlab("") + ylab("Shapley values") + ggtitle("Shapley values")
 
