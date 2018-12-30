@@ -1,5 +1,3 @@
-# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
-
 language: r
 pandoc_version: 1.18
 
@@ -9,7 +7,7 @@ cache: packages
 addons:
   apt:
     packages:
-      - python3
+      - python3 
 
 r_packages:
   - reticulate
@@ -18,7 +16,7 @@ r_packages:
 before_install:
 
   - sudo apt-get install r-base-dev
-  - tlmgr install index
+  - tlmgr install index  
 
   - sudo apt-get install python3-pip
   - sudo pip3 install --upgrade pip
@@ -28,9 +26,6 @@ before_install:
   - sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 2
 
   - sudo apt-get update
-  
-  - sudo pip install -U pip
-  - sudo export PYTHONPATH=$PYTHONPATH:$(pwd)
   
   - R -e 'install.packages("DALEX2")'
 
