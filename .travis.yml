@@ -19,10 +19,10 @@ before_install:
   #------------------------------------- uncomment these lines to use python3
   - sudo apt-get install python3-pip
   - sudo pip3 install --upgrade pip
-  - sudo apt-get install python3-tk
-  - sudo -H pip3 install shap --ignore-installed six
   - sudo update-alternatives --install /usr/bin/python python /usr/bin/python2.7 2
   - sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 3
+  - sudo apt-get install python3-tk
+  - sudo -H pip3 install shap --ignore-installed six
   #-------------------------------------
   - sudo apt-get update
 
