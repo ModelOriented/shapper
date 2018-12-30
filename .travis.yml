@@ -15,20 +15,7 @@ r_packages:
 
 before_install:
 
-  - sudo apt-get install r-base-dev
-  - tlmgr install index  
-
-  - sudo apt-get install python3-pip
-  - sudo pip3 install --upgrade pip
-  - sudo apt-get install python3-tk
-  - sudo -H pip3 install shap --ignore-installed six
-  - sudo update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1
-  - sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 2
-
-  - sudo apt-get update
-  - export PYTHONPATH=/usr/lib/python3/dist-packages:/usr/local/lib/python3.4/dist-packages
-  
-  - R -e 'library(reticulate); shap<-import("shap")'
+  - R -e 'library(reticulate); install_shap(); shap<-import("shap")'
   
   - R -e 'install.packages("DALEX2")'
 
