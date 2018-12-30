@@ -28,7 +28,7 @@ before_install:
   - ls /usr/local/lib/python3.4/dist-packages
   - ls /usr/local/lib/python3.4/dist-packages/shap 
   
-  - R -e 'library(reticulate); use_python("/usr/local/bin/python3"); '
+  - R -e 'library(reticulate); use_python("/usr/bin/python3"); '
 
 r_packages:
   - reticulate
