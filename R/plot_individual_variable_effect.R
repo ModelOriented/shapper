@@ -79,13 +79,10 @@ if(show_predcited == TRUE) {
       x_pred$`_sign_` <- "pred"
       x <- rbind(x, x_pred)
     }
-
-  } else {
-    maybe_prediction_arrow <- NULL
-  }
+}
 
   maybe_attributions <- if(show_attributions == TRUE){
-    geom_text(aes(label = rounding_function(`_attribution_`, digits)), nudge_x = 0.45)
+    geom_text(aes(label = rounding_function(`_attribution_`, digits)), nudge_x = 0.45, hjust="inward")
   } else {
     NULL
   }
@@ -104,12 +101,12 @@ if(show_predcited == TRUE) {
                 yend = `_yhat_mean_`, y = `_yhat_mean_` + `_attribution_`,
                 color=`_sign_`)) +
     geom_segment(arrow = arrow(length=unit(0.20,"cm"), ends="first", type = "closed")) +
-    scale_y_discrete(drop=FALSE) +
+    scale_y_discrete(drop=FALSE)  +
+    ylim(c(min(x$`_yhat_mean_` + x$`_attribution_`), max(x$`_yhat_mean_` + x$`_attribution_`))) +
     geom_hline(aes(yintercept = `_yhat_mean_`)) +
     maybe_attributions +
     facet_grid(grid_formula,
-               labeller = labeller(`_id_` = as_labeller(id_labeller), `_label_` = as_labeller(label_labeller)),
-               scales = "free", space="free") +
+               labeller = labeller(`_id_` = as_labeller(id_labeller), `_label_` = as_labeller(label_labeller))) +
     scale_color_manual(values =  c(`-` = "#d8b365", `0` = "#f5f5f5", `+` = "#5ab4ac",
                                    X = "darkgrey", pred = "black")) +
     coord_flip() + theme_minimal() + theme(legend.position="none") +
