@@ -11,7 +11,7 @@
 #' @param show_attributions show attributions values.
 #' @param cols A vector of characters defining faceting groups on columns dimension. Possible values: 'label', 'id', 'ylevel'.
 #' @param rows A vector of characters defining faceting groups on rows dimension. Possible values: 'label', 'id', 'ylevel'.
-#'
+#' @param selected A vector of characters. If specified, then only selected classes are presented
 #'
 #' @import ggplot2
 #'
@@ -40,7 +40,7 @@
 #' @export
 plot.individual_variable_effect <- function(x, ..., id = 1, digits = 2, rounding_function = round,
                                             show_predcited = TRUE, show_attributions = TRUE,
-                                            cols = c("label", "id"), rows = "ylevel") {
+                                            cols = c("label", "id"), rows = "ylevel", selected = NULL) {
 
   `_id_` <- `_attribution_` <- `_sign_` <- `_vname_` <- `_varvalue_` <- NULL
   `_yhat_mean_` <- `_yhat_` <- `_ext_vname_`<- NULL
@@ -50,12 +50,17 @@ plot.individual_variable_effect <- function(x, ..., id = 1, digits = 2, rounding
   x <- do.call(rbind, dfl)
   class(x) <- "data.frame"
 
+  # if selected is specified then select only these classess
+  if (!is.null(selected)) {
+    x <- x[x$`_ylevel_` %in% selected, ]
+  }
 
+  # if id is specified then select only these observations
   x <- x[x$`_id_` %in% id, ]
   values <- as.vector(x[1 , x$`_vname_`[1:(length(unique(x$`_vname_`)) * length(id))]])
   names(values) <- unique(paste(x$`_vname_`, x$`_id_`))
 
-  for(i in 1:length(values)){
+  for (i in 1:length(values)){
     variable_i <- sub(" .*", "", names(values)[i])
     id_i <- sub(".* ", "", names(values)[i])
     values[i] <- x[x$`_vname_` == variable_i & x$`_id_` == id_i, ][1, variable_i]
