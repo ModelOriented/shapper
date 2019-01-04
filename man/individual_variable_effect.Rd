@@ -2,6 +2,7 @@
 % Please edit documentation in R/individual_variable_effect.R
 \name{individual_variable_effect}
 \alias{individual_variable_effect}
+\alias{shap}
 \alias{individual_variable_effect.explainer}
 \alias{individual_variable_effect.default}
 \title{Individual Variable Effect}
@@ -9,7 +10,7 @@
 individual_variable_effect(x, ...)
 
 \method{individual_variable_effect}{explainer}(x, new_observation,
-  method = "KernelSHAP", nsamples = 100, ...)
+  method = "KernelSHAP", nsamples = "auto", ...)
 
 \method{individual_variable_effect}{default}(x, data,
   predict_function = predict, new_observation, label = tail(class(x),
@@ -25,7 +26,7 @@ explainers. Columns in should correspond to columns in the data argument. Data s
 
 \item{method}{an estimation method of SHAP values. Currently the only availible is `KernelSHAP`.}
 
-\item{nsamples}{number of samples. Note that number must be as integer. Use `as.integer()`.}
+\item{nsamples}{number of samples or "auto". Note that number must be as integer. Use `as.integer()`.}
 
 \item{data}{validation dataset. Used to determine univariate distributions, calculation of quantiles,
 correlations and so on. It will be extracted from `x` if it’s an explainer.}

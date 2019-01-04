@@ -14,7 +14,7 @@
 #' @param ... other parameters.
 #' @param label name of the model. By default it’s extracted from the class attribute of the model
 #' @param method an estimation method of SHAP values. Currently the only availible is `KernelSHAP`.
-#' @param nsamples number of samples. Note that number must be as integer. Use `as.integer()`.
+#' @param nsamples number of samples or "auto". Note that number must be as integer. Use `as.integer()`.
 #'
 #' @return an object of class individual_variable_effect with shap values of each variable for each new observation.
 #' Columns:
@@ -51,6 +51,8 @@
 #' }
 #'
 #' @export
+#' @aliases shap
+#'
 #' @rdname individual_variable_effect
 
 individual_variable_effect <- function(x, ...){
@@ -63,7 +65,7 @@ individual_variable_effect <- function(x, ...){
 #' @export
 #' @rdname individual_variable_effect
 individual_variable_effect.explainer <- function(x, new_observation,
-                                                 method = "KernelSHAP", nsamples = 100,
+                                                 method = "KernelSHAP", nsamples = "auto",
                                                  ...){
   # extracts model, data and predict function from the explainer
   model <- x$model
