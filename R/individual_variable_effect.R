@@ -60,8 +60,6 @@ individual_variable_effect <- function(x, ...){
 }
 
 
-
-
 #' @export
 #' @rdname individual_variable_effect
 individual_variable_effect.explainer <- function(x, new_observation,
@@ -89,7 +87,7 @@ individual_variable_effect.default <- function(x, data, predict_function = predi
                                                new_observation,
                                                label = tail(class(x), 1),
                                                method = "KernelSHAP",
-                                               nsamples = 100L,
+                                               nsamples = "auto",
                                                ...){
   # transform factors to numerics and keep factors' levels
   data_classes <- sapply(data, class)
@@ -101,6 +99,9 @@ individual_variable_effect.default <- function(x, data, predict_function = predi
       data_numeric[ ,col] <- as.numeric(data_numeric[ ,col]) - 1
     }
   }
+
+  # force nsamples to be an integer
+  if (is.numeric(nsamples)) nsamples <- as.integer(round(nsamples))
 
   p_function <- function(new_data) {
     new_data <- as.data.frame(new_data)
@@ -120,7 +121,7 @@ individual_variable_effect.default <- function(x, data, predict_function = predi
     return(res)
   }
   # TODO add other methods
-  explainer = shap$KernelExplainer(p_function, data_numeric)
+  explainer = shap_reference$KernelExplainer(p_function, data_numeric)
 
 
   new_observation_releveled <- new_observation
@@ -174,3 +175,7 @@ individual_variable_effect.default <- function(x, data, predict_function = predi
   class(new_data) <- c("individual_variable_effect", "data.frame")
   return(new_data)
 }
+
+#' @export
+#' @rdname individual_variable_effect
+shap <- individual_variable_effect

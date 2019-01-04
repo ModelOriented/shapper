@@ -4,6 +4,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 misc
+materials
 binder
 codecov.yml
 .travis.yml
