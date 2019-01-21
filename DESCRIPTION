@@ -9,11 +9,14 @@ Description: Wrapper of shap Python library.
 License: GPL
 Encoding: UTF-8
 LazyData: true
+URL: https://github.com/ModelOriented/shapper
+BugReports: https://github.com/ModelOriented/shapper/issues
 RoxygenNote: 6.1.1
 Imports: reticulate,
   ggplot2
 Suggests:
     covr,
+    dplyr,
     DALEX,
     DALEX2,
     knitr,
