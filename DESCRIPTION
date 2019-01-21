@@ -3,7 +3,8 @@ Title: Wrapper of `shap` Python Library
 Version: 0.1.0
 Authors@R: c(
   person("Alicja", "Gosiewska", email = "alicjagosiewska@gmail.com", role = c("aut", "cre")),
-  person("Przemyslaw", "Biecek", email = "przemyslaw.biecek@gmail.com", role = c("aut"))
+  person("Przemyslaw", "Biecek", email = "przemyslaw.biecek@gmail.com", role = c("aut")),
+  person("Michal", "Burdukiewicz", email = "michalburdukiewicz@gmail.com", role = c("ctb"))
   )
 Description: Wrapper of shap Python library.
 License: GPL
