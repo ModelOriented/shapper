@@ -26,13 +26,7 @@ The `shapper` is an R package which ports the `shap` python library in R. For de
 SHAP (SHapley Additive exPlanations) is a method to explain predictions of any machine learning model. 
 For more details about this method see [shap repository on github](https://github.com/slundberg/shap).
 
-# Install shaper and shap
-
-## R package shapper
-
-```{r, eval = FALSE}
-devtools::install_github("ModelOriented/shapper")
-```
+# Install shap
 
 ## Python library shap
 
@@ -45,11 +39,10 @@ shapper::install_shap()
 
 # Load data sets
 
-The example usage is presented on the `HR` dataset from the R package `DALEX2`. For more details see [DALEX2 github repository](https://github.com/ModelOriented/DALEX2).
+The example usage is presented on the `HR` dataset from the R package `DALEX`. For more details see [DALEX2 github repository](https://github.com/ModelOriented/DALEX2).
 
 ```{r}
-# devtools::install_github("ModelOriented/DALEX2")
-library("DALEX2")
+library("DALEX")
 Y_train <- HR$status
 x_train <- HR[ , -6]
 
@@ -117,6 +110,6 @@ plot(ive_rf, ive_tree, id = c(1,2), show_predcited = FALSE,
 
 
 ```{r}
-ive_rf_filtered <- dplyr::filter(ive_rf, `_ylevel_` =="fired")
+ive_rf_filtered <- ive_rf[ive_rf$`_ylevel_` =="fired", ]
 shapper:::plot.individual_variable_effect(ive_rf_filtered)
 ```

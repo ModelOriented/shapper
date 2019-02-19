@@ -120,7 +120,6 @@ individual_variable_effect.default <- function(x, data, predict_function = predi
     }
     return(res)
   }
-  # TODO add other methods
   explainer = shap_reference$KernelExplainer(p_function, data_numeric)
 
 

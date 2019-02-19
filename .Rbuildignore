@@ -10,4 +10,5 @@ codecov.yml
 .travis.yml
 _pkgdown.yaml
 _pkgdown.yml
-materials
+\materials
+README.md

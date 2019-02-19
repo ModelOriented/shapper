@@ -1,21 +1,31 @@
 library(DALEX)
+library(reticulate)
 
-ctl <- c(4.17,5.58,5.18,6.11,4.50,4.61,5.17,4.53,5.33,5.14)
-trt <- c(4.81,4.17,4.41,3.59,5.87,3.83,6.03,4.89,4.32,4.69)
-group <- gl(2, 10, 20, labels = c("Ctl","Trt"))
-weight <- c(ctl, trt)
-df <- data.frame(group = group, weight = weight, ran = rnorm(20))
+# helper function to skip tests if we don't have the 'shap' module
+skip_if_no_shap <- function() {
+  have_shap <- py_module_available("shap")
+  if (!have_shap)
+    skip("shap not available for testing")
+}
 
-model_reg <- lm(weight ~ ., df)
-model_class <- glm(group ~ ., df, family = "binomial")
+have_shap <- py_module_available("shap")
+if (have_shap){
+  ctl <- c(4.17,5.58,5.18,6.11,4.50,4.61,5.17,4.53,5.33,5.14)
+  trt <- c(4.81,4.17,4.41,3.59,5.87,3.83,6.03,4.89,4.32,4.69)
+  group <- gl(2, 10, 20, labels = c("Ctl","Trt"))
+  weight <- c(ctl, trt)
+  df <- data.frame(group = group, weight = weight, ran = rnorm(20))
 
-ive_rf_reg <- individual_variable_effect(model_reg, data = df[ , -2],
-                                         new_observation = df[1, -2], nsamples = 50)
+  model_reg <- lm(weight ~ ., df)
+  model_class <- glm(group ~ ., df, family = "binomial")
 
-ive_rf_class <- individual_variable_effect(model_class, data = df[ , -1],
-                                         new_observation = df[1, -1], nsamples = 50)
+  ive_rf_reg <- individual_variable_effect(model_reg, data = df[ , -2],
+                                           new_observation = df[1, -2], nsamples = 50)
 
-explainer_reg <- explain(model = model_reg, data = df[ , -2])
-ive_exp_reg <- individual_variable_effect(explainer_reg,
-                                         new_observation = df[1, -2], nsamples = 50)
+  ive_rf_class <- individual_variable_effect(model_class, data = df[ , -1],
+                                             new_observation = df[1, -1], nsamples = 50)
 
+  explainer_reg <- explain(model = model_reg, data = df[ , -2])
+  ive_exp_reg <- individual_variable_effect(explainer_reg,
+                                            new_observation = df[1, -2], nsamples = 50)
+}

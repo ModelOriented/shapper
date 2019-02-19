@@ -45,49 +45,81 @@ shapper::install_shap()
 
 # Load data sets
 
-The example usage is presented on the `HR` dataset from the R package `DALEX2`. For more details see [DALEX2 github repository](https://github.com/ModelOriented/DALEX2).
+The example usage is presented on the `titanic` dataset form the R package `titanic`. 
 
 ```{r}
-# devtools::install_github("ModelOriented/DALEX2")
-library("DALEX2")
-Y_train <- dragons$life_length
-x_train <- dragons[ , -8]
+library("titanic")
+titanic <- titanic_train[,c("Survived", "Pclass", "Sex", "Age", "SibSp", "Parch", "Fare", "Embarked")]
+titanic$Survived <- factor(titanic$Survived)
+titanic$Sex <- factor(titanic$Sex)
+titanic$Embarked <- factor(titanic$Embarked)
+titanic <- na.omit(titanic)
+head(titanic)
 ```
 
 
-# Let's build model
+# Let's build a model
 
 ```{r}
-library(randomForest)
+library("randomForest")
 set.seed(123)
-model_rf <- randomForest(x = x_train, y = Y_train)
+model_rf <- randomForest(Survived ~ . , data = titanic)
+model_rf
 ```
 
 
-# Here shapper starts
+## Prediction to be explained
 
-First step is to create an explainer for each model. The explainer is an object that wraps up a model and meta-data.
+Let's assume that we want to explain the prediction of a particular observation (male, 8 years old, traveling 1-st class embarked at C, without parents and siblings.
 
 ```{r}
-library(shapper)
+new_passanger <- data.frame(
+            Pclass = 1,
+            Sex = factor("male", levels = c("female", "male")),
+            Age = 8,
+            SibSp = 0,
+            Parch = 0,
+            Fare = 72,
+            Embarked = factor("C", levels = c("","C","Q","S"))
+)
+```
 
-ive_rf <- individual_variable_effect(model_rf, data = x_train,
-                                     new_observation = x_train[1,])
+
+
+
+## Here shapper starts
+
+To use the function `shap()` function (alias for `individual_variable_effect()`) we need four elements
+
+* a model,
+* a data set,
+* a function that calculated scores (predict function),
+* an instance (or instances) to be explained.
+
+The `shap()` function can be used directly with these four arguments, but for the simplicity here we are using the *DALEX* package with preimplemented predict functions.
+
+
+```{r}
+library("DALEX")
+exp_rf <- explain(model_rf, data = titanic[,-1])
+```
+
+The explainer is an object that wraps up a model and meta-data. Meta data consists of, at least, the data set used to fit model and observations to explain. 
+
+And now it's enough to generate SHAP attributions with explainer for RF model.
+
+```{r}
+library("shapper")
+ive_rf <- shap(exp_rf, new_observation = new_passanger)
 ```
 
 ```{r}
 ive_rf
 ```
 
+
 # Plotting results
 
 ```{r}
 plot(ive_rf)
 ```
-
-
-
-
-
-
-
