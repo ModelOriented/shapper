@@ -55,7 +55,14 @@
   </ul>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/ModelOriented/shapper">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -70,9 +77,9 @@
       <h1>How to use shapper for classification</h1>
                         <h4 class="author">Alicja Gosiewska</h4>
             
-            <h4 class="date">2019-01-04</h4>
+            <h4 class="date">2019-02-25</h4>
       
-      
+      <small class="dont-index">Source: <a href="https://github.com/ModelOriented/shapper/blob/master/vignettes/shapper_classification.Rmd"><code>vignettes/shapper_classification.Rmd</code></a></small>
       <div class="hidden name"><code>shapper_classification.Rmd</code></div>
 
     </div>
@@ -84,91 +91,79 @@
 <a href="#introduction" class="anchor"></a>Introduction</h1>
 <p>The <code>shapper</code> is an R package which ports the <code>shap</code> python library in R. For details and examples see <a href="https://github.com/ModelOriented/shapper">shapper repository on github</a> and <a href="https://modeloriented.github.io/shapper/">shapper website</a>.</p>
 <p>SHAP (SHapley Additive exPlanations) is a method to explain predictions of any machine learning model. For more details about this method see <a href="https://github.com/slundberg/shap">shap repository on github</a>.</p>
-</div>
-<div id="install-shaper-and-shap" class="section level1">
-<h1 class="hasAnchor">
-<a href="#install-shaper-and-shap" class="anchor"></a>Install shaper and shap</h1>
-<div id="r-package-shapper" class="section level2">
-<h2 class="hasAnchor">
-<a href="#r-package-shapper" class="anchor"></a>R package shapper</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"ModelOriented/shapper"</span>)</a></code></pre></div>
-</div>
 <div id="python-library-shap" class="section level2">
 <h2 class="hasAnchor">
 <a href="#python-library-shap" class="anchor"></a>Python library shap</h2>
 <p>To run shapper python library shap is required. It can be installed both by python or R. To install it throught R, you an use function <code>install_shap</code> from the <code>shapper</code> package.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">shapper<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/shapper/topics/install_shap">install_shap</a></span>()</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">shapper<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/shapper/topics/install_shap">install_shap</a></span>()</code></pre></div>
 </div>
 </div>
 <div id="load-data-sets" class="section level1">
 <h1 class="hasAnchor">
 <a href="#load-data-sets" class="anchor"></a>Load data sets</h1>
-<p>The example usage is presented on the <code>HR</code> dataset from the R package <code>DALEX2</code>. For more details see <a href="https://github.com/ModelOriented/DALEX2">DALEX2 github repository</a>.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># devtools::install_github("ModelOriented/DALEX2")</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">library</span>(<span class="st">"DALEX2"</span>)</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">Y_train &lt;-<span class="st"> </span>HR<span class="op">$</span>status</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">x_train &lt;-<span class="st"> </span>HR[ , <span class="dv">-6</span>]</a></code></pre></div>
+<p>The example usage is presented on the <code>HR</code> dataset from the R package <code>DALEX</code>. For more details see <a href="https://github.com/ModelOriented/DALEX2">DALEX2 github repository</a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"DALEX"</span>)
+Y_train &lt;-<span class="st"> </span>HR<span class="op">$</span>status
+x_train &lt;-<span class="st"> </span>HR[ , <span class="dv">-6</span>]</code></pre></div>
 </div>
 <div id="lets-build-models" class="section level1">
 <h1 class="hasAnchor">
 <a href="#lets-build-models" class="anchor"></a>Let’s build models</h1>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">library</span>(<span class="st">"randomForest"</span>)</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">model_rf &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/randomForest/topics/randomForest">randomForest</a></span>(<span class="dt">x =</span> x_train, <span class="dt">y =</span> Y_train)</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="kw">library</span>(rpart)</a>
-<a class="sourceLine" id="cb4-6" data-line-number="6">model_tree &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/rpart/topics/rpart">rpart</a></span>(status<span class="op">~</span>. , <span class="dt">data =</span> HR)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"randomForest"</span>)
+<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Random">set.seed</a></span>(<span class="dv">123</span>)
+model_rf &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/randomForest/topics/randomForest">randomForest</a></span>(<span class="dt">x =</span> x_train, <span class="dt">y =</span> Y_train)
+
+<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(rpart)
+model_tree &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/rpart/topics/rpart">rpart</a></span>(status<span class="op">~</span>. , <span class="dt">data =</span> HR)</code></pre></div>
 </div>
 <div id="here-shapper-starts" class="section level1">
 <h1 class="hasAnchor">
 <a href="#here-shapper-starts" class="anchor"></a>Here shapper starts</h1>
 <p>First step is to create an explainer for each model. The explainer is an object that wraps up a model and meta-data.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">library</span>(shapper)</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">p_function &lt;-<span class="st"> </span><span class="cf">function</span>(model, data) <span class="kw">predict</span>(model, <span class="dt">newdata =</span> data, <span class="dt">type =</span> <span class="st">"prob"</span>)</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5">ive_rf &lt;-<span class="st"> </span><span class="kw"><a href="../reference/individual_variable_effect.html">individual_variable_effect</a></span>(model_rf, <span class="dt">data =</span> x_train, <span class="dt">predict_function =</span> p_function,</a>
-<a class="sourceLine" id="cb5-6" data-line-number="6">            <span class="dt">new_observation =</span> x_train[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,], <span class="dt">nsamples =</span> <span class="dv">50</span>)</a>
-<a class="sourceLine" id="cb5-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9">ive_tree &lt;-<span class="st"> </span><span class="kw"><a href="../reference/individual_variable_effect.html">individual_variable_effect</a></span>(model_tree, <span class="dt">data =</span> x_train, <span class="dt">predict_function =</span> p_function,</a>
-<a class="sourceLine" id="cb5-10" data-line-number="10">            <span class="dt">new_observation =</span> x_train[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,], <span class="dt">nsamples =</span> <span class="dv">50</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">ive_rf</a></code></pre></div>
-<pre><code>##     gender      age    hours evaluation salary _id_ _ylevel_ _yhat_
-## 1     male 32.58267 41.88626          3      1    1    fired  0.854
-## 1.3   male 32.58267 41.88626          3      1    1    fired  0.854
-## 1.4   male 32.58267 41.88626          3      1    1    fired  0.854
-## 1.5   male 32.58267 41.88626          3      1    1    fired  0.854
-## 1.6   male 32.58267 41.88626          3      1    1    fired  0.854
-## 1.1   male 32.58267 41.88626          3      1    1       ok  0.144
-##     _yhat_mean_    _vname_ _attribution_ _sign_      _label_
-## 1     0.3755216     gender   -0.03312199      - randomForest
-## 1.3   0.3755216        age    0.02135603      + randomForest
-## 1.4   0.3755216      hours    0.30846492      + randomForest
-## 1.5   0.3755216 evaluation    0.11945970      + randomForest
-## 1.6   0.3755216     salary    0.06231975      + randomForest
-## 1.1   0.2758111     gender    0.02735491      + randomForest</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(shapper)
+
+p_function &lt;-<span class="st"> </span><span class="cf">function</span>(model, data) <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/predict">predict</a></span>(model, <span class="dt">newdata =</span> data, <span class="dt">type =</span> <span class="st">"prob"</span>)
+
+ive_rf &lt;-<span class="st"> </span><span class="kw"><a href="../reference/individual_variable_effect.html">individual_variable_effect</a></span>(model_rf, <span class="dt">data =</span> x_train, <span class="dt">predict_function =</span> p_function,
+            <span class="dt">new_observation =</span> x_train[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,], <span class="dt">nsamples =</span> <span class="dv">50</span>)
+
+
+ive_tree &lt;-<span class="st"> </span><span class="kw"><a href="../reference/individual_variable_effect.html">individual_variable_effect</a></span>(model_tree, <span class="dt">data =</span> x_train, <span class="dt">predict_function =</span> p_function,
+            <span class="dt">new_observation =</span> x_train[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,], <span class="dt">nsamples =</span> <span class="dv">50</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ive_rf</code></pre></div>
+<pre><code>    gender      age    hours evaluation salary _id_ _ylevel_ _yhat_ _yhat_mean_    _vname_ _attribution_ _sign_      _label_
+1     male 32.58267 41.88626          3      1    1    fired  0.854   0.3755216     gender   -0.03312199      - randomForest
+1.3   male 32.58267 41.88626          3      1    1    fired  0.854   0.3755216        age    0.02135603      + randomForest
+1.4   male 32.58267 41.88626          3      1    1    fired  0.854   0.3755216      hours    0.30846492      + randomForest
+1.5   male 32.58267 41.88626          3      1    1    fired  0.854   0.3755216 evaluation    0.11945970      + randomForest
+1.6   male 32.58267 41.88626          3      1    1    fired  0.854   0.3755216     salary    0.06231975      + randomForest
+1.1   male 32.58267 41.88626          3      1    1       ok  0.144   0.2758111     gender    0.02735491      + randomForest</code></pre>
 </div>
 <div id="plotting-results" class="section level1">
 <h1 class="hasAnchor">
 <a href="#plotting-results" class="anchor"></a>Plotting results</h1>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">plot</span>(ive_rf)</a></code></pre></div>
-<p><img src="shapper_classification_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(ive_rf)</code></pre></div>
+<div class="figure">
+<img src="https://raw.githubusercontent.com/ModelOriented/shapper/master/materials/vignettes_plots/classification_plot1.png">
+</div>
 <p>To see only attributions use option <code>show_predcited = FALSE</code>.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">plot</span>(ive_rf, <span class="dt">show_predcited =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
-<p><img src="shapper_classification_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">plot</span>(ive_rf, ive_tree, <span class="dt">show_predcited =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
-<p><img src="shapper_classification_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
-<p>To modfy grid layout us parameters <code>rows</code> and <code>cols</code>.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">plot</span>(ive_rf, ive_tree, <span class="dt">id =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">show_predcited =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2">     <span class="dt">rows =</span> <span class="kw">c</span>(<span class="st">"id"</span>), <span class="dt">cols =</span> <span class="kw">c</span>(<span class="st">"label"</span>, <span class="st">"ylevel"</span>))</a></code></pre></div>
-<p><img src="shapper_classification_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(ive_rf, <span class="dt">show_predcited =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="figure">
+<img src="https://raw.githubusercontent.com/ModelOriented/shapper/master/materials/vignettes_plots/classification_plot2.png">
+</div>
+<p>We can show many models on one grid.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(ive_rf, ive_tree, <span class="dt">show_predcited =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="figure">
+<img src="https://raw.githubusercontent.com/ModelOriented/shapper/master/materials/vignettes_plots/classification_plot3.png">
+</div>
 <div id="lets-filter-data-for-plot" class="section level2">
 <h2 class="hasAnchor">
 <a href="#lets-filter-data-for-plot" class="anchor"></a>Let’s filter data for plot</h2>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">ive_rf_filtered &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(ive_rf, <span class="st">`</span><span class="dt">_ylevel_</span><span class="st">`</span> <span class="op">==</span><span class="st">"fired"</span>)</a>
-<a class="sourceLine" id="cb12-2" data-line-number="2">shapper<span class="op">:::</span><span class="kw"><a href="../reference/plot.individual_variable_effect.html">plot.individual_variable_effect</a></span>(ive_rf_filtered)</a></code></pre></div>
-<p><img src="shapper_classification_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ive_rf_filtered &lt;-<span class="st"> </span>ive_rf[ive_rf<span class="op">$</span><span class="st">`</span><span class="dt">_ylevel_</span><span class="st">`</span> <span class="op">==</span><span class="st">"fired"</span>, ]
+shapper<span class="op">:::</span><span class="kw"><a href="../reference/plot.individual_variable_effect.html">plot.individual_variable_effect</a></span>(ive_rf_filtered)</code></pre></div>
+<div class="figure">
+<img src="https://raw.githubusercontent.com/ModelOriented/shapper/master/materials/vignettes_plots/classification_plot4.png">
+</div>
 </div>
 </div>
   </div>
@@ -178,11 +173,9 @@
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#introduction">Introduction</a></li>
-      <li>
-<a href="#install-shaper-and-shap">Install shaper and shap</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#r-package-shapper">R package shapper</a></li>
-      <li><a href="#python-library-shap">Python library shap</a></li>
+<li>
+<a href="#introduction">Introduction</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#python-library-shap">Python library shap</a></li>
       </ul>
 </li>
       <li><a href="#load-data-sets">Load data sets</a></li>

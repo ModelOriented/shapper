@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wrapper of `shap` Python Library • shapper</title>
+<title>Wrapper of Python Library 'shap' • shapper</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
@@ -55,7 +55,14 @@
   </ul>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/ModelOriented/shapper">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -77,13 +84,13 @@
 <h2 class="hasAnchor">
 <a href="#installation-and-configuration" class="anchor"></a>Installation and configuration</h2>
 <p>Install <code>shapper</code> R package</p>
-<pre><code><a href="http://www.rdocumentation.org/packages/devtools/topics/reexports">devtools::install_github("ModelOriented/shapper")</a></code></pre>
+<pre><code><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">devtools::install_github("ModelOriented/shapper")</a></code></pre>
 <p>You can install shap Python library via</p>
 <pre><code><a href="reference/install_shap.html">shapper::install_shap()</a></code></pre>
 <p>If installation didn’t work for some reason. Try installing dependencies first</p>
-<pre><code><a href="http://www.rdocumentation.org/packages/reticulate/topics/py_install">reticulate::py_install(c("numpy", "pandas"))</a></code></pre>
+<pre><code><a href="https://www.rdocumentation.org/packages/reticulate/topics/py_install">reticulate::py_install(c("numpy", "pandas"))</a></code></pre>
 <p>or</p>
-<pre><code><a href="http://www.rdocumentation.org/packages/reticulate/topics/conda-tools">reticulate::conda_install(c("numpy", "pandas"))</a></code></pre>
+<pre><code><a href="https://www.rdocumentation.org/packages/reticulate/topics/conda-tools">reticulate::conda_install(c("numpy", "pandas"))</a></code></pre>
 <p>Python library SHAP can be also installed from PyPI</p>
 <pre><code>pip install shap</code></pre>
 <p>or conda-forge</p>
@@ -93,7 +100,7 @@
 <div id="classification-example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#classification-example" class="anchor"></a>Classification Example</h2>
-<pre><code># instal shapper
+<pre><code><a href="https://www.rdocumentation.org/packages/base/topics/library"># instal shapper
 # devtools::install_github("ModelOriented/shapper")
 
 # install shap python library
@@ -119,7 +126,7 @@ ive_rf &lt;- individual_variable_effect(model_rf, data = x_train, predict_functi
             new_observation = x_train[1:2,], nsamples = 50)
 
 # plot
-plot(ive_rf)</code></pre>
+plot(ive_rf)</a></code></pre>
 <p><img src="materials/classification_plot.png" width="100%"></p>
 <pre><code># filtered
 ive_rf_filtered &lt;- dplyr::filter(ive_rf, `_ylevel_` =="fired")
@@ -130,7 +137,7 @@ shapper:::plot.individual_variable_effect(ive_rf_filtered)</code></pre>
 <div id="regression-example" class="section level1">
 <h1 class="hasAnchor">
 <a href="#regression-example" class="anchor"></a>Regression example</h1>
-<pre><code>library(shapper)
+<pre><code><a href="https://www.rdocumentation.org/packages/base/topics/library">library(shapper)
 
 library("DALEX2")
 library("randomForest")
@@ -144,7 +151,7 @@ model_rf &lt;- randomForest(x = x_train, y = Y_train)
 ive_rf &lt;- individual_variable_effect(model_rf, data = x_train,
                                      new_observation = x_train[1,])
 
-plot(ive_rf)</code></pre>
+plot(ive_rf)</a></code></pre>
 <p><img src="materials/regression_plot.png" width="100%"></p>
 </div>
 
@@ -159,7 +166,9 @@ plot(ive_rf)</code></pre>
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
-<li>Report a bug at <br><a href="NA">NA</a>
+<li>Browse source code at <br><a href="https://github.com/ModelOriented/shapper">https://​github.com/​ModelOriented/​shapper</a>
+</li>
+<li>Report a bug at <br><a href="https://github.com/ModelOriented/shapper/issues">https://​github.com/​ModelOriented/​shapper/​issues</a>
 </li>
 <li>Source code at <br><a href="https://github.com/ModelOriented/shapper">https://​github.com/​ModelOriented/​shapper</a>
 </li>
@@ -176,6 +185,7 @@ plot(ive_rf)</code></pre>
 <ul class="list-unstyled">
 <li>Alicja Gosiewska <br><small class="roles"> Author, maintainer </small>  </li>
 <li>Przemyslaw Biecek <br><small class="roles"> Author </small>  </li>
+<li><a href="authors.html">All authors...</a></li>
 </ul>
 </div>
 
