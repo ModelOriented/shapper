@@ -1,3 +1,5 @@
+^cran-comments\.md$
+^CRAN-RELEASE$
 ^docs$
 ^_pkgdown\.yml$
 ^codecov\.yml$
