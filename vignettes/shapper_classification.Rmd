@@ -94,7 +94,7 @@ ive_rf
 plot(ive_rf)
 ```
 
-![](https://github.com/ModelOriented/shapper/tree/master//materials/vignettes/classification_plot1.png)
+![](https://raw.githubusercontent.com/ModelOriented/shapper/master/materials/vignettes_plots/classification_plot1.png)
 
 To see only attributions use option `show_predcited = FALSE`.
 
@@ -102,7 +102,7 @@ To see only attributions use option `show_predcited = FALSE`.
 plot(ive_rf, show_predcited = FALSE)
 ```
 
-![](https://github.com/ModelOriented/shapper/tree/master//materials/vignettes/classification_plot2.png)
+![](https://raw.githubusercontent.com/ModelOriented/shapper/master/materials/vignettes_plots/classification_plot2.png)
 
 We can show many models on one grid.
 
@@ -111,7 +111,7 @@ plot(ive_rf, ive_tree, show_predcited = FALSE)
 ```
 
 
-![](https://github.com/ModelOriented/shapper/tree/master//materials/vignettes/classification_plot3.png)
+![](https://raw.githubusercontent.com/ModelOriented/shapper/master/materials/vignettes_plots/classification_plot3.png)
 
 ## Let's filter data for plot
 
@@ -122,4 +122,4 @@ shapper:::plot.individual_variable_effect(ive_rf_filtered)
 ```
 
 
-![](https://github.com/ModelOriented/shapper/tree/master//materials/vignettes/classification_plot4.png)
+![](https://raw.githubusercontent.com/ModelOriented/shapper/master/materials/vignettes_plots/classification_plot4.png)

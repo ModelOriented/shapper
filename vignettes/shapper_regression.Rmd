@@ -153,4 +153,4 @@ ive_rf
 plot(ive_rf)
 ```
 
-![](https://github.com/ModelOriented/shapper/tree/master//materials/vignettes/regression_plot1.png)
+![](https://raw.githubusercontent.com/ModelOriented/shapper/master/materials/vignettes_plots/regression_plot1.png)
