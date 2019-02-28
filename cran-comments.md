@@ -8,3 +8,10 @@
 0 errors | 0 warnings | 1 note
 
 * This is a new release.
+
+
+## Changes on the previous submission:
+
+* I have changed Description due to the suggestion that it should start with "Provides...".
+* I have added references to Description.
+* Now examples are not wrapped in \dontrun{}.
