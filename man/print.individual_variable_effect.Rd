@@ -9,9 +9,12 @@
 \arguments{
 \item{x}{an individual variable importance explainer created with the \code{\link{individual_variable_effect}} function.}
 
-\item{...}{further arguments passed to or from other methods.
-
-#' @examples
+\item{...}{further arguments passed to or from other methods.}
+}
+\description{
+Print Individual Variable Effects
+}
+\examples{
 have_shap <- reticulate::py_module_available("shap")
 
 if(have_shap){
@@ -29,8 +32,6 @@ if(have_shap){
   print(ive_rf)
 }else{
     print('Python testing environment is required.')
-}}
 }
-\description{
-Print Individual Variable Effects
+
 }

@@ -115,34 +115,52 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p>further arguments passed to or from other methods.</p>
-<p>#' @examples
-have_shap &lt;- reticulate::py_module_available("shap")</p>
-<p>if(have_shap)
-  library("shapper")
-  library("DALEX")
-  library("randomForest")
-  Y_train &lt;- HR$status
-  x_train &lt;- HR[ , -6]
-  set.seed(123)
-  model_rf &lt;- randomForest(x = x_train, y = Y_train, ntree= 50)
-  p_function &lt;- function(model, data) predict(model, newdata = data, type = "prob")
-
-  ive_rf &lt;- individual_variable_effect(model_rf, data = x_train, predict_function = p_function,
-                                     new_observation = x_train[1:2,], nsamples = 50)
-  print(ive_rf)
-else
-    print('Python testing environment is required.')</p></td>
+      <td><p>further arguments passed to or from other methods.</p></td>
     </tr>
     </table>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>have_shap</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>reticulate</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/reticulate/topics/py_module_available'>py_module_available</a></span>(<span class='st'>"shap"</span>)
+
+<span class='kw'>if</span>(<span class='no'>have_shap</span>){
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='st'>"shapper"</span>)
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='st'>"DALEX"</span>)
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='st'>"randomForest"</span>)
+  <span class='no'>Y_train</span> <span class='kw'>&lt;-</span> <span class='no'>HR</span>$<span class='no'>status</span>
+  <span class='no'>x_train</span> <span class='kw'>&lt;-</span> <span class='no'>HR</span>[ , -<span class='fl'>6</span>]
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>123</span>)
+  <span class='no'>model_rf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/randomForest/topics/randomForest'>randomForest</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x_train</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>Y_train</span>, <span class='kw'>ntree</span><span class='kw'>=</span> <span class='fl'>50</span>)
+  <span class='no'>p_function</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>model</span>, <span class='no'>data</span>) <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/predict'>predict</a></span>(<span class='no'>model</span>, <span class='kw'>newdata</span> <span class='kw'>=</span> <span class='no'>data</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"prob"</span>)
+
+  <span class='no'>ive_rf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='individual_variable_effect.html'>individual_variable_effect</a></span>(<span class='no'>model_rf</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>x_train</span>, <span class='kw'>predict_function</span> <span class='kw'>=</span> <span class='no'>p_function</span>,
+                                     <span class='kw'>new_observation</span> <span class='kw'>=</span> <span class='no'>x_train</span>[<span class='fl'>1</span>:<span class='fl'>2</span>,], <span class='kw'>nsamples</span> <span class='kw'>=</span> <span class='fl'>50</span>)
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>ive_rf</span>)
+}<span class='kw'>else</span>{
+    <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='st'>'Python testing environment is required.'</span>)
+}</div><div class='output co'>#&gt;     gender      age    hours evaluation salary _id_ _ylevel_ _yhat_ _yhat_mean_
+#&gt; 1     male 32.58267 41.88626          3      1    1    fired    0.9   0.3787180
+#&gt; 1.3   male 32.58267 41.88626          3      1    1    fired    0.9   0.3787180
+#&gt; 1.4   male 32.58267 41.88626          3      1    1    fired    0.9   0.3787180
+#&gt; 1.5   male 32.58267 41.88626          3      1    1    fired    0.9   0.3787180
+#&gt; 1.6   male 32.58267 41.88626          3      1    1    fired    0.9   0.3787180
+#&gt; 1.1   male 32.58267 41.88626          3      1    1       ok    0.1   0.2730292
+#&gt;        _vname_ _attribution_ _sign_      _label_
+#&gt; 1       gender   -0.02056803      - randomForest
+#&gt; 1.3        age    0.03448379      + randomForest
+#&gt; 1.4      hours    0.32636349      + randomForest
+#&gt; 1.5 evaluation    0.11472954      + randomForest
+#&gt; 1.6     salary    0.06627323      + randomForest
+#&gt; 1.1     gender    0.01840784      + randomForest</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+            
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

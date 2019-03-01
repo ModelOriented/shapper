@@ -3,7 +3,7 @@
 #' @param x an individual variable importance explainer created with the \code{\link{individual_variable_effect}} function.
 #' @param ... further arguments passed to or from other methods.
 #'
-#' #' @examples
+#' @examples
 #' have_shap <- reticulate::py_module_available("shap")
 #'
 #' if(have_shap){

@@ -12,6 +12,4 @@
 
 ## Changes on the previous submission:
 
-* I have changed Description due to the suggestion that it should start with "Provides...".
-* I have added references to Description.
-* Now examples are not wrapped in \dontrun{}.
+* I have fixed double #' in @examples in print_individual_variable_effect.Rd  
