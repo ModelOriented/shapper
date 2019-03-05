@@ -1,6 +1,7 @@
 # shapper
 
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/shapper)](https://CRAN.R-project.org/package=shapper)
+[![Total Downloads](http://cranlogs.r-pkg.org/badges/grand-total/shapper?color=orange)](https://cranlogs.r-pkg.org/badges/grand-total/shapper)
 [![Build Status](https://travis-ci.org/ModelOriented/shapper.svg?branch=master)](https://travis-ci.org/ModelOriented/shapper)
 [![Coverage
 Status](https://img.shields.io/codecov/c/github/ModelOriented/shapper/master.svg)](https://codecov.io/github/ModelOriented/shapper?branch=master)
