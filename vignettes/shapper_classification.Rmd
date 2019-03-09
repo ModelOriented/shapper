@@ -16,8 +16,7 @@ vignette: >
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,
                       message = FALSE,
-                      warning = FALSE,
-                      eval = FALSE)
+                      warning = FALSE)
 ```
 
 # Introduction
@@ -78,40 +77,25 @@ ive_tree <- individual_variable_effect(model_tree, data = x_train, predict_funct
 ```{r}
 ive_rf
 ```
-```
-    gender      age    hours evaluation salary _id_ _ylevel_ _yhat_ _yhat_mean_    _vname_ _attribution_ _sign_      _label_
-1     male 32.58267 41.88626          3      1    1    fired  0.854   0.3755216     gender   -0.03312199      - randomForest
-1.3   male 32.58267 41.88626          3      1    1    fired  0.854   0.3755216        age    0.02135603      + randomForest
-1.4   male 32.58267 41.88626          3      1    1    fired  0.854   0.3755216      hours    0.30846492      + randomForest
-1.5   male 32.58267 41.88626          3      1    1    fired  0.854   0.3755216 evaluation    0.11945970      + randomForest
-1.6   male 32.58267 41.88626          3      1    1    fired  0.854   0.3755216     salary    0.06231975      + randomForest
-1.1   male 32.58267 41.88626          3      1    1       ok  0.144   0.2758111     gender    0.02735491      + randomForest
-```
 
 # Plotting results
 
 ```{r plot1}
-plot(ive_rf)
+plot(ive_rf, bar_width = 4)
 ```
-
-![](https://raw.githubusercontent.com/ModelOriented/shapper/master/materials/vignettes_plots/classification_plot1.png)
 
 To see only attributions use option `show_predcited = FALSE`.
 
 ```{r}
-plot(ive_rf, show_predcited = FALSE)
+plot(ive_rf, show_predcited = FALSE, bar_width = 4)
 ```
-
-![](https://raw.githubusercontent.com/ModelOriented/shapper/master/materials/vignettes_plots/classification_plot2.png)
 
 We can show many models on one grid.
 
 ```{r}
-plot(ive_rf, ive_tree, show_predcited = FALSE)
+plot(ive_rf, ive_tree, show_predcited = FALSE, bar_width = 4)
 ```
 
-
-![](https://raw.githubusercontent.com/ModelOriented/shapper/master/materials/vignettes_plots/classification_plot3.png)
 
 ## Let's filter data for plot
 
@@ -121,5 +105,3 @@ ive_rf_filtered <- ive_rf[ive_rf$`_ylevel_` =="fired", ]
 shapper:::plot.individual_variable_effect(ive_rf_filtered)
 ```
 
-
-![](https://raw.githubusercontent.com/ModelOriented/shapper/master/materials/vignettes_plots/classification_plot4.png)

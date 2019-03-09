@@ -16,8 +16,7 @@ vignette: >
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,
                       message = FALSE,
-                      warning = FALSE,
-                      eval = FALSE)
+                      warning = FALSE)
 ```
 
 # Introduction
@@ -31,7 +30,7 @@ For more details about this method see [shap repository on github](https://githu
 
 ## R package shapper
 
-```{r, eval = FALSE}
+```{r}
 library("shapper")
 ```
 
@@ -58,16 +57,6 @@ titanic <- na.omit(titanic)
 head(titanic)
 ```
 
-```
-  Survived Pclass    Sex Age SibSp Parch    Fare Embarked
-1        0      3   male  22     1     0  7.2500        S
-2        1      1 female  38     1     0 71.2833        C
-3        1      3 female  26     0     0  7.9250        S
-4        1      1 female  35     1     0 53.1000        S
-5        0      3   male  35     0     0  8.0500        S
-7        0      1   male  54     0     0 51.8625        S
-```
-
 # Let's build a model
 
 ```{r}
@@ -75,20 +64,6 @@ library("randomForest")
 set.seed(123)
 model_rf <- randomForest(Survived ~ . , data = titanic)
 model_rf
-```
-
-```
-Call:
- randomForest(formula = Survived ~ ., data = titanic) 
-               Type of random forest: classification
-                     Number of trees: 500
-No. of variables tried at each split: 2
-
-        OOB estimate of  error rate: 18.63%
-Confusion matrix:
-    0   1 class.error
-0 384  40  0.09433962
-1  93 197  0.32068966
 ```
 
 ## Prediction to be explained
@@ -106,8 +81,6 @@ new_passanger <- data.frame(
             Embarked = factor("C", levels = c("","C","Q","S"))
 )
 ```
-
-
 
 
 ## Here shapper starts
@@ -137,20 +110,8 @@ ive_rf <- shap(exp_rf, new_observation = new_passanger)
 ive_rf
 ```
 
-```
-    Pclass  Sex Age SibSp Parch Fare Embarked _id_ _ylevel_ _yhat_ _yhat_mean_ _vname_ _attribution_ _sign_      _label_
-1        1 male   8     0     0   72        C    1        0  0.442   0.6327059  Pclass  -0.070047752      - randomForest
-1.2      1 male   8     0     0   72        C    1        0  0.442   0.6327059     Sex   0.154519708      + randomForest
-1.3      1 male   8     0     0   72        C    1        0  0.442   0.6327059     Age  -0.143046212      - randomForest
-1.4      1 male   8     0     0   72        C    1        0  0.442   0.6327059   SibSp  -0.003154522      - randomForest
-1.5      1 male   8     0     0   72        C    1        0  0.442   0.6327059   Parch   0.018111585      + randomForest
-1.6      1 male   8     0     0   72        C    1        0  0.442   0.6327059    Fare  -0.086728705      - randomForest
-```
-
 # Plotting results
 
 ```{r}
 plot(ive_rf)
 ```
-
-![](https://raw.githubusercontent.com/ModelOriented/shapper/master/materials/vignettes_plots/regression_plot1.png)

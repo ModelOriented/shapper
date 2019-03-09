@@ -7,7 +7,8 @@
 \method{plot}{individual_variable_effect}(x, ..., id = 1, digits = 2,
   rounding_function = round, show_predcited = TRUE,
   show_attributions = TRUE, cols = c("label", "id"), rows = "ylevel",
-  selected = NULL)
+  selected = NULL, bar_width = 8, vcolors = c(`-` = "#f05a71", `0` =
+  "#371ea3", `+` = "#8bdcbe", X = "#371ea3", pred = "#371ea3"))
 }
 \arguments{
 \item{x}{an individual variable effect explainer produced with function `individual_variable_effect()`}
@@ -29,6 +30,10 @@
 \item{rows}{A vector of characters defining faceting groups on rows dimension. Possible values: 'label', 'id', 'ylevel'.}
 
 \item{selected}{A vector of characters. If specified, then only selected classes are presented}
+
+\item{bar_width}{width of bars. By default 8}
+
+\item{vcolors}{named vector with colors}
 }
 \value{
 a ggplot2 object
@@ -46,13 +51,18 @@ if(have_shap){
   Y_train <- HR$status
   x_train <- HR[ , -6]
   set.seed(123)
-  model_rf <- randomForest(x = x_train, y = Y_train, ntree= 50)
+  model_rf <- randomForest(x = x_train, y = Y_train, ntree = 50)
   p_function <- function(model, data) predict(model, newdata = data, type = "prob")
 
   ive_rf <- individual_variable_effect(model_rf, data = x_train, predict_function = p_function,
                                      new_observation = x_train[1:2,], nsamples = 50)
-  plot(ive_rf)
-}else{
+  pl1 <- plot(ive_rf, bar_width = 4)
+  pl2 <- plot(ive_rf, bar_width = 4, show_predcited = FALSE)
+  pl3 <- plot(ive_rf, bar_width = 4, show_predcited = FALSE, cols = c("id","ylevel"), rows = "label")
+  print(pl1)
+  print(pl2)
+  print(pl3)
+} else {
     print('Python testing environment is required.')
 }
 }

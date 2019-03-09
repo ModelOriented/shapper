@@ -84,13 +84,13 @@
 <h2 class="hasAnchor">
 <a href="#installation-and-configuration" class="anchor"></a>Installation and configuration</h2>
 <p>Install <code>shapper</code> R package</p>
-<pre><code><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">devtools::install_github("ModelOriented/shapper")</a></code></pre>
+<pre><code><a href="http://www.rdocumentation.org/packages/devtools/topics/reexports">devtools::install_github("ModelOriented/shapper")</a></code></pre>
 <p>You can install shap Python library via</p>
 <pre><code><a href="reference/install_shap.html">shapper::install_shap()</a></code></pre>
 <p>If installation didn’t work for some reason. Try installing dependencies first</p>
-<pre><code><a href="https://www.rdocumentation.org/packages/reticulate/topics/py_install">reticulate::py_install(c("numpy", "pandas"))</a></code></pre>
+<pre><code><a href="http://www.rdocumentation.org/packages/reticulate/topics/py_install">reticulate::py_install(c("numpy", "pandas"))</a></code></pre>
 <p>or</p>
-<pre><code><a href="https://www.rdocumentation.org/packages/reticulate/topics/conda-tools">reticulate::conda_install(c("numpy", "pandas"))</a></code></pre>
+<pre><code><a href="http://www.rdocumentation.org/packages/reticulate/topics/conda-tools">reticulate::conda_install(c("numpy", "pandas"))</a></code></pre>
 <p>Python library SHAP can be also installed from PyPI</p>
 <pre><code>pip install shap</code></pre>
 <p>or conda-forge</p>
@@ -100,7 +100,7 @@
 <div id="classification-example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#classification-example" class="anchor"></a>Classification Example</h2>
-<pre><code><a href="https://www.rdocumentation.org/packages/base/topics/library"># instal shapper
+<pre><code># instal shapper
 # devtools::install_github("ModelOriented/shapper")
 
 # install shap python library
@@ -126,7 +126,7 @@ ive_rf &lt;- individual_variable_effect(model_rf, data = x_train, predict_functi
             new_observation = x_train[1:2,], nsamples = 50)
 
 # plot
-plot(ive_rf)</a></code></pre>
+plot(ive_rf)</code></pre>
 <p><img src="materials/classification_plot.png" width="100%"></p>
 <pre><code># filtered
 ive_rf_filtered &lt;- dplyr::filter(ive_rf, `_ylevel_` =="fired")
@@ -137,7 +137,7 @@ shapper:::plot.individual_variable_effect(ive_rf_filtered)</code></pre>
 <div id="regression-example" class="section level1">
 <h1 class="hasAnchor">
 <a href="#regression-example" class="anchor"></a>Regression example</h1>
-<pre><code><a href="https://www.rdocumentation.org/packages/base/topics/library">library(shapper)
+<pre><code>library(shapper)
 
 library("DALEX2")
 library("randomForest")
@@ -151,7 +151,7 @@ model_rf &lt;- randomForest(x = x_train, y = Y_train)
 ive_rf &lt;- individual_variable_effect(model_rf, data = x_train,
                                      new_observation = x_train[1,])
 
-plot(ive_rf)</a></code></pre>
+plot(ive_rf)</code></pre>
 <p><img src="materials/regression_plot.png" width="100%"></p>
 </div>
 
@@ -166,6 +166,8 @@ plot(ive_rf)</a></code></pre>
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
+<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=shapper">https://​cloud.r-project.org/​package=shapper</a>
+</li>
 <li>Browse source code at <br><a href="https://github.com/ModelOriented/shapper">https://​github.com/​ModelOriented/​shapper</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/ModelOriented/shapper/issues">https://​github.com/​ModelOriented/​shapper/​issues</a>
@@ -193,6 +195,7 @@ plot(ive_rf)</a></code></pre>
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://CRAN.R-project.org/package=shapper"><img src="http://www.r-pkg.org/badges/version/shapper" alt="CRAN_Status_Badge"></a></li>
+<li><a href="https://cranlogs.r-pkg.org/badges/grand-total/shapper"><img src="http://cranlogs.r-pkg.org/badges/grand-total/shapper?color=orange" alt="Total Downloads"></a></li>
 <li><a href="https://travis-ci.org/ModelOriented/shapper"><img src="https://travis-ci.org/ModelOriented/shapper.svg?branch=master" alt="Build Status"></a></li>
 <li><a href="https://codecov.io/github/ModelOriented/shapper?branch=master"><img src="https://img.shields.io/codecov/c/github/ModelOriented/shapper/master.svg" alt="Coverage Status"></a></li>
 <li><a href="https://mybinder.org/v2/gh/ModelOriented/shapper/master?filepath=binder%2Fshapper.ipynb"><img src="https://mybinder.org/badge_logo.svg" alt="Binder"></a></li>
