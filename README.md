@@ -11,6 +11,7 @@ An R wrapper of SHAP python library
 
 [Pkgdown Website]( https://modeloriented.github.io/shapper/)
 
+[Blog post with gentle introduction to shapper](http://smarterpoland.pl/index.php/2019/03/shapper-is-on-cran-its-an-r-wrapper-over-shap-explainer-for-black-box-models/)
 
 ## Installation and configuration
 
