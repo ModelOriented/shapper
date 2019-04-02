@@ -22,6 +22,7 @@ before_install:
   - sudo apt-get install python3-tk
   - sudo -H pip3 install numpy==1.15.4
   - sudo -H pip3 install scikit-image==0.14.0 --ignore-installed six
+  - sudo -H pip3 install numpy==1.15.4
   - sudo -H pip3 install shap --ignore-installed six
   #-------------------------------------
   - sudo apt-get update
