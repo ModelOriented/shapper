@@ -21,6 +21,7 @@ before_install:
   - sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 3
   - sudo apt-get install python3-tk
   - sudo -H pip3 install shap --ignore-installed six
+  - sudo pip3 install numpy==1.15.4
   #-------------------------------------
   - sudo apt-get update
   - ls /usr/local/lib/python3.4/dist-packages
