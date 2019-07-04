@@ -2,8 +2,10 @@ Package: shapper
 Title: Wrapper of Python Library 'shap'
 Version: 0.1.0
 Authors@R: c(
-  person("Alicja", "Gosiewska", email = "alicjagosiewska@gmail.com", role = c("aut", "cre")),
+  person("Szymon", "Maksymiuk", email = "sz.maksymiuk@gmail.com", role = c("aut", "cre")),
+  person("Alicja", "Gosiewska", email = "alicjagosiewska@gmail.com", role = c("aut")),
   person("Przemyslaw", "Biecek", email = "przemyslaw.biecek@gmail.com", role = c("aut")),
+  person("Mateusz", "Staniak", role = c("ctb")),
   person("Michal", "Burdukiewicz", email = "michalburdukiewicz@gmail.com", role = c("ctb"))
   )
 Description: Provides SHAP explanations of machine learning models. In applied machine learning, there is a strong belief that we need to strike a balance between interpretability and accuracy. However, in field of the Interpretable Machine Learning, there are more and more new ideas for explaining black-box models. One of the best known method for local explanations is SHapley Additive exPlanations (SHAP) introduced by Lundberg, S., et al., (2016) <arXiv:1705.07874> The SHAP method is used to calculate influences of variables on the particular observation. This method is based on Shapley values, a technique used in game theory. The R package 'shapper' is a port of the Python library 'shap'. 
