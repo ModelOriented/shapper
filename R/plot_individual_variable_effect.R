@@ -7,7 +7,7 @@
 #' @param id of observation. By default first observation is taken.
 #' @param digits number of decimal places (round) or significant digits (signif) to be used. See the \code{rounding_function} argument.
 #' @param rounding_function function that is to used for rounding numbers. It may be \code{signif()} which keeps a specified number of significant digits. Or the default \code{round()} to have the same precision for all components
-#' @param show_predcited show arrows for predicted values.
+#' @param show_predicted show arrows for predicted values.
 #' @param show_attributions show attributions values.
 #' @param cols A vector of characters defining faceting groups on columns dimension. Possible values: 'label', 'id', 'ylevel'.
 #' @param rows A vector of characters defining faceting groups on rows dimension. Possible values: 'label', 'id', 'ylevel'.
@@ -35,8 +35,8 @@
 #'   ive_rf <- individual_variable_effect(model_rf, data = x_train, predict_function = p_function,
 #'                                      new_observation = x_train[1:2,], nsamples = 50)
 #'   pl1 <- plot(ive_rf, bar_width = 4)
-#'   pl2 <- plot(ive_rf, bar_width = 4, show_predcited = FALSE)
-#'   pl3 <- plot(ive_rf, bar_width = 4, show_predcited = FALSE, 
+#'   pl2 <- plot(ive_rf, bar_width = 4, show_predicted = FALSE)
+#'   pl3 <- plot(ive_rf, bar_width = 4, show_predicted = FALSE, 
 #'               cols = c("id","ylevel"), rows = "label")
 #'   print(pl1)
 #'   print(pl2)
@@ -55,7 +55,7 @@ plot.individual_variable_effect <-
            id = 1,
            digits = 2,
            rounding_function = round,
-           show_predcited = TRUE,
+           show_predicted = TRUE,
            show_attributions = TRUE,
            cols = c("label", "id"),
            rows = "ylevel",
@@ -110,7 +110,7 @@ plot.individual_variable_effect <-
     
     x$pretty_text <-
       paste0("   ", rounding_function(x$`_attribution_`, digits), "   ")
-    if (show_predcited == TRUE) {
+    if (show_predicted == TRUE) {
       levels(x$`_ext_vname_`) <- c(levels(x$`_ext_vname_`), "_predicted_")
       for (i in 1:length(id)) {
         x_pred <- x[id == i, ]

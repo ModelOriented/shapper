@@ -5,7 +5,7 @@
 \title{Plots Attributions for Variables of Individual Prediction}
 \usage{
 \method{plot}{individual_variable_effect}(x, ..., id = 1, digits = 2,
-  rounding_function = round, show_predcited = TRUE,
+  rounding_function = round, show_predicted = TRUE,
   show_attributions = TRUE, cols = c("label", "id"), rows = "ylevel",
   selected = NULL, bar_width = 8, vcolors = c(`-` = "#f05a71", `0` =
   "#371ea3", `+` = "#8bdcbe", X = "#371ea3", pred = "#371ea3"))
@@ -21,7 +21,7 @@
 
 \item{rounding_function}{function that is to used for rounding numbers. It may be \code{signif()} which keeps a specified number of significant digits. Or the default \code{round()} to have the same precision for all components}
 
-\item{show_predcited}{show arrows for predicted values.}
+\item{show_predicted}{show arrows for predicted values.}
 
 \item{show_attributions}{show attributions values.}
 
@@ -57,8 +57,8 @@ if(have_shap){
   ive_rf <- individual_variable_effect(model_rf, data = x_train, predict_function = p_function,
                                      new_observation = x_train[1:2,], nsamples = 50)
   pl1 <- plot(ive_rf, bar_width = 4)
-  pl2 <- plot(ive_rf, bar_width = 4, show_predcited = FALSE)
-  pl3 <- plot(ive_rf, bar_width = 4, show_predcited = FALSE, 
+  pl2 <- plot(ive_rf, bar_width = 4, show_predicted = FALSE)
+  pl3 <- plot(ive_rf, bar_width = 4, show_predicted = FALSE, 
               cols = c("id","ylevel"), rows = "label")
   print(pl1)
   print(pl2)

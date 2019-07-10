@@ -84,16 +84,16 @@ ive_rf
 plot(ive_rf, bar_width = 4)
 ```
 
-To see only attributions use option `show_predcited = FALSE`.
+To see only attributions use option `show_predicted = FALSE`.
 
 ```{r eval = FALSE}
-plot(ive_rf, show_predcited = FALSE, bar_width = 4)
+plot(ive_rf, show_predicted = FALSE, bar_width = 4)
 ```
 
 We can show many models on one grid.
 
 ```{r eval = FALSE}
-plot(ive_rf, ive_tree, show_predcited = FALSE, bar_width = 4)
+plot(ive_rf, ive_tree, show_predicted = FALSE, bar_width = 4)
 ```
 
 
