@@ -57,7 +57,7 @@ Columns:
   \item _label_ a label
 }
 
-In order to use shapper with other python virtual environment following R command are required to execute 
+In order to use shapper with other python virtual environment following R command are required to execute
 reticulate::use_virtualenv("path_to_your_env")
 or for conda
 reticulate::use_conda("name_of_conda_env")
