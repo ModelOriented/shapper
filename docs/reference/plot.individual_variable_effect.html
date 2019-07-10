@@ -45,8 +45,8 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-	  <a class = "navbar-mi2logo" href="http://mi2.mini.pw.edu.pl/">
-        <img src = "https://github.com/mi2-warsaw/MI2template/blob/master/inst/pkgdown/assets/MI2logo.jpg?raw=true" alt = "MI2" height = 46 title = "MI2">
+	  <a class = "navbar-mi2logo" href="http://DrWhy.AI/">
+        <img src = "https://github.com/ModelOriented/DrWhyTemplate/blob/master/inst/pkgdown/assets/drwhy_znak_violet_small.jpg?raw=true" alt = "MI2" height = 46 title = "MI2">
 	  </a>
       <a class="navbar-brand navbar-mi2" href="../index.html">Plots Attributions for Variables of Individual Prediction</a>
     </div>
@@ -75,6 +75,9 @@
       <a href="../articles/shapper_regression.html">How to use shapper for regression</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -185,7 +188,8 @@
                                      <span class='kw'>new_observation</span> <span class='kw'>=</span> <span class='no'>x_train</span>[<span class='fl'>1</span>:<span class='fl'>2</span>,], <span class='kw'>nsamples</span> <span class='kw'>=</span> <span class='fl'>50</span>)
   <span class='no'>pl1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>ive_rf</span>, <span class='kw'>bar_width</span> <span class='kw'>=</span> <span class='fl'>4</span>)
   <span class='no'>pl2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>ive_rf</span>, <span class='kw'>bar_width</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>show_predcited</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-  <span class='no'>pl3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>ive_rf</span>, <span class='kw'>bar_width</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>show_predcited</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"id"</span>,<span class='st'>"ylevel"</span>), <span class='kw'>rows</span> <span class='kw'>=</span> <span class='st'>"label"</span>)
+  <span class='no'>pl3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>ive_rf</span>, <span class='kw'>bar_width</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>show_predcited</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+              <span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"id"</span>,<span class='st'>"ylevel"</span>), <span class='kw'>rows</span> <span class='kw'>=</span> <span class='st'>"label"</span>)
   <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>pl1</span>)
   <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>pl2</span>)
   <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>pl3</span>)
@@ -208,7 +212,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by Alicja Gosiewska, Przemyslaw Biecek.</p>
+  <p>Developed by Szymon Maksymiuk, Alicja Gosiewska, Przemyslaw Biecek.</p>
 </div>
 
 <div class="pkgdown">

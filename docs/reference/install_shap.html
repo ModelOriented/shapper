@@ -45,8 +45,8 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-	  <a class = "navbar-mi2logo" href="http://mi2.mini.pw.edu.pl/">
-        <img src = "https://github.com/mi2-warsaw/MI2template/blob/master/inst/pkgdown/assets/MI2logo.jpg?raw=true" alt = "MI2" height = 46 title = "MI2">
+	  <a class = "navbar-mi2logo" href="http://DrWhy.AI/">
+        <img src = "https://github.com/ModelOriented/DrWhyTemplate/blob/master/inst/pkgdown/assets/drwhy_znak_violet_small.jpg?raw=true" alt = "MI2" height = 46 title = "MI2">
 	  </a>
       <a class="navbar-brand navbar-mi2" href="../index.html">Install shap Python library</a>
     </div>
@@ -76,6 +76,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -103,7 +106,7 @@
     <p>Install shap Python library</p>
     
 
-    <pre class="usage"><span class='fu'>install_shap</span>(<span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"auto"</span>, <span class='kw'>conda</span> <span class='kw'>=</span> <span class='st'>"auto"</span>)</pre>
+    <pre class="usage"><span class='fu'>install_shap</span>(<span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"auto"</span>, <span class='kw'>conda</span> <span class='kw'>=</span> <span class='st'>"auto"</span>, <span class='kw'>envname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -111,21 +114,27 @@
     <tr>
       <th>method</th>
       <td><p>Installation method. By default, "auto".
-It is passed to the <code><a href='https://www.rdocumentation.org/packages/reticulate/topics/py_install'>py_install</a></code> function form package `reticulate`.</p></td>
+It is passed to the <code><a href='https://www.rdocumentation.org/packages/reticulate/topics/py_install'>py_install</a></code> function from package `reticulate`.</p></td>
     </tr>
     <tr>
       <th>conda</th>
       <td><p>Path to conda executable.
-It is passed to the <code><a href='https://www.rdocumentation.org/packages/reticulate/topics/py_install'>py_install</a></code> function form package `reticulate`.</p></td>
+It is passed to the <code><a href='https://www.rdocumentation.org/packages/reticulate/topics/py_install'>py_install</a></code> function from package `reticulate`.</p></td>
+    </tr>
+    <tr>
+      <th>envname</th>
+      <td><p>Name of environment to install shapp package into. If NULL it will install into default
+It is passed to the <code><a href='https://www.rdocumentation.org/packages/reticulate/topics/py_install'>py_install</a></code> function from package `reticulate`.</p>
+<p>To use conda installation execute install_shap(method = "conda", envname = nameofenv)</p></td>
     </tr>
     </table>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"># NOT RUN {
-  install_shap((method = "auto", conda = "auto")
-# }
-<div class='input'>
+    <pre class="examples"><div class='input'>  install_shap((method = "auto", conda = "auto")
+</div><div class='output co'>#&gt; <span class='error'>Error: &lt;text&gt;:1:32: unexpected ','</span>
+#&gt; <span class='error'>1:   install_shap((method = "auto",</span>
+#&gt; <span class='error'>                                   ^</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -141,7 +150,7 @@ It is passed to the <code><a href='https://www.rdocumentation.org/packages/retic
 
       <footer>
       <div class="copyright">
-  <p>Developed by Alicja Gosiewska, Przemyslaw Biecek.</p>
+  <p>Developed by Szymon Maksymiuk, Alicja Gosiewska, Przemyslaw Biecek.</p>
 </div>
 
 <div class="pkgdown">

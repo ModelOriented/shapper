@@ -24,8 +24,8 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-	  <a class="navbar-mi2logo" href="http://mi2.mini.pw.edu.pl/">
-        <img src="https://github.com/mi2-warsaw/MI2template/blob/master/inst/pkgdown/assets/MI2logo.jpg?raw=true" alt="MI2" height="46" title="MI2"></a>
+	  <a class="navbar-mi2logo" href="http://DrWhy.AI/">
+        <img src="https://github.com/ModelOriented/DrWhyTemplate/blob/master/inst/pkgdown/assets/drwhy_znak_violet_small.jpg?raw=true" alt="MI2" height="46" title="MI2"></a>
       <a class="navbar-brand navbar-mi2" href="../index.html"></a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -54,6 +54,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
@@ -77,7 +80,7 @@
       <h1>How to use shapper for regression</h1>
                         <h4 class="author">Alicja Gosiewska</h4>
             
-            <h4 class="date">2019-03-09</h4>
+            <h4 class="date">2019-07-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ModelOriented/shapper/blob/master/vignettes/shapper_regression.Rmd"><code>vignettes/shapper_regression.Rmd</code></a></small>
       <div class="hidden name"><code>shapper_regression.Rmd</code></div>
@@ -98,26 +101,26 @@
 <div id="r-package-shapper" class="section level2">
 <h2 class="hasAnchor">
 <a href="#r-package-shapper" class="anchor"></a>R package shapper</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"shapper"</span>)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"shapper"</span>)</a></code></pre></div>
 </div>
 <div id="python-library-shap" class="section level2">
 <h2 class="hasAnchor">
 <a href="#python-library-shap" class="anchor"></a>Python library shap</h2>
 <p>To run shapper python library shap is required. It can be installed both by python or R. To install it throught R, you an use function <code>install_shap</code> from the <code>shapper</code> package.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">shapper<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/shapper/topics/install_shap">install_shap</a></span>()</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">shapper<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/shapper/topics/install_shap">install_shap</a></span>()</a></code></pre></div>
 </div>
 </div>
 <div id="load-data-sets" class="section level1">
 <h1 class="hasAnchor">
 <a href="#load-data-sets" class="anchor"></a>Load data sets</h1>
 <p>The example usage is presented on the <code>titanic</code> dataset form the R package <code>titanic</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"titanic"</span>)
-titanic &lt;-<span class="st"> </span>titanic_train[,<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"Survived"</span>, <span class="st">"Pclass"</span>, <span class="st">"Sex"</span>, <span class="st">"Age"</span>, <span class="st">"SibSp"</span>, <span class="st">"Parch"</span>, <span class="st">"Fare"</span>, <span class="st">"Embarked"</span>)]
-titanic<span class="op">$</span>Survived &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/factor">factor</a></span>(titanic<span class="op">$</span>Survived)
-titanic<span class="op">$</span>Sex &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/factor">factor</a></span>(titanic<span class="op">$</span>Sex)
-titanic<span class="op">$</span>Embarked &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/factor">factor</a></span>(titanic<span class="op">$</span>Embarked)
-titanic &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/na.fail">na.omit</a></span>(titanic)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(titanic)</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"titanic"</span>)</a>
+<a class="sourceLine" id="cb3-2" title="2">titanic &lt;-<span class="st"> </span>titanic_train[,<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"Survived"</span>, <span class="st">"Pclass"</span>, <span class="st">"Sex"</span>, <span class="st">"Age"</span>, <span class="st">"SibSp"</span>, <span class="st">"Parch"</span>, <span class="st">"Fare"</span>, <span class="st">"Embarked"</span>)]</a>
+<a class="sourceLine" id="cb3-3" title="3">titanic<span class="op">$</span>Survived &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/factor">factor</a></span>(titanic<span class="op">$</span>Survived)</a>
+<a class="sourceLine" id="cb3-4" title="4">titanic<span class="op">$</span>Sex &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/factor">factor</a></span>(titanic<span class="op">$</span>Sex)</a>
+<a class="sourceLine" id="cb3-5" title="5">titanic<span class="op">$</span>Embarked &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/factor">factor</a></span>(titanic<span class="op">$</span>Embarked)</a>
+<a class="sourceLine" id="cb3-6" title="6">titanic &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/na.fail">na.omit</a></span>(titanic)</a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(titanic)</a></code></pre></div>
 <pre><code>##   Survived Pclass    Sex Age SibSp Parch    Fare Embarked
 ## 1        0      3   male  22     1     0  7.2500        S
 ## 2        1      1 female  38     1     0 71.2833        C
@@ -129,10 +132,10 @@ titanic &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdoc
 <div id="lets-build-a-model" class="section level1">
 <h1 class="hasAnchor">
 <a href="#lets-build-a-model" class="anchor"></a>Let’s build a model</h1>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"randomForest"</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Random">set.seed</a></span>(<span class="dv">123</span>)
-model_rf &lt;-<span class="st"> </span><span class="kw">randomForest</span>(Survived <span class="op">~</span><span class="st"> </span>. , <span class="dt">data =</span> titanic)
-model_rf</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"randomForest"</span>)</a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Random">set.seed</a></span>(<span class="dv">123</span>)</a>
+<a class="sourceLine" id="cb5-3" title="3">model_rf &lt;-<span class="st"> </span><span class="kw">randomForest</span>(Survived <span class="op">~</span><span class="st"> </span>. , <span class="dt">data =</span> titanic)</a>
+<a class="sourceLine" id="cb5-4" title="4">model_rf</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ##  randomForest(formula = Survived ~ ., data = titanic) 
@@ -149,15 +152,15 @@ model_rf</code></pre></div>
 <h2 class="hasAnchor">
 <a href="#prediction-to-be-explained" class="anchor"></a>Prediction to be explained</h2>
 <p>Let’s assume that we want to explain the prediction of a particular observation (male, 8 years old, traveling 1-st class embarked at C, without parents and siblings.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_passanger &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(
-            <span class="dt">Pclass =</span> <span class="dv">1</span>,
-            <span class="dt">Sex =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/factor">factor</a></span>(<span class="st">"male"</span>, <span class="dt">levels =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"female"</span>, <span class="st">"male"</span>)),
-            <span class="dt">Age =</span> <span class="dv">8</span>,
-            <span class="dt">SibSp =</span> <span class="dv">0</span>,
-            <span class="dt">Parch =</span> <span class="dv">0</span>,
-            <span class="dt">Fare =</span> <span class="dv">72</span>,
-            <span class="dt">Embarked =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/factor">factor</a></span>(<span class="st">"C"</span>, <span class="dt">levels =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">""</span>,<span class="st">"C"</span>,<span class="st">"Q"</span>,<span class="st">"S"</span>))
-)</code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">new_passanger &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(</a>
+<a class="sourceLine" id="cb7-2" title="2">            <span class="dt">Pclass =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb7-3" title="3">            <span class="dt">Sex =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/factor">factor</a></span>(<span class="st">"male"</span>, <span class="dt">levels =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"female"</span>, <span class="st">"male"</span>)),</a>
+<a class="sourceLine" id="cb7-4" title="4">            <span class="dt">Age =</span> <span class="dv">8</span>,</a>
+<a class="sourceLine" id="cb7-5" title="5">            <span class="dt">SibSp =</span> <span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb7-6" title="6">            <span class="dt">Parch =</span> <span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb7-7" title="7">            <span class="dt">Fare =</span> <span class="dv">72</span>,</a>
+<a class="sourceLine" id="cb7-8" title="8">            <span class="dt">Embarked =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/factor">factor</a></span>(<span class="st">"C"</span>, <span class="dt">levels =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">""</span>,<span class="st">"C"</span>,<span class="st">"Q"</span>,<span class="st">"S"</span>))</a>
+<a class="sourceLine" id="cb7-9" title="9">)</a></code></pre></div>
 </div>
 <div id="here-shapper-starts" class="section level2">
 <h2 class="hasAnchor">
@@ -170,13 +173,13 @@ model_rf</code></pre></div>
 <li>an instance (or instances) to be explained.</li>
 </ul>
 <p>The <code><a href="../reference/individual_variable_effect.html">shap()</a></code> function can be used directly with these four arguments, but for the simplicity here we are using the <em>DALEX</em> package with preimplemented predict functions.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"DALEX"</span>)
-exp_rf &lt;-<span class="st"> </span><span class="kw">explain</span>(model_rf, <span class="dt">data =</span> titanic[,<span class="op">-</span><span class="dv">1</span>])</code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"DALEX"</span>)</a>
+<a class="sourceLine" id="cb8-2" title="2">exp_rf &lt;-<span class="st"> </span><span class="kw">explain</span>(model_rf, <span class="dt">data =</span> titanic[,<span class="op">-</span><span class="dv">1</span>])</a></code></pre></div>
 <p>The explainer is an object that wraps up a model and meta-data. Meta data consists of, at least, the data set used to fit model and observations to explain.</p>
 <p>And now it’s enough to generate SHAP attributions with explainer for RF model.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"shapper"</span>)
-ive_rf &lt;-<span class="st"> </span><span class="kw"><a href="../reference/individual_variable_effect.html">shap</a></span>(exp_rf, <span class="dt">new_observation =</span> new_passanger)
-ive_rf</code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"shapper"</span>)</a>
+<a class="sourceLine" id="cb9-2" title="2">ive_rf &lt;-<span class="st"> </span><span class="kw"><a href="../reference/individual_variable_effect.html">shap</a></span>(exp_rf, <span class="dt">new_observation =</span> new_passanger)</a>
+<a class="sourceLine" id="cb9-3" title="3">ive_rf</a></code></pre></div>
 <pre><code>##     Pclass  Sex Age SibSp Parch Fare Embarked _id_ _ylevel_ _yhat_
 ## 1        1 male   8     0     0   72        C    1           0.558
 ## 1.1      1 male   8     0     0   72        C    1           0.558
@@ -196,7 +199,7 @@ ive_rf</code></pre></div>
 <div id="plotting-results" class="section level1">
 <h1 class="hasAnchor">
 <a href="#plotting-results" class="anchor"></a>Plotting results</h1>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(ive_rf)</code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(ive_rf)</a></code></pre></div>
 <p><img src="shapper_regression_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
 </div>
   </div>
@@ -229,7 +232,7 @@ ive_rf</code></pre></div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Alicja Gosiewska, Przemyslaw Biecek.</p>
+  <p>Developed by Szymon Maksymiuk, Alicja Gosiewska, Przemyslaw Biecek.</p>
 </div>
 
 <div class="pkgdown">

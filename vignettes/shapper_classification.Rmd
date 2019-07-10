@@ -13,7 +13,7 @@ vignette: >
   %\usepackage[UTF-8]{inputenc}
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, eval=FALSE}
 knitr::opts_chunk$set(echo = TRUE,
                       message = FALSE,
                       warning = FALSE)
@@ -39,7 +39,7 @@ shapper::install_shap()
 
 The example usage is presented on the `HR` dataset from the R package `DALEX`. For more details see [DALEX2 github repository](https://github.com/ModelOriented/DALEX2).
 
-```{r}
+```{r eval = FALSE}
 library("DALEX")
 Y_train <- HR$status
 x_train <- HR[ , -6]
@@ -48,7 +48,7 @@ x_train <- HR[ , -6]
 
 # Let's build models
 
-```{r}
+```{r eval = FALSE}
 library("randomForest")
 set.seed(123)
 model_rf <- randomForest(x = x_train, y = Y_train)
@@ -60,7 +60,7 @@ model_tree <- rpart(status~. , data = HR)
 # Here shapper starts
 
 First step is to create an explainer for each model. The explainer is an object that wraps up a model and meta-data.
-```{r}
+```{r eval = FALSE}
 library(shapper)
 
 p_function <- function(model, data) predict(model, newdata = data, type = "prob")
@@ -74,25 +74,25 @@ ive_tree <- individual_variable_effect(model_tree, data = x_train, predict_funct
 
 ```
 
-```{r}
+```{r eval = FALSE}
 ive_rf
 ```
 
 # Plotting results
 
-```{r plot1}
+```{r eval = FALSE}
 plot(ive_rf, bar_width = 4)
 ```
 
 To see only attributions use option `show_predcited = FALSE`.
 
-```{r}
+```{r eval = FALSE}
 plot(ive_rf, show_predcited = FALSE, bar_width = 4)
 ```
 
 We can show many models on one grid.
 
-```{r}
+```{r eval = FALSE}
 plot(ive_rf, ive_tree, show_predcited = FALSE, bar_width = 4)
 ```
 
@@ -100,7 +100,7 @@ plot(ive_rf, ive_tree, show_predcited = FALSE, bar_width = 4)
 ## Let's filter data for plot
 
 
-```{r}
+```{r eval = FALSE}
 ive_rf_filtered <- ive_rf[ive_rf$`_ylevel_` =="fired", ]
 shapper:::plot.individual_variable_effect(ive_rf_filtered)
 ```
