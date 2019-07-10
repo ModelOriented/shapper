@@ -36,7 +36,8 @@
 #'                                      new_observation = x_train[1:2,], nsamples = 50)
 #'   pl1 <- plot(ive_rf, bar_width = 4)
 #'   pl2 <- plot(ive_rf, bar_width = 4, show_predcited = FALSE)
-#'   pl3 <- plot(ive_rf, bar_width = 4, show_predcited = FALSE, cols = c("id","ylevel"), rows = "label")
+#'   pl3 <- plot(ive_rf, bar_width = 4, show_predcited = FALSE, 
+#'               cols = c("id","ylevel"), rows = "label")
 #'   print(pl1)
 #'   print(pl2)
 #'   print(pl3)

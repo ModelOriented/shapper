@@ -24,5 +24,6 @@ Suggests:
     randomForest,
     rpart,  
     testthat,
-    titanic
+    titanic,
+	qpdf
 VignetteBuilder: knitr

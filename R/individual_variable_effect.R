@@ -15,6 +15,13 @@
 #' @param label name of the model. By default it’s extracted from the class attribute of the model
 #' @param method an estimation method of SHAP values. Currently the only availible is `KernelSHAP`.
 #' @param nsamples number of samples or "auto". Note that number must be as integer. Use `as.integer()`.
+#' 
+#'
+#' In order to use shapper with other python virtual environment following R command are required to execute 
+#' reticulate::use_virtualenv("path_to_your_env")
+#' or for conda
+#' reticulate::use_conda("name_of_conda_env")
+#' before attaching shapper.
 #'
 #' @return an object of class individual_variable_effect with shap values of each variable for each new observation.
 #' Columns:

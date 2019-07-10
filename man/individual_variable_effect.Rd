@@ -28,7 +28,14 @@ explainers. Columns in should correspond to columns in the data argument. Data s
 
 \item{method}{an estimation method of SHAP values. Currently the only availible is `KernelSHAP`.}
 
-\item{nsamples}{number of samples or "auto". Note that number must be as integer. Use `as.integer()`.}
+\item{nsamples}{number of samples or "auto". Note that number must be as integer. Use `as.integer()`.
+
+
+In order to use shapper with other python virtual environment following R command are required to execute 
+reticulate::use_virtualenv("path_to_your_env")
+or for conda
+reticulate::use_conda("name_of_conda_env")
+before attaching shapper.}
 
 \item{data}{validation dataset. Used to determine univariate distributions, calculation of quantiles,
 correlations and so on. It will be extracted from `x` if it’s an explainer.}
