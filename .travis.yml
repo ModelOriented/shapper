@@ -5,12 +5,12 @@ install:
   - sudo add-apt-repository -y ppa:jonathonf/python-3.6
   - sudo apt-get -y update
   - sudo apt-get install -y python3.6
-  - sudo apt-get install -y python3-numpy
-  - sudo apt-get install -y python3-scipy
   - sudo apt-get install -y python3-pip
+  - sudo pip3 install --upgrade pip3
   - sudo apt-get install -y python3-setuptools
-  - pip3 install --upgrade pip
-  - pip3 install shap
+  - sudo pip3 install -y python3-numpy
+  - sudo pip3 install -y python3-scipy
+  - sudo pip3 install -y shap
 
       
 r_packages:
