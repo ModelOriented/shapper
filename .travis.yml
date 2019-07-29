@@ -1,14 +1,8 @@
 language: r
-sudo: false
+install:
+  - sudo apt-get install -y python3.6 python-numpy python-scipy python-shap
+sudo: true
 cache: packages
-
-addons:
-  apt:
-    packages:
-      - python3.6
-      - python-numpy
-      - python-scipy
-      - python-shap
       
 r_packages:
   - covr
