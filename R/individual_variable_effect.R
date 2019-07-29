@@ -196,7 +196,7 @@ individual_variable_effect.default <-
       }
     }
     new_data$`_attribution_` <- attribution
-    new_data$`_sign_` <- factor(sign(new_data$`_attribution`))
+    new_data$`_sign_` <- factor(sign(new_data$`_attribution_`))
     new_data$`_sign_` <- ifelse(new_data$`_sign_` == 1, "+", "-")
     new_data$`_label_` <- label
 
