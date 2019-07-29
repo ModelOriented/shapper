@@ -28,6 +28,7 @@ install:
       
 r_packages:
   - covr
+  - knitr
 
 after_success:
 - Rscript -e 'library(covr); codecov()'
