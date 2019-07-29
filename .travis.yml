@@ -10,7 +10,7 @@ addons:
       - python-scipy
       - python-shap
       
- r_packages:
+r_packages:
   - covr
 
 after_success:
