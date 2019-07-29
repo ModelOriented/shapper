@@ -1,8 +1,11 @@
 language: r
 install:
-  - sudo apt-get install -y python3.6 python-numpy python-scipy python-shap
+  - sudo apt-get install -y python3 python-numpy python-scipy 
 sudo: true
 cache: packages
+
+install:
+ - pip install shap
       
 r_packages:
   - covr
