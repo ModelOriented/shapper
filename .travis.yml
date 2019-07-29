@@ -1,8 +1,8 @@
 language: r
-dist: bionic
+dist: xenial 
 sudo: true
 install:
-  - sudo apt-get install -y python3.6
+  - sudo apt-get install -y python3
   - sudo apt-get install -y python-numpy
   - sudo apt-get install -y python-scipy
   - sudo apt-get install -y python3-pip
