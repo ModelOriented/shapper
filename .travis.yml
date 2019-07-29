@@ -1,15 +1,13 @@
 language: r
+sudo: true
 install:
   - sudo apt-get install -y python3  python-scipy python3-pip
   - sudo apt-get install -y python-numpy
   - sudo apt-get install -y python-scipy
   - sudo apt-get install -y python3-pip
-  
-sudo: true
+  - pip3 install --upgrade pip
+  - pip3 install shap
 
-install:
- - pip3 install --upgrade pip
- - pip3 install shap
       
 r_packages:
   - covr
