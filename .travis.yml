@@ -6,7 +6,7 @@ install:
   - sudo apt-get -y update
   - sudo apt-get install -y python3.6
   - sudo apt-get install -y python3-pip
-  - sudo pip3 install --upgrade pip3
+  - sudo pip3 install --upgrade -H pip3
   - sudo apt-get install -y python3-setuptools
   - sudo pip3 install -y python3-numpy
   - sudo pip3 install -y python3-scipy
