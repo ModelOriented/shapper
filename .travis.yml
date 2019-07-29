@@ -1,8 +1,11 @@
 language: r
 install:
-  - sudo apt-get install -y python3 python-numpy python-scipy python3-pip
+  - sudo apt-get install -y python3  python-scipy python3-pip
+  - sudo apt-get install -y python-numpy
+  - sudo apt-get install -y python-scipy
+  - sudo apt-get install -y python3-pip
+  
 sudo: true
-cache: packages
 
 install:
  - pip3 install --upgrade pip
