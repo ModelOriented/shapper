@@ -3,10 +3,10 @@ dist: xenial
 sudo: true
 install:
   - sudo apt-get install -y python3
-  - sudo apt-get install -y python-numpy
-  - sudo apt-get install -y python-scipy
+  - sudo apt-get install -y python3-numpy
+  - sudo apt-get install -y python3-scipy
   - sudo apt-get install -y python3-pip
-  - sudo apt-get install -y python-setuptools
+  - sudo apt-get install -y python3-setuptools
   - pip3 install shap
 
       
