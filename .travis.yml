@@ -1,26 +1,34 @@
 language: r
-sudo: false
-cache: packages
+dist: xenial 
+sudo: true
 
-r:
-  - 3.2
-  - 3.3
-  - 3.4
-  - 3.5
-  - 3.6
+before_install:
+  - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
+  - bash miniconda.sh -b -p $HOME/miniconda
+  - export PATH="$HOME/miniconda/bin:$PATH"
+  - hash -r
+  - conda config --set always_yes yes --set changeps1 no
+  - conda update -q conda
+  - conda info -a
+  - conda create -n myenv python=3.6 numpy scipy
+  - conda install pip
+  - $HOME/miniconda/envs/myenv/bin/pip install shap
 
-addons:
-  apt:
-    packages:
-      - python2.7
-      - python-numpy
-      - python-scipy
-      - python-virtualenv
-      - python3-venv
-      - python-shap
+#install:
+#  - sudo add-apt-repository -y ppa:jonathonf/python-3.6
+#  - sudo apt-get -y update
+#  - sudo apt-get install -y python3.6
+#  - sudo apt-get install -y python3-pip
+#  - sudo -H pip3 install --upgrade pip3==19.2.1
+#  - sudo apt-get install -y python3-setuptools
+#  - sudo pip3 install -y -U python3-numpy
+#  - sudo pip3 install -y -U python3-scipy
+#  - sudo pip3 install -y -U shap
+
       
- r_packages:
+r_packages:
   - covr
+  - knitr
 
 after_success:
 - Rscript -e 'library(covr); codecov()'
