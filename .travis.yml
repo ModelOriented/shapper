@@ -1,12 +1,12 @@
 language: r
 install:
-  - sudo apt-get install -y python3 python-numpy python-scipy 
+  - sudo apt-get install -y python3 python-numpy python-scipy pip3 
 sudo: true
 cache: packages
 
 install:
- - pip install --upgrade pip
- - pip install shap
+ - pip3 install --upgrade pip
+ - pip3 install shap
       
 r_packages:
   - covr
