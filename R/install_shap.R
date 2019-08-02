@@ -6,8 +6,9 @@
 #' It is passed to the \code{\link[reticulate]{py_install}} function from package `reticulate`.
 #' @param envname Name of environment to install shapp package into. If NULL it will install into default
 #' It is passed to the \code{\link[reticulate]{py_install}} function from package `reticulate`.
-#' 
+#'
 #' To use conda installation execute install_shap(method = "conda", envname = nameofenv)
+#' Please keep in mind that winodws accepts only conda instalations
 #'
 #' @examples
 #' \dontrun{

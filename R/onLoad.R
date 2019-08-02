@@ -2,5 +2,7 @@
 shap_reference <- NULL
 
 .onLoad <- function(libname, pkgname) {
+  tryCatch(
   shap_reference <<- reticulate::import("shap", delay_load = TRUE)
+  )
 }
