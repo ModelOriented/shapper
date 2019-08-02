@@ -1,6 +1,6 @@
 Package: shapper
 Title: Wrapper of Python Library 'shap'
-Version: 0.1.1
+Version: 0.1.2
 Authors@R: c(
   person("Szymon", "Maksymiuk", email = "sz.maksymiuk@gmail.com", role = c("aut", "cre")),
   person("Alicja", "Gosiewska", email = "alicjagosiewska@gmail.com", role = c("aut")),
