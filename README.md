@@ -1,4 +1,4 @@
-# shapper
+# shapper  <img src="man/figures/logo.png" align="right" width="150"/>
 
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/shapper)](https://CRAN.R-project.org/package=shapper)
 [![Total Downloads](http://cranlogs.r-pkg.org/badges/grand-total/shapper?color=orange)](https://cranlogs.r-pkg.org/badges/grand-total/shapper)
