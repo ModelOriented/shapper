@@ -146,7 +146,6 @@ individual_variable_effect.default <-
     }
     explainer = shap_reference$KernelExplainer(p_function, data_numeric)
 
-
     new_observation_releveled <- new_observation
     new_observation_numeric <- new_observation
     for (col in names(factors)) {

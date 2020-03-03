@@ -4,11 +4,21 @@
 \alias{plot.individual_variable_effect}
 \title{Plots Attributions for Variables of Individual Prediction}
 \usage{
-\method{plot}{individual_variable_effect}(x, ..., id = 1, digits = 2,
-  rounding_function = round, show_predicted = TRUE,
-  show_attributions = TRUE, cols = c("label", "id"), rows = "ylevel",
-  selected = NULL, bar_width = 8, vcolors = c(`-` = "#f05a71", `0` =
-  "#371ea3", `+` = "#8bdcbe", X = "#371ea3", pred = "#371ea3"))
+\method{plot}{individual_variable_effect}(
+  x,
+  ...,
+  id = 1,
+  digits = 2,
+  rounding_function = round,
+  show_predicted = TRUE,
+  show_attributions = TRUE,
+  cols = c("label", "id"),
+  rows = "ylevel",
+  selected = NULL,
+  bar_width = 8,
+  vcolors = c(`-` = "#f05a71", `0` = "#371ea3", `+` = "#8bdcbe", X = "#371ea3", pred =
+    "#371ea3")
+)
 }
 \arguments{
 \item{x}{an individual variable effect explainer produced with function `individual_variable_effect()`}
