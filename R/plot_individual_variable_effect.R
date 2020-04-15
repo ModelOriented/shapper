@@ -113,7 +113,7 @@ plot.individual_variable_effect <-
     if (show_predicted == TRUE) {
       levels(x$`_ext_vname_`) <- c(levels(x$`_ext_vname_`), "_predicted_")
       for (i in 1:length(id)) {
-        x_pred <- x[id == i, ]
+        x_pred <- x[x$`_id_`  == id[i], ]
         x_pred$`_ext_vname_` <-
           factor("_predicted_", levels = levels(x$`_ext_vname_`))
         x_pred$`_attribution_` <-
