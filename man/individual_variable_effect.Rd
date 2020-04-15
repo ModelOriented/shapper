@@ -9,12 +9,24 @@
 \usage{
 individual_variable_effect(x, ...)
 
-\method{individual_variable_effect}{explainer}(x, new_observation,
-  method = "KernelSHAP", nsamples = "auto", ...)
+\method{individual_variable_effect}{explainer}(
+  x,
+  new_observation,
+  method = "KernelSHAP",
+  nsamples = "auto",
+  ...
+)
 
-\method{individual_variable_effect}{default}(x, data,
-  predict_function = predict, new_observation, label = tail(class(x),
-  1), method = "KernelSHAP", nsamples = "auto", ...)
+\method{individual_variable_effect}{default}(
+  x,
+  data,
+  predict_function = predict,
+  new_observation,
+  label = tail(class(x), 1),
+  method = "KernelSHAP",
+  nsamples = "auto",
+  ...
+)
 
 shap(x, ...)
 }
