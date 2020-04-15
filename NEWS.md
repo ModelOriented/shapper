@@ -1,3 +1,9 @@
+shapper 0.1.3
+----------------------------------------------------------------
+* `id` param for `plot.individual_variable_effect` now works as intended. Thanks (#27)
+* Removed duplicated functions from `DALEX`
+* `shapper` now imports `DALEX`
+
 shapper 0.1.2
 ----------------------------------------------------------------
 * #12 issue fix

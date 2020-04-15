@@ -1,6 +1,6 @@
 Package: shapper
 Title: Wrapper of Python Library 'shap'
-Version: 0.1.2
+Version: 0.1.3
 Authors@R: c(
   person("Szymon", "Maksymiuk", email = "sz.maksymiuk@gmail.com", role = c("aut", "cre")),
   person("Alicja", "Gosiewska", email = "alicjagosiewska@gmail.com", role = c("aut")),
@@ -14,12 +14,12 @@ Encoding: UTF-8
 LazyData: true
 URL: https://github.com/ModelOriented/shapper
 BugReports: https://github.com/ModelOriented/shapper/issues
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0
 Imports: reticulate,
+  DALEX,
   ggplot2
 Suggests:
     covr,
-    DALEX,
     knitr,
     randomForest,
     rpart,  

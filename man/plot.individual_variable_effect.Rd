@@ -4,11 +4,21 @@
 \alias{plot.individual_variable_effect}
 \title{Plots Attributions for Variables of Individual Prediction}
 \usage{
-\method{plot}{individual_variable_effect}(x, ..., id = 1, digits = 2,
-  rounding_function = round, show_predicted = TRUE,
-  show_attributions = TRUE, cols = c("label", "id"), rows = "ylevel",
-  selected = NULL, bar_width = 8, vcolors = c(`-` = "#f05a71", `0` =
-  "#371ea3", `+` = "#8bdcbe", X = "#371ea3", pred = "#371ea3"))
+\method{plot}{individual_variable_effect}(
+  x,
+  ...,
+  id = 1,
+  digits = 2,
+  rounding_function = round,
+  show_predicted = TRUE,
+  show_attributions = TRUE,
+  cols = c("label", "id"),
+  rows = "ylevel",
+  selected = NULL,
+  bar_width = 8,
+  vcolors = c(`-` = "#f05a71", `0` = "#371ea3", `+` = "#8bdcbe", X = "#371ea3", pred =
+    "#371ea3")
+)
 }
 \arguments{
 \item{x}{an individual variable effect explainer produced with function `individual_variable_effect()`}
@@ -58,7 +68,7 @@ if(have_shap){
                                      new_observation = x_train[1:2,], nsamples = 50)
   pl1 <- plot(ive_rf, bar_width = 4)
   pl2 <- plot(ive_rf, bar_width = 4, show_predicted = FALSE)
-  pl3 <- plot(ive_rf, bar_width = 4, show_predicted = FALSE, 
+  pl3 <- plot(ive_rf, bar_width = 4, show_predicted = FALSE,
               cols = c("id","ylevel"), rows = "label")
   print(pl1)
   print(pl2)

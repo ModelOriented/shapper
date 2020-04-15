@@ -16,6 +16,7 @@
 #' @param bar_width width of bars. By default 8
 #'
 #' @import ggplot2
+#' @importFrom DALEX theme_drwhy theme_drwhy_vertical
 #'
 #' @return a ggplot2 object
 #'
@@ -36,7 +37,7 @@
 #'                                      new_observation = x_train[1:2,], nsamples = 50)
 #'   pl1 <- plot(ive_rf, bar_width = 4)
 #'   pl2 <- plot(ive_rf, bar_width = 4, show_predicted = FALSE)
-#'   pl3 <- plot(ive_rf, bar_width = 4, show_predicted = FALSE, 
+#'   pl3 <- plot(ive_rf, bar_width = 4, show_predicted = FALSE,
 #'               cols = c("id","ylevel"), rows = "label")
 #'   print(pl1)
 #'   print(pl2)
@@ -72,22 +73,22 @@ plot.individual_variable_effect <-
       `_attribution_` <- `_sign_` <- `_vname_` <- `_varvalue_` <- NULL
     `_yhat_mean_` <- `_yhat_` <- `_ext_vname_` <- `pretty_text` <-
       NULL
-    
+
     dfl <- c(list(x), list(...))
     x <- do.call(rbind, dfl)
     class(x) <- "data.frame"
-    
+
     # if selected is specified then select only these classess
     if (!is.null(selected)) {
       x <- x[x$`_ylevel_` %in% selected, ]
     }
-    
+
     # if id is specified then select only these observations
     x <- x[x$`_id_` %in% id, ]
     values <-
       as.vector(x[1 , x$`_vname_`[1:(length(unique(x$`_vname_`)) * length(id))]])
     names(values) <- unique(paste(x$`_vname_`, x$`_id_`))
-    
+
     for (i in 1:length(values)) {
       variable_i <- sub(" .*", "", names(values)[i])
       id_i <- sub(".* ", "", names(values)[i])
@@ -107,7 +108,7 @@ plot.individual_variable_effect <-
       reorder(x$`_ext_vname_`, as.numeric(x$`_vname_`) * 0.001 + x$`_id_`, function(z)
         sum(z))
     x$`_vname_id_` <- paste(x$`_id_`, x$`_vname_`)
-    
+
     x$pretty_text <-
       paste0("   ", rounding_function(x$`_attribution_`, digits), "   ")
     if (show_predicted == TRUE) {
@@ -124,11 +125,11 @@ plot.individual_variable_effect <-
         x <- rbind(x, x_pred)
       }
     }
-    
+
     rows <- paste(paste0("`_", rows, "_`"), collapse = "+")
     cols <- paste(paste0("`_", cols, "_`"), collapse = "+")
     grid_formula <- as.formula(paste(rows, "~", cols))
-    
+
     id_labeller <- function(value)
       paste0("id = ", value)
     label_labeller <- function(value) {
@@ -136,7 +137,7 @@ plot.individual_variable_effect <-
         return(value)
       ""
     }
-    
+
     pl <- ggplot(
       x,
       aes(
@@ -157,11 +158,11 @@ plot.individual_variable_effect <-
       scale_color_manual(values =  vcolors) +
       coord_flip() + theme_drwhy_vertical() + theme(legend.position = "none") +
       xlab("") + ylab("Shapley values") + ggtitle("")
-    
+
     if (show_attributions) {
       pl <- pl + geom_text(aes(label = pretty_text), hjust = 0)
     }
-    
+
     pl
-    
+
   }
