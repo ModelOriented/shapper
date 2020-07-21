@@ -15,7 +15,8 @@ LazyData: true
 URL: https://github.com/ModelOriented/shapper
 BugReports: https://github.com/ModelOriented/shapper/issues
 RoxygenNote: 7.1.0
-Imports: reticulate,
+Imports: 
+  reticulate,
   DALEX,
   ggplot2
 Suggests:
@@ -24,5 +25,4 @@ Suggests:
     randomForest,
     rpart,  
     testthat,
-	qpdf
-VignetteBuilder: knitr
+    qpdf
