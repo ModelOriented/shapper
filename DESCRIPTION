@@ -14,7 +14,7 @@ Encoding: UTF-8
 LazyData: true
 URL: https://github.com/ModelOriented/shapper
 BugReports: https://github.com/ModelOriented/shapper/issues
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 Imports: 
   reticulate,
   DALEX,
@@ -26,3 +26,4 @@ Suggests:
     rpart,  
     testthat,
     qpdf
+VignetteBuilder: knitr

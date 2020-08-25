@@ -56,7 +56,7 @@
 #'   ive_rf <- individual_variable_effect(model_rf, data = x_train, predict_function = p_function,
 #'                                      new_observation = x_train[1:2,], nsamples = 50)
 #'   ive_rf
-#' }else{
+#' } else{
 #'     print('Python testing environment is required.')
 #' }
 #'
