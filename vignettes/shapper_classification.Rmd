@@ -37,7 +37,7 @@ shapper::install_shap()
 
 # Load data sets
 
-The example usage is presented on the `HR` dataset from the R package `DALEX`. For more details see [DALEX github repository](https://github.com/pbiecek/DALEX).
+The example usage is presented on the `HR` dataset from the R package `DALEX`. For more details see [DALEX github repository](https://github.com/ModelOriented/DALEX).
 
 ```{r eval = FALSE}
 library("DALEX")

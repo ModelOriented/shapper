@@ -25,6 +25,6 @@ Suggests:
     randomForest,
     rpart,  
     testthat,
-    rmarkdown,
+    markdown,
     qpdf
 VignetteBuilder: knitr
