@@ -12,7 +12,7 @@
 #'
 #' @examples
 #' \dontrun{
-#'   install_shap((method = "auto", conda = "auto")
+#' install_shap(method = "auto", conda = "auto")
 #' }
 #'
 #' @importFrom reticulate py_install import

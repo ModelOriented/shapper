@@ -24,7 +24,7 @@ Install shap Python library
 }
 \examples{
 \dontrun{
-  install_shap((method = "auto", conda = "auto")
+install_shap(method = "auto", conda = "auto")
 }
 
 }

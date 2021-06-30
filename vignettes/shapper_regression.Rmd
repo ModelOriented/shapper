@@ -16,7 +16,8 @@ vignette: >
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,
                       message = FALSE,
-                      warning = FALSE)
+                      warning = FALSE,
+                      eval = FALSE)
 ```
 
 # Introduction
@@ -30,7 +31,7 @@ For more details about this method see [shap repository on github](https://githu
 
 ## R package shapper
 
-```{r eval=FALSE}
+```{r  }
 library("shapper")
 ```
 
@@ -38,7 +39,7 @@ library("shapper")
 
 To run shapper python library shap is required. It can be installed both by python or R. To install it throught R, you an use function `install_shap` from the `shapper` package.
 
-```{r, eval = FALSE}
+```{r  eval = FALSE}
 shapper::install_shap()
 ```
 
@@ -47,7 +48,7 @@ shapper::install_shap()
 
 The example usage is presented on the `titanic` dataset form the R package `DALEX`. 
 
-```{r eval=FALSE}
+```{r  }
 library("DALEX")
 titanic_train <- titanic[,c("survived", "class", "gender", "age", "sibsp", "parch", "fare", "embarked")]
 titanic_train$survived <- factor(titanic_train$survived)
@@ -59,7 +60,7 @@ head(titanic_train)
 
 # Let's build a model
 
-```{r eval=FALSE}
+```{r  }
 library("randomForest")
 set.seed(123)
 model_rf <- randomForest(survived ~ . , data = titanic_train)
@@ -70,7 +71,7 @@ model_rf
 
 Let's assume that we want to explain the prediction of a particular observation (male, 8 years old, traveling 1-st class embarked at C, without parents and siblings.
 
-```{r eval=FALSE}
+```{r  }
 new_passanger <- data.frame(
             class = factor("1st", levels = c("1st", "2nd", "3rd", "deck crew", "engineering crew", "restaurant staff", "victualling crew")),
             gender = factor("male", levels = c("female", "male")),
@@ -95,7 +96,7 @@ To use the function `shap()` function (alias for `individual_variable_effect()`)
 The `shap()` function can be used directly with these four arguments, but for the simplicity here we are using the *DALEX* package with preimplemented predict functions.
 
 
-```{r eval=FALSE}
+```{r  }
 library("DALEX")
 exp_rf <- explain(model_rf, data = titanic_train[,-1], y = as.numeric(titanic_train[,1])-1)
 ```
@@ -104,7 +105,7 @@ The explainer is an object that wraps up a model and meta-data. Meta data consis
 
 And now it's enough to generate SHAP attributions with explainer for RF model.
 
-```{r eval=FALSE}
+```{r  }
 library("shapper")
 ive_rf <- shap(exp_rf, new_observation = new_passanger)
 ive_rf
@@ -112,7 +113,7 @@ ive_rf
 
 # Plotting results
 
-```{r eval=FALSE}
+```{r  }
 plot(ive_rf)
 ```
 [](https://modeloriented.github.io/shapper/articles/shapper_regression_files/figure-html/unnamed-chunk-8-1.png)

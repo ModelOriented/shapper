@@ -13,10 +13,11 @@ vignette: >
   %\usepackage[UTF-8]{inputenc}
 ---
 
-```{r setup, include=FALSE, eval=FALSE}
+```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,
                       message = FALSE,
-                      warning = FALSE)
+                      warning = FALSE,
+                      eval = FALSE)
 ```
 
 # Introduction
@@ -30,7 +31,7 @@ For more details about this method see [shap repository on github](https://githu
 
 To run shapper python library shap is required. It can be installed both by python or R. To install it throught R, you an use function `install_shap` from the `shapper` package.
 
-```{r, eval = FALSE}
+```{r eval = FALSE}
 shapper::install_shap()
 ```
 
@@ -39,7 +40,7 @@ shapper::install_shap()
 
 The example usage is presented on the `HR` dataset from the R package `DALEX`. For more details see [DALEX github repository](https://github.com/ModelOriented/DALEX).
 
-```{r eval = FALSE}
+```{r}
 library("DALEX")
 Y_train <- HR$status
 x_train <- HR[ , -6]
@@ -48,7 +49,7 @@ x_train <- HR[ , -6]
 
 # Let's build models
 
-```{r eval = FALSE}
+```{r}
 library("randomForest")
 set.seed(123)
 model_rf <- randomForest(x = x_train, y = Y_train)
@@ -60,7 +61,7 @@ model_tree <- rpart(status~. , data = HR)
 # Here shapper starts
 
 First step is to create an explainer for each model. The explainer is an object that wraps up a model and meta-data.
-```{r eval = FALSE}
+```{r  }
 library(shapper)
 
 p_function <- function(model, data) predict(model, newdata = data, type = "prob")
@@ -74,27 +75,27 @@ ive_tree <- individual_variable_effect(model_tree, data = x_train, predict_funct
 
 ```
 
-```{r eval = FALSE}
+```{r  }
 ive_rf
 ```
 
 # Plotting results
 
-```{r eval = FALSE}
+```{r  }
 plot(ive_rf, bar_width = 4)
 ```
 [](https://modeloriented.github.io/shapper/articles/shapper_classification_files/figure-html/plot1-1.png)
 
 To see only attributions use option `show_predicted = FALSE`.
 
-```{r eval = FALSE}
+```{r  }
 plot(ive_rf, show_predicted = FALSE, bar_width = 4)
 ```
 [](https://modeloriented.github.io/shapper/articles/shapper_classification_files/figure-html/unnamed-chunk-6-1.png)
 
 We can show many models on one grid.
 
-```{r eval = FALSE}
+```{r  }
 plot(ive_rf, ive_tree, show_predicted = FALSE, bar_width = 4)
 ```
 [](https://modeloriented.github.io/shapper/articles/shapper_classification_files/figure-html/unnamed-chunk-7-1.png)
@@ -102,7 +103,7 @@ plot(ive_rf, ive_tree, show_predicted = FALSE, bar_width = 4)
 ## Let's filter data for plot
 
 
-```{r eval = FALSE}
+```{r  }
 ive_rf_filtered <- ive_rf[ive_rf$`_ylevel_` =="fired", ]
 shapper:::plot.individual_variable_effect(ive_rf_filtered)
 ```

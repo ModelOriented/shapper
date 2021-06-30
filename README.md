@@ -16,37 +16,37 @@ An R wrapper of SHAP python library
 ## Installation and configuration
 
 Install `shapper` R package
-```
+```r
 devtools::install_github("ModelOriented/shapper")
 ```
 
 You can install shap Python library via
 
-```
+```r
 shapper::install_shap()
 ```
 
 If installation didn't work for some reason. Try installing dependencies first
 
-```
+```r
 reticulate::py_install(c("numpy", "pandas"))
 ```
 
 or 
 
-```
+```r
 reticulate::conda_install(c("numpy", "pandas"))
 ```
 
 Python library SHAP can be also installed from PyPI
 
-```
+```console
 pip install shap
 ```
 
 or conda-forge
 
-```
+```console
 conda install -c conda-forge shap
 ```
 
@@ -54,7 +54,7 @@ For more details how to configure python paths and environments for R see [retic
 
 ## Classification Example
 
-```
+```r
 # instal shapper
 # devtools::install_github("ModelOriented/shapper")
 
@@ -87,7 +87,7 @@ plot(ive_rf)
 <img src="materials/classification_plot.png" width="100%" /> 
 
 
-```
+```r
 # filtered
 ive_rf_filtered <- dplyr::filter(ive_rf, `_ylevel_` =="fired")
 shapper:::plot.individual_variable_effect(ive_rf_filtered)
@@ -98,7 +98,7 @@ shapper:::plot.individual_variable_effect(ive_rf_filtered)
 
 # Regression example
 
-```
+```r
 library(shapper)
 
 library("DALEX2")
