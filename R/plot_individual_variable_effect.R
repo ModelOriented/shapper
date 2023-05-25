@@ -85,8 +85,7 @@ plot.individual_variable_effect <-
 
     # if id is specified then select only these observations
     x <- x[x$`_id_` %in% id, ]
-    values <-
-      as.vector(x[1 , x$`_vname_`[1:(length(unique(x$`_vname_`)) * length(id))]])
+    values <- x[1 , x$`_vname_`[1:(length(unique(x$`_vname_`)) * length(id))]]
     names(values) <- unique(paste(x$`_vname_`, x$`_id_`))
 
     for (i in 1:length(values)) {
@@ -95,6 +94,7 @@ plot.individual_variable_effect <-
       values[i] <-
         x[x$`_vname_` == variable_i & x$`_id_` == id_i, ][1, variable_i]
     }
+    
     variable_values <- values[paste(x$`_vname_`, x$`_id_`)]
     numeric_values <- sapply(variable_values, is.numeric)
     variable_values[numeric_values] <-
@@ -166,3 +166,4 @@ plot.individual_variable_effect <-
     pl
 
   }
+

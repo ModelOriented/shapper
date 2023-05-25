@@ -1,3 +1,8 @@
+shapper 0.1.4
+----------------------------------------------------------------
+* `plot.individual_variable_effect` does not interrupt too early
+  due to the unexpected vecotr conversion (#39)
+
 shapper 0.1.3
 ----------------------------------------------------------------
 * `id` param for `plot.individual_variable_effect` now works as intended. Thanks (#27)
