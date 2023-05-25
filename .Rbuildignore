@@ -16,3 +16,4 @@ README.md
 miniconda.sh
 .gitattributes
 ^materials$
+pkgdown
